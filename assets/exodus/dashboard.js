@@ -51,6 +51,7 @@ var app = new Vue({
 	mounted: function () {
 		var theApp = this;
 		this.getNoradId();
+		setTimeout(() => {  console.log("pause"); }, 3000);
 		this.interval = setInterval(function () {
 			theApp.simStep();
 			// theApp.showLocation();
