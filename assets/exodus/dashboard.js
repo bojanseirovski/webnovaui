@@ -1,5 +1,5 @@
 /**
- * Map width/360 or Map heoight/180 
+ * Map width/360 or Map heoight/180
  * 298/360 , 150/360
  */
 var mapConversionConstX = 0.8277;
@@ -12,11 +12,11 @@ var mapHeight = 150;
 /**
  * Pause between AJAX calls
  */
-var loopBreak = 3500;
-var baseUrl = "http://127.0.0.1:8000"
+var loopBreak = 3000;
+var baseUrl = "http://api.nova.test:8000"
 
 var norad_url = "";
-var sim_step_url = "?steps=";
+var sim_step_url = "?steps=1"; // in seconds
 var sim_steps = 1;
 
 var app = new Vue({
@@ -51,10 +51,12 @@ var app = new Vue({
 	mounted: function () {
 		var theApp = this;
 		this.getNoradId();
-		setTimeout(() => {  console.log("pause"); }, 3000);
+
+		setTimeout(() => {  console.log("Initial pause!"); }, 3000);
+
 		this.interval = setInterval(function () {
 			theApp.simStep();
-			// theApp.showLocation();
+			theApp.showLocation(null, true);
 			// theApp.getTelemetry();
 			// theApp.getLog();
 		}.bind(this), loopBreak);
@@ -75,10 +77,7 @@ var app = new Vue({
 			this.loadApi(this.api.sim_init + norad_url+"&date="+timeNow, function (data) { });
 		},
 		simStep() {
-			this.loadApi(this.api.sim_step + sim_steps, function (data) {
-				
-			 });
-			 sim_steps++;
+			this.loadApi(this.api.sim_step, function (data) { });
 		},
 		getLog() {
 			this.loadApi(this.api.log + norad_url, function (data) {
@@ -146,7 +145,7 @@ var app = new Vue({
 				});
 			});
 		},
-		showLocation(callback) {
+		showLocation(callback, refreshData) {
 			var theApp = this;
 			this.loadApi(this.api.location + norad_url, function (data) {
 				var ctx = document.getElementById("earth_map_img").getContext("2d");
@@ -159,7 +158,7 @@ var app = new Vue({
 
 				theApp.path.push({ x, y });
 
-				theApp.drawSatellite(ctx, x, y);
+				// theApp.drawSatellite(ctx, x, y);
 				try {
 					if (callback) {
 						callback();
@@ -167,7 +166,8 @@ var app = new Vue({
 				} catch (e) {
 					console.log(e);
 				};
-			});
+			},
+			refreshData);
 		},
 		drawSatellite(ctx, x, y) {
 			var img = document.getElementById("satelite_icon");
@@ -182,13 +182,15 @@ var app = new Vue({
 				ctx.stroke();
 			});
 		},
-		loadApi(endpoint, callback) {
+		loadApi(endpoint, callback, refreshData) {
 			var theApp = this;
-			axios.get(endpoint).then((response) => {
+			axios.get(endpoint, { withCredentials: true }).then((response) => {
 				if (response.data.status === 'ok') {
 					callback(response.data);
 					//	refresh location data
-					theApp.datalocation = response.data;
+					if (refreshData){
+						theApp.datalocation = response.data;
+					}
 				}
 			}).catch(error => {
 				console.log(error);
