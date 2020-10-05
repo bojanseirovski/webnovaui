@@ -149,7 +149,7 @@ var app = new Vue({
 
 				theApp.path.push({ x, y });
 
-				// theApp.drawSatellite(ctx, x, y);
+				theApp.drawSatellite(ctx, x, y);
 				try {
 					if (callback) {
 						callback();
