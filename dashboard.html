@@ -128,16 +128,16 @@
                                 <div class="row">
                                     <div class="col-sm-12 text-left">
                                         <h5 class="card-category"></h5>
-                                        <h2 class="card-title">Visualization</h2>
+                                        <h2 class="card-title">Trajectory</h2>
                                     </div>
                                 </div>
                             </div>
                             <div class="card-body map-box-class" id="map_box">
 
                                 <div id="earth_map_top_bar">
-                                    <span id="lat">LAT: {{ datalocation.lat }}</span>
-                                    <span id="lng">LNG: {{ datalocation.lng }}</span>
-                                    <span id="alt">ALT: {{ datalocation.alt }}</span>
+                                    <span id="lat">LAT: {{ datalocation.lat.toFixed(6) }}</span>
+                                    <span id="lng">LNG: {{ datalocation.lng.toFixed(6) }}</span>
+                                    <span id="alt">ALT: {{ datalocation.alt.toFixed(4) }}</span>
                                     <span id="time">TIME: {{ datalocation.time }}</span>
                                 </div>
                                 <canvas id="earth_map_img" ref="earth_map_img"></canvas>
@@ -147,7 +147,7 @@
                                     <span id="i_bar">i: {{ datalocation.i }}</span>
                                     <span id="ra_bar">RA: {{ datalocation.ra }}</span>
                                     <span id="w_bar">w: {{ datalocation.w }}</span>
-                                    <span id="tp_bar">Tp: {{ datalocation.tp }}</span>
+                                    <span id="tp_bar">Tp: {{ datalocation.tp.toFixed(6) }}</span>
                                 </div>
                             </div>
                         </div>

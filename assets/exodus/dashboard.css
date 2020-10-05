@@ -46,7 +46,7 @@ canvas#earth_map_img {
     width: 20%!important;
     margin-right: 5px;
     margin-left: 5px;
-    font-size: 12pt;
+    font-size: 9pt;
     color: #ffffff;
 }
 #earth_map_bottom_bar span:hover{
@@ -58,7 +58,7 @@ canvas#earth_map_img {
 }
 
 #power_sect, #thermal_sect, #obdh_sect, #adcs_sect{
-    font-size: 10pt;
+    font-size: 9pt;
     color: #ffc107;
 }
 

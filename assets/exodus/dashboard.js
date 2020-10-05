@@ -57,7 +57,7 @@ var app = new Vue({
 		this.interval = setInterval(function () {
 			theApp.simStep();
 			theApp.showLocation(null, true);
-			// theApp.getTelemetry();
+			theApp.getTelemetry();
 			// theApp.getLog();
 		}.bind(this), loopBreak);
 	},
@@ -91,9 +91,6 @@ var app = new Vue({
 			});
 		},
 		getTelemetry() {
-			/**
-			 * TODO: MAKE IT WORK, HTML NEEDS A LOT OF STYLING !!!
-			 */
 			this.loadApi(this.api.telemetry + norad_url, function (data) {
 				var power = $("#power_sect");
 				var thermal = $("#thermal_sect");
@@ -105,18 +102,12 @@ var app = new Vue({
 				obdh.html('');
 				adcs.html('');
 
-				data.power.forEach((val) => {
-					power.append('<div class="col-6">' + val.param + '</div><div class="col-6">' + val.value + '</div>');
-				});
-				data.adcs.forEach((val) => {
-					adcs.append('<div class="col-6">' + val.param + '</div><div class="col-6">' + val.value + '</div>');
-				});
-				data.obdh.forEach((val) => {
-					obdh.append('<div class="col-6">' + val.param + '</div><div class="col-6">' + val.value + '</div>');
-				});
-				data.thermal.forEach((val) => {
-					thermal.append('<div class="col-6">' + val.param + '</div><div class="col-6">' + val.value + '</div>');
-				});
+				for(var i=1; i<5; i++){
+					power.append('<div class="col-8">' + data.power[i].name + '</div><div class="col-4">' + data.power[i].value + '</div>');
+					adcs.append('<div class="col-8">' + data.adcs[i].name + '</div><div class="col-4">' + data.adcs[i].value + '</div>');
+					obdh.append('<div class="col-8">' + data.obdh[i].name + '</div><div class="col-4">' + data.obdh[i].value + '</div>');
+					thermal.append('<div class="col-8">' + data.thermal[i].name + '</div><div class="col-4">' + data.thermal[i].value + '</div>');
+				}
 			});
 		},
 		getActions() {
