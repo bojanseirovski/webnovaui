@@ -26,6 +26,9 @@ var app = new Vue({
 		sat_name: 0,
 		path: [],
 		interval: null,
+		reqData:{
+			mission_instance:{}
+		},
 		datalocation: {
 			lat: 0,
 			lng: 0,
@@ -56,16 +59,13 @@ var app = new Vue({
 
 		this.interval = setInterval(function () {
 			theApp.simStep();
-			theApp.showLocation(null, true);
-			theApp.getTelemetry();
-			// theApp.getLog();
 		}.bind(this), loopBreak);
 	},
 	methods: {
 		getNoradId() {
 			var theApp = this;
 
-			this.loadApi(this.api.list, function (data) {
+			this.loadApiGet(this.api.list, function (data) {
 				theApp.norad_id = data.satelites[0].norad_id;
 				theApp.sat_name = data.satelites[0].sat_name;
 				norad_url = "?norad_id=" + data.satelites[0].norad_id;
@@ -73,11 +73,34 @@ var app = new Vue({
 			});
 		},
 		initSim() {
+			var theApp = this;
 			var timeNow =  new Date().toJSON().replace(/-/g,',').replace(/T/g,',').replace(/:/g,',').replace(/Z/g,'').slice(0,19);
-			this.loadApi(this.api.sim_init + norad_url+"&date="+timeNow, function (data) { });
+			this.loadApiGet(this.api.sim_init + norad_url+"&date="+timeNow, function (data) {
+				theApp.reqData.mission_instance = data.mission_instance;
+			 });
 		},
 		simStep() {
-			this.loadApi(this.api.sim_step, function (data) { });
+			var theApp = this;
+
+			var formData = new FormData();
+			formData.append('mission_instance', JSON.stringify(this.reqData.mission_instance));
+
+			this.loadApiPost(this.api.sim_step, formData, function (data) { 
+				satLocation = data.mission_instance.satellite.location;
+				var ctx = document.getElementById("earth_map_img").getContext("2d");
+
+				var lng = (satLocation.lng < 0) ? satLocation.lng : satLocation.lng * 2;
+				var lat = (satLocation.lat > 0) ? satLocation.lat : satLocation.lat * 2;
+
+				var x = Math.abs(Math.round(lng * mapConversionConstX));
+				var y = Math.abs(Math.round(lat * mapConversionConstY));
+
+				theApp.path.push({ x, y });
+
+				theApp.drawSatellite(ctx, x, y);
+
+				theApp.getTelemetry(data.mission_instance.satellite.formatted_telemetry);
+			}, true);
 		},
 		getLog() {
 			this.loadApi(this.api.log + norad_url, function (data) {
@@ -90,75 +113,47 @@ var app = new Vue({
 				});
 			});
 		},
-		getTelemetry() {
-			this.loadApi(this.api.telemetry + norad_url, function (data) {
-				var power = $("#power_sect");
-				var thermal = $("#thermal_sect");
-				var obdh = $("#obdh_sect");
-				var adcs = $("#adcs_sect");
+		getTelemetry(data) {
+			var power = $("#power_sect");
+			var thermal = $("#thermal_sect");
+			var obdh = $("#obdh_sect");
+			var adcs = $("#adcs_sect");
 
-				power.html('');
-				thermal.html('');
-				obdh.html('');
-				adcs.html('');
+			power.html('');
+			thermal.html('');
+			obdh.html('');
+			adcs.html('');
 
-				for(var i=1; i<5; i++){
-					power.append('<div class="col-8">' + data.power[i].name + '</div><div class="col-4">' + data.power[i].value + '</div>');
-					adcs.append('<div class="col-8">' + data.adcs[i].name + '</div><div class="col-4">' + data.adcs[i].value + '</div>');
-					obdh.append('<div class="col-8">' + data.obdh[i].name + '</div><div class="col-4">' + data.obdh[i].value + '</div>');
-					thermal.append('<div class="col-8">' + data.thermal[i].name + '</div><div class="col-4">' + data.thermal[i].value + '</div>');
-				}
-			});
+			for(var i=1; i<5; i++){
+				power.append('<div class="col-8">' + data.power[i].name + '</div><div class="col-4">' + data.power[i].value + '</div>');
+				adcs.append('<div class="col-8">' + data.adcs[i].name + '</div><div class="col-4">' + data.adcs[i].value + '</div>');
+				obdh.append('<div class="col-8">' + data.obdh[i].name + '</div><div class="col-4">' + data.obdh[i].value + '</div>');
+				thermal.append('<div class="col-8">' + data.thermal[i].name + '</div><div class="col-4">' + data.thermal[i].value + '</div>');
+			}
 		},
-		getActions() {
-			this.loadApi(this.api.telemetry + norad_url, function (data) {
-				var power = $("#power_sect");
-				var thermal = $("#thermal_sect");
-				var obdh = $("#obdh_sect");
-				var adcs = $("#adcs_sect");
+		getActions(data) {
+			var power = $("#power_sect");
+			var thermal = $("#thermal_sect");
+			var obdh = $("#obdh_sect");
+			var adcs = $("#adcs_sect");
 
-				power.html('');
-				thermal.html('');
-				obdh.html('');
-				adcs.html('');
+			power.html('');
+			thermal.html('');
+			obdh.html('');
+			adcs.html('');
 
-				data.power.forEach((val) => {
-					power.append('<div class="col-6">' + val.param + '</div><div class="col-6">' + val.value + '</div>');
-				});
-				data.adcs.forEach((val) => {
-					adcs.append('<div class="col-6">' + val.param + '</div><div class="col-6">' + val.value + '</div>');
-				});
-				data.obdh.forEach((val) => {
-					obdh.append('<div class="col-6">' + val.param + '</div><div class="col-6">' + val.value + '</div>');
-				});
-				data.thermal.forEach((val) => {
-					thermal.append('<div class="col-6">' + val.param + '</div><div class="col-6">' + val.value + '</div>');
-				});
+			data.power.forEach((val) => {
+				power.append('<div class="col-6">' + val.param + '</div><div class="col-6">' + val.value + '</div>');
 			});
-		},
-		showLocation(callback, refreshData) {
-			var theApp = this;
-			this.loadApi(this.api.location + norad_url, function (data) {
-				var ctx = document.getElementById("earth_map_img").getContext("2d");
-
-				var lng = (data.lng < 0) ? data.lng : data.lng * 2;
-				var lat = (data.lat > 0) ? data.lat : data.lat * 2;
-
-				var x = Math.abs(Math.round(lng * mapConversionConstX));
-				var y = Math.abs(Math.round(lat * mapConversionConstY));
-
-				theApp.path.push({ x, y });
-
-				theApp.drawSatellite(ctx, x, y);
-				try {
-					if (callback) {
-						callback();
-					}
-				} catch (e) {
-					console.log(e);
-				};
-			},
-			refreshData);
+			data.adcs.forEach((val) => {
+				adcs.append('<div class="col-6">' + val.param + '</div><div class="col-6">' + val.value + '</div>');
+			});
+			data.obdh.forEach((val) => {
+				obdh.append('<div class="col-6">' + val.param + '</div><div class="col-6">' + val.value + '</div>');
+			});
+			data.thermal.forEach((val) => {
+				thermal.append('<div class="col-6">' + val.param + '</div><div class="col-6">' + val.value + '</div>');
+			});
 		},
 		drawSatellite(ctx, x, y) {
 			var img = document.getElementById("satelite_icon");
@@ -173,14 +168,24 @@ var app = new Vue({
 				ctx.stroke();
 			});
 		},
-		loadApi(endpoint, callback, refreshData) {
+		loadApiGet(endpoint, callback, refreshData) {
 			var theApp = this;
 			axios.get(endpoint, { withCredentials: true }).then((response) => {
 				if (response.data.status === 'ok') {
 					callback(response.data);
+				}
+			}).catch(error => {
+				console.log(error);
+			});
+		},
+		loadApiPost(endpoint, postData,callback, refreshData) {
+			var theApp = this;
+			axios.post(endpoint, postData,{ withCredentials: true }).then((response) => {
+				if (response.data.status === 'ok') {
+					callback(response.data);
 					//	refresh location data
-					if (refreshData){
-						theApp.datalocation = response.data;
+					if (refreshData && response.data.mission_instance.satellite.location){
+						theApp.datalocation = response.data.mission_instance.satellite.location;
 					}
 				}
 			}).catch(error => {
