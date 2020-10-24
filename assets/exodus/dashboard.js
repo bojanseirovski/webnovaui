@@ -55,7 +55,7 @@ var app = new Vue({
 		var theApp = this;
 		this.getNoradId();
 
-		setTimeout(() => {  console.log("Initial pause!"); }, 3000);
+		setTimeout(() => {}, 3000);
 
 		this.interval = setInterval(function () {
 			theApp.simStep();
