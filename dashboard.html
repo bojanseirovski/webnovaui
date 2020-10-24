@@ -40,13 +40,19 @@
                         </a>
                         <ul class="nav">
                             <li>
-                                <button class="btn btn-block btn-full btn-primary" v-on:click="startMissionButton">Start Mission</button>
+                                <button class="btn btn-block btn-full btn-primary" id="startMissionButton" v-on:click="startMissionButton">
+                                    <i class="tim-icons icon-minimal-right"></i>Start Mission
+                                </button>
                             </li>
                             <li>
-                                <button class="btn btn-block btn-primary" v-on:click="saveMissionButton">Save Mission</button>
+                                <button class="btn btn-block btn-primary disabled" id="saveMissionButton" v-on:click="saveMissionButton">
+                                    <i class="tim-icons icon-check-2"></i>Save Mission
+                                </button>
                             </li>
                             <li>
-                                <button class="btn btn-block btn-primary" v-on:click="resetMissionButton">Reset Mission</button>
+                                <button class="btn btn-block btn-primary disabled" id="resetMissionButton" v-on:click="resetMissionButton">
+                                    <i class="tim-icons icon-refresh-02"></i>Reset Mission
+                                </button>
                             </li>
                         </ul>
                     </li>

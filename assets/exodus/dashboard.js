@@ -60,7 +60,9 @@ var app = new Vue({
 			theApp.getNoradId();
 
 			setTimeout(() => {}, 3000);
-
+			$('#startMissionButton').addClass('disabled');
+			$('#resetMissionButton').removeClass('disabled');
+			$('#saveMissionButton').removeClass('disabled');
 			theApp.interval = setInterval(function () {
 				if(!theApp.stopQuery){
 					theApp.simStep();
@@ -75,7 +77,51 @@ var app = new Vue({
 
 			this.loadApiPost(this.api.sim_reset, formData, function(data){
 				theApp.stopQuery = true;
+				var ctx = document.getElementById("earth_map_img").getContext("2d");
+				ctx.clearRect(0, 0, mapWidth, mapHeight);
+				theApp.datalocation = {
+					lat: 0,
+					lng: 0,
+					alt: 0,
+					time: "N/A",
+					i: 0,
+					ra: 0,
+					e: 0,
+					a: 0,
+					w: 0,
+					tp: 0
+				};
+				$('#startMissionButton').removeClass('disabled');
+				$('#resetMissionButton').addClass('disabled');
+				$('#saveMissionButton').addClass('disabled');
 			}, true);
+		},
+		saveMission(){
+			var theApp = this;
+
+			var formData = new FormData();
+			formData.append('mission_instance', JSON.stringify(this.reqData.mission_instance));
+
+			this.loadApiPost(this.api.sim_save, formData, function(data){
+				theApp.stopQuery = true;
+				var ctx = document.getElementById("earth_map_img").getContext("2d");
+				ctx.clearRect(0, 0, mapWidth, mapHeight);
+				theApp.datalocation = {
+					lat: 0,
+					lng: 0,
+					alt: 0,
+					time: "N/A",
+					i: 0,
+					ra: 0,
+					e: 0,
+					a: 0,
+					w: 0,
+					tp: 0
+				};
+				$('#startMissionButton').removeClass('disabled');
+				$('#resetMissionButton').addClass('disabled');
+				$('#saveMissionButton').addClass('disabled');
+			}, true);			
 		},
 		getNoradId() {
 			var theApp = this;
@@ -226,7 +272,7 @@ var menuButtonsApp = new Vue({
 			app.resetMission();
 		},
 		saveMissionButton(){
-
+			app.saveMission();
 		}
 
 	}
