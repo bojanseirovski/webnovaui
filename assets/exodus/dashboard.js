@@ -26,6 +26,7 @@ var app = new Vue({
 		sat_name: 0,
 		path: [],
 		interval: null,
+		stopQuery: false,
 		reqData:{
 			mission_instance:{}
 		},
@@ -48,23 +49,37 @@ var app = new Vue({
 			log: baseUrl + "/log/" + norad_url,
 			instruments: baseUrl + "/instruments/" + norad_url,
 			sim_init: baseUrl+"/mse_init/"+norad_url,
-			sim_step: baseUrl+"/mse_step/"+sim_step_url
+			sim_step: baseUrl+"/mse_step/"+sim_step_url,
+			sim_reset: baseUrl+"/mse_reset/",
+			sim_save: baseUrl+"/mse_save/"
 		}
 	},
-	mounted: function () {
-		var theApp = this;
-		this.getNoradId();
-
-		setTimeout(() => {}, 3000);
-
-		this.interval = setInterval(function () {
-			theApp.simStep();
-		}.bind(this), loopBreak);
-	},
 	methods: {
-		getNoradId() {
+		startMission(){
+			var theApp = this;
+			theApp.getNoradId();
+
+			setTimeout(() => {}, 3000);
+
+			theApp.interval = setInterval(function () {
+				if(!theApp.stopQuery){
+					theApp.simStep();
+				}
+			}.bind(this), loopBreak);
+		},
+		resetMission(){
 			var theApp = this;
 
+			var formData = new FormData();
+			formData.append('mission_instance', JSON.stringify(this.reqData.mission_instance));
+
+			this.loadApiPost(this.api.sim_reset, formData, function(data){
+				theApp.stopQuery = true;
+			}, true);
+		},
+		getNoradId() {
+			var theApp = this;
+			theApp.stopQuery = false;
 			this.loadApiGet(this.api.list, function (data) {
 				theApp.norad_id = data.satelites[0].norad_id;
 				theApp.sat_name = data.satelites[0].sat_name;
@@ -178,11 +193,14 @@ var app = new Vue({
 				console.log(error);
 			});
 		},
-		loadApiPost(endpoint, postData,callback, refreshData) {
+		loadApiPost(endpoint, postData, callback, refreshData) {
 			var theApp = this;
 			axios.post(endpoint, postData,{ withCredentials: true }).then((response) => {
 				if (response.data.status === 'ok') {
-					callback(response.data);
+					if (callback) {
+						callback(response.data);
+					}
+
 					//	refresh location data
 					if (refreshData && response.data.mission_instance.satellite.location){
 						theApp.datalocation = response.data.mission_instance.satellite.location;
@@ -195,5 +213,21 @@ var app = new Vue({
 	},
 	beforeDestroy: function () {
 		clearInterval(this.interval);
+	}
+});
+
+var menuButtonsApp = new Vue({
+	el: '#sideapp',
+	methods:{
+		startMissionButton(){
+			app.startMission();
+		},
+		resetMissionButton(){
+			app.resetMission();
+		},
+		saveMissionButton(){
+
+		}
+
 	}
 });

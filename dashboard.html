@@ -32,7 +32,7 @@
                         Exodus Orbitals
                     </a>
                 </div>
-                <ul class="nav">
+                <ul class="nav" id="sideapp">
                     <li>
                         <a href="./dashboard.html">
                             <i class="tim-icons icon-planet"></i>
@@ -40,10 +40,13 @@
                         </a>
                         <ul class="nav">
                             <li>
-                                <button class="btn btn-block btn-full btn-primary">Start Mission</button>
+                                <button class="btn btn-block btn-full btn-primary" v-on:click="startMissionButton">Start Mission</button>
                             </li>
                             <li>
-                                <button class="btn btn-block btn-primary">Reset Mission</button>
+                                <button class="btn btn-block btn-primary" v-on:click="saveMissionButton">Save Mission</button>
+                            </li>
+                            <li>
+                                <button class="btn btn-block btn-primary" v-on:click="resetMissionButton">Reset Mission</button>
                             </li>
                         </ul>
                     </li>
