@@ -54,7 +54,7 @@ canvas#earth_map_img {
 }
 
 .card{
-    width: 480px!important;
+    /* width: 480px!important; */
 }
 
 #power_sect, #thermal_sect, #obdh_sect, #adcs_sect{
@@ -116,3 +116,10 @@ canvas#earth_map_img {
     -o-transition: all 0.3s ease;
     -ms-transition: all 0.3s ease;
 }
+
+
+@media (min-width: 350px) and (max-width: 900px){
+    .card{
+        width: 410px!important;
+    }
+  }
