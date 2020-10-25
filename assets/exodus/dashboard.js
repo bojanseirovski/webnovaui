@@ -1,5 +1,5 @@
 /**
- * Map width/360 or Map heoight/180
+ * Map width/360 or Map height/180
  * 298/360 , 150/360
  */
 var mapConversionConstX = 0.8277;
@@ -19,7 +19,13 @@ var norad_url = "";
 var sim_step_url = "?steps=1"; // in seconds
 var sim_steps = 1;
 
+var router = new VueRouter({
+	mode: 'history',
+	routes: []
+});
+
 var app = new Vue({
+	router,
 	el: '#dash_app',
 	data: {
 		norad_id: 0,
@@ -27,6 +33,8 @@ var app = new Vue({
 		path: [],
 		interval: null,
 		stopQuery: false,
+		mid: null,
+		satEnvironment: null,
 		reqData:{
 			mission_instance:{}
 		},
@@ -54,6 +62,21 @@ var app = new Vue({
 			sim_save: baseUrl+"/mse_save/"
 		}
 	},
+	mounted: function () {
+		var theApp = this;
+		if(theApp._route.query && theApp._route.query.mid && theApp._route.query.mid.length>5){
+			theApp.mid = theApp._route.query.mid;
+			if(!theApp.stopQuery){
+				$('#startMissionButton').addClass('disabled');
+				$('#resetMissionButton').removeClass('disabled');
+				$('#saveMissionButton').removeClass('disabled');
+				theApp.initSim();
+				theApp.interval = setInterval(function () {
+					theApp.simStep();
+				}.bind(theApp), loopBreak);
+			}
+		}
+	},
 	methods: {
 		startMission(){
 			var theApp = this;
@@ -71,62 +94,26 @@ var app = new Vue({
 		},
 		resetMission(){
 			var theApp = this;
-
 			var formData = new FormData();
 			formData.append('mission_instance', JSON.stringify(this.reqData.mission_instance));
 
 			this.loadApiPost(this.api.sim_reset, formData, function(data){
-				theApp.stopQuery = true;
-				var ctx = document.getElementById("earth_map_img").getContext("2d");
-				ctx.clearRect(0, 0, mapWidth, mapHeight);
-				theApp.datalocation = {
-					lat: 0,
-					lng: 0,
-					alt: 0,
-					time: "N/A",
-					i: 0,
-					ra: 0,
-					e: 0,
-					a: 0,
-					w: 0,
-					tp: 0
-				};
-				$('#startMissionButton').removeClass('disabled');
-				$('#resetMissionButton').addClass('disabled');
-				$('#saveMissionButton').addClass('disabled');
+				theApp.resetUiComponents(theApp);
 			}, true);
 		},
 		saveMission(){
 			var theApp = this;
-
 			var formData = new FormData();
 			formData.append('mission_instance', JSON.stringify(this.reqData.mission_instance));
 
 			this.loadApiPost(this.api.sim_save, formData, function(data){
-				theApp.stopQuery = true;
-				var ctx = document.getElementById("earth_map_img").getContext("2d");
-				ctx.clearRect(0, 0, mapWidth, mapHeight);
-				theApp.datalocation = {
-					lat: 0,
-					lng: 0,
-					alt: 0,
-					time: "N/A",
-					i: 0,
-					ra: 0,
-					e: 0,
-					a: 0,
-					w: 0,
-					tp: 0
-				};
-				$('#startMissionButton').removeClass('disabled');
-				$('#resetMissionButton').addClass('disabled');
-				$('#saveMissionButton').addClass('disabled');
+				theApp.resetUiComponents(theApp);
 			}, true);			
 		},
 		getNoradId() {
 			var theApp = this;
 			theApp.stopQuery = false;
-			this.loadApiGet(this.api.list, function (data) {
+			theApp.loadApiGet(theApp.api.list, function (data) {
 				theApp.norad_id = data.satelites[0].norad_id;
 				theApp.sat_name = data.satelites[0].sat_name;
 				norad_url = "?norad_id=" + data.satelites[0].norad_id;
@@ -136,17 +123,24 @@ var app = new Vue({
 		initSim() {
 			var theApp = this;
 			var timeNow =  new Date().toJSON().replace(/-/g,',').replace(/T/g,',').replace(/:/g,',').replace(/Z/g,'').slice(0,19);
-			this.loadApiGet(this.api.sim_init + norad_url+"&date="+timeNow, function (data) {
+
+			var hashId = theApp.mid ? '?hash_id='+theApp.mid : '';
+			var initUrl = theApp.api.sim_init + norad_url+"&date="+timeNow
+			if(theApp.mid){
+				initUrl = theApp.api.sim_init +hashId;
+			}
+			theApp.loadApiGet(initUrl, function (data) {
 				theApp.reqData.mission_instance = data.mission_instance;
+				theApp.mid = null;
 			 });
 		},
 		simStep() {
 			var theApp = this;
 
 			var formData = new FormData();
-			formData.append('mission_instance', JSON.stringify(this.reqData.mission_instance));
+			formData.append('mission_instance', JSON.stringify(theApp.reqData.mission_instance));
 
-			this.loadApiPost(this.api.sim_step, formData, function (data) { 
+			theApp.loadApiPost(theApp.api.sim_step, formData, function (data) { 
 				satLocation = data.mission_instance.satellite.location;
 				var ctx = document.getElementById("earth_map_img").getContext("2d");
 
@@ -162,17 +156,6 @@ var app = new Vue({
 
 				theApp.getTelemetry(data.mission_instance.satellite.formatted_telemetry);
 			}, true);
-		},
-		getLog() {
-			this.loadApi(this.api.log + norad_url, function (data) {
-				var log = $("#log_box .row_log");
-
-				log.html('');
-
-				data.log.forEach((val) => {
-					log.append('<div class="col-4">' + val.time + '</div><div class="col-4">' + val.severity + '</div><div class="col-4">' + val.description + '</div>');
-				});
-			});
 		},
 		getTelemetry(data) {
 			var power = $("#power_sect");
@@ -229,6 +212,34 @@ var app = new Vue({
 				ctx.stroke();
 			});
 		},
+		drawSatImage(){
+			var theApp = this;
+		},
+		resetUiComponents(theApp){
+			theApp.stopQuery = true;
+			var ctx = document.getElementById("earth_map_img").getContext("2d");
+			ctx.clearRect(0, 0, mapWidth, mapHeight);
+			theApp.datalocation = {
+				lat: 0,
+				lng: 0,
+				alt: 0,
+				time: "N/A",
+				i: 0,
+				ra: 0,
+				e: 0,
+				a: 0,
+				w: 0,
+				tp: 0
+			};
+			theApp.satEnvironment = null;
+			$('#startMissionButton').removeClass('disabled');
+			$('#resetMissionButton').addClass('disabled');
+			$('#saveMissionButton').addClass('disabled');
+			$("#power_sect").html('');
+			$("#thermal_sect").html('');
+			$("#obdh_sect").html('');
+			$("#adcs_sect").html('');
+		},
 		loadApiGet(endpoint, callback, refreshData) {
 			var theApp = this;
 			axios.get(endpoint, { withCredentials: true }).then((response) => {
@@ -246,7 +257,7 @@ var app = new Vue({
 					if (callback) {
 						callback(response.data);
 					}
-
+					theApp.satEnvironment = response.data.mission_instance.environment;
 					//	refresh location data
 					if (refreshData && response.data.mission_instance.satellite.location){
 						theApp.datalocation = response.data.mission_instance.satellite.location;
