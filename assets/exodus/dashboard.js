@@ -12,8 +12,13 @@ var mapHeight = 150;
 /**
  * Pause between AJAX calls
  */
-var loopBreak = 3000;
+var loopBreak = 4000;
 var baseUrl = "http://api.nova.test:8000"
+
+/**
+ * Initial camera view coordinates
+ */
+var initCameraBox = "-79.40598249435426,43.64671207408792,-79.37158584594728,43.66108833030815";
 
 var norad_url = "";
 var sim_step_url = "?steps=1"; // in seconds
@@ -35,6 +40,7 @@ var app = new Vue({
 		stopQuery: false,
 		mid: null,
 		satEnvironment: null,
+		satLocation:null,
 		reqData:{
 			mission_instance:{}
 		},
@@ -48,7 +54,8 @@ var app = new Vue({
 			e: 0,
 			a: 0,
 			w: 0,
-			tp: 0
+			tp: 0,
+			cameraBox: ''
 		},
 		api: {
 			list: baseUrl + "/list/",
@@ -64,6 +71,7 @@ var app = new Vue({
 	},
 	mounted: function () {
 		var theApp = this;
+		theApp.datalocation.cameraBox = initCameraBox;
 		if(theApp._route.query && theApp._route.query.mid && theApp._route.query.mid.length>5){
 			theApp.mid = theApp._route.query.mid;
 			if(!theApp.stopQuery){
@@ -81,7 +89,7 @@ var app = new Vue({
 		startMission(){
 			var theApp = this;
 			theApp.getNoradId();
-
+			theApp.drawSatImage();
 			setTimeout(() => {}, 3000);
 			$('#startMissionButton').addClass('disabled');
 			$('#resetMissionButton').removeClass('disabled');
@@ -123,7 +131,7 @@ var app = new Vue({
 		initSim() {
 			var theApp = this;
 			var timeNow =  new Date().toJSON().replace(/-/g,',').replace(/T/g,',').replace(/:/g,',').replace(/Z/g,'').slice(0,19);
-
+			theApp.drawSatImage();
 			var hashId = theApp.mid ? '?hash_id='+theApp.mid : '';
 			var initUrl = theApp.api.sim_init + norad_url+"&date="+timeNow
 			if(theApp.mid){
@@ -141,11 +149,11 @@ var app = new Vue({
 			formData.append('mission_instance', JSON.stringify(theApp.reqData.mission_instance));
 
 			theApp.loadApiPost(theApp.api.sim_step, formData, function (data) { 
-				satLocation = data.mission_instance.satellite.location;
+				theApp.satLocation = data.mission_instance.satellite.location;
 				var ctx = document.getElementById("earth_map_img").getContext("2d");
 
-				var lng = (satLocation.lng < 0) ? satLocation.lng : satLocation.lng * 2;
-				var lat = (satLocation.lat > 0) ? satLocation.lat : satLocation.lat * 2;
+				var lng = (theApp.satLocation.lng < 0) ? theApp.satLocation.lng : theApp.satLocation.lng * 2;
+				var lat = (theApp.satLocation.lat > 0) ? theApp.satLocation.lat : theApp.satLocation.lat * 2;
 
 				var x = Math.abs(Math.round(lng * mapConversionConstX));
 				var y = Math.abs(Math.round(lat * mapConversionConstY));
@@ -214,6 +222,25 @@ var app = new Vue({
 		},
 		drawSatImage(){
 			var theApp = this;
+			if(!theApp.satLocation){
+				return;
+			}
+			var lat = theApp.satLocation.lat;
+			var lng = theApp.satLocation.lng;
+
+			var latSign = lat>0 ? 1 : -1;
+			var lngSign = lng>0 ? 1 : -1;
+
+			var topLat = lat - (latSign* 0.01);
+			var bottomLat = lat + (latSign* 0.01);
+
+			var topLng = lng - (lngSign* 0.01);
+			var bottomLng = lng + (lngSign* 0.01);
+
+			theApp.datalocation.cameraBox = ''+topLat+','+topLng+','+bottomLat+','+bottomLng;
+			console.log(theApp.datalocation.cameraBox);
+			var ifr = '<iframe width="425" height="250" frameborder="0" scrolling="no" marginheight="0" marginwidth="0" src="https://www.openstreetmap.org/export/embed.html?bbox='+ theApp.datalocation.cameraBox +'&layer=mapnik"></iframe>';
+			$('#camera_sect').html(ifr);
 		},
 		resetUiComponents(theApp){
 			theApp.stopQuery = true;
