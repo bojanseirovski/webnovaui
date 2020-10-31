@@ -1,34 +1,3 @@
-/**
- * Map width/360 or Map height/180
- * 298/360 , 150/360
- */
-var mapConversionConstX = 0.8277;
-var mapConversionConstY = 0.8333;
-/**
- * Map size
- */
-var mapWidth = 298;
-var mapHeight = 150;
-/**
- * Pause between AJAX calls
- */
-var loopBreak = 4000;
-var baseUrl = "http://api.nova.test:8000"
-
-/**
- * Initial camera view coordinates
- */
-var initCameraBox = "-79.40598249435426,43.64671207408792,-79.37158584594728,43.66108833030815";
-
-var norad_url = "";
-var sim_step_url = "?steps=1"; // in seconds
-var sim_steps = 1;
-
-var router = new VueRouter({
-	mode: 'history',
-	routes: []
-});
-
 var app = new Vue({
 	router,
 	el: '#dash_app',
@@ -111,12 +80,8 @@ var app = new Vue({
 		},
 		saveMission(){
 			var theApp = this;
-			var formData = new FormData();
-			formData.append('mission_instance', JSON.stringify(this.reqData.mission_instance));
 
-			this.loadApiPost(this.api.sim_save, formData, function(data){
-				theApp.resetUiComponents(theApp);
-			}, true);			
+			$('#send_hash_link_modal').modal('show');
 		},
 		getNoradId() {
 			var theApp = this;
@@ -311,6 +276,23 @@ var menuButtonsApp = new Vue({
 		},
 		saveMissionButton(){
 			app.saveMission();
+		}
+
+	}
+});
+
+
+var MOdalApp = new Vue({
+	el: '#send_hash_link_modal',
+	methods:{
+		sendLink(){
+			var formData = new FormData();
+			formData.append('mission_instance', JSON.stringify(app.reqData.mission_instance));
+
+			app.loadApiPost(app.api.sim_save, formData, function(data){
+				app.resetUiComponents(app);
+				$('#send_hash_link_modal').modal('hide');
+			}, true);
 		}
 
 	}

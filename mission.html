@@ -17,6 +17,7 @@
         <!-- CSS Files -->
         <link href="assets/css/black-dashboard.css?v=1.0.0" rel="stylesheet" />
         <link href="assets/exodus/exodus.css" rel="stylesheet" />
+        <link href="assets/js/LinedTextDiv/linedTextEditor-jquery.css" rel="stylesheet"/>
     </head>
 
     <body class="">
@@ -33,35 +34,42 @@
                     </div>
                     <ul class="nav">
                         <li>
-                            <a href="dashboard.html">
-                                <i class="tim-icons icon-chart-pie-36"></i>
+                            <a href="./dashboard.html">
+                                <i class="tim-icons icon-chart-bar-32"></i>
                                 <p>Mission Dashboard</p>
                             </a>
                         </li>
                         <li>
-                            <a href="missionsum.html">
-                                <i class="tim-icons icon-single-copy-04"></i>
-                                <p>Mission Summary</p>
-                            </a>
-                        </li>
-                        <li class="active">
-                            <a href="mission.html">
+                            <a href="./mission.html">
                                 <i class="tim-icons icon-planet"></i>
-                                <p>Mission Settings</p>
+                                <p>Mission</p>
                             </a>
                         </li>
                         <li>
-                            <a href="board.html">
+                            <a href="./missionsum.html">
+                                <i class="tim-icons icon-chart-pie-36"></i>
+                                <p>Mission Summary</p>
+                            </a>
+                        </li>
+                        <li>
+                            <a href="./terms.html">
+                                <i class="tim-icons icon-bullet-list-67"></i>
+                                <p>Terms and Conditions</p>
+                            </a>
+                        </li>
+                        <!-- 
+                        <li>
+                            <a href="./board.html">
                                 <i class="tim-icons icon-paper"></i>
                                 <p>Leader Board</p>
                             </a>
                         </li>
                         <li>
-                            <a href="notifications.html">
+                            <a href="./notifications.html">
                                 <i class="tim-icons icon-bell-55"></i>
                                 <p>Notifications</p>
                             </a>
-                        </li>
+                        </li> -->
                     </ul>
                 </div>
             </div>
@@ -116,7 +124,7 @@
                     </div>
                 </nav>
                 <!-- End Navbar -->
-                <div class="content" id="app">
+                <div class="content" id="mission_app">
                     <div class="row">
                         <div class="col-md-8">
                             <div class="card">
@@ -128,10 +136,12 @@
                                         <div class="col-md-12">
                                             <select id="sel_mission_type" class="form-control">
                                                 <option value="0">Mission Type</option>
+                                                <!--
                                                 <option value="1">Earth Observation</option>
                                                 <option value="2">Software Defined Radio</option>
                                                 <option value="3">Forest Fire Detection</option>
-                                                <option value="4">Custom</option>
+                                                -->
+                                                <option selected value="4">Custom</option>
                                             </select>
                                             <div id="earth_mission" class="mission_type">
                                                 <div class="row"></div>
@@ -153,29 +163,38 @@
                                             </div>
                                             <div id="custom_mission" class="mission_type">
                                                 <div class="row">
-                                                    <h3>Upload your custom code or use our mission tool.</h3>
+                                                    <h3>Upload your custom code.</h3>
                                                 </div>
+                                                <!--
                                                 <div class="row">
                                                     <div class="col-md-6"><input type="radio" name="code_type" value="tool"> Mission Tool</div>
                                                     <div class="col-md-6"><input type="radio" name="code_type" value="custom" checked="checked"> Custom Code</div>
                                                 </div>
+                                                -->
                                                 <div class="row">
                                                     <div class="col-md-12">
-                                                        <textarea name="c_code" id="c_code" rows="20" cols="60" placeholder="Put your code here!"></textarea>
+                                                        <div class="row">
+                                                            <div class="col-md-12">
+                                                                <input type="text" name="mission_name" id="mission_name" class="form-control" placeholder="Mission Name"> 
+                                                            </div>
+                                                        </div>
+                                                        <div id="c_code"></div>
                                                     </div>
                                                 </div>
+                                                <!--
                                                 <div class="row">
                                                     <div class="col-md-3"><input type="radio" name="miss_type" value="event"> Event Based</div>
                                                     <div class="col-md-3"><input type="radio" name="miss_type" value="time" checked="checked"> Time Based</div>
                                                     <div class="col-md-3"><input type="radio" name="miss_type" value="continuous"> Continuous</div>
                                                 </div>
+                                                -->
                                             </div>
                                         </div>
                                     </div>
                                     <div class="row"></div>
                                 </div>
                                 <div class="card-footer">
-                                    <button type="submit" class="btn btn-fill btn-primary">OK</button>
+                                    <button type="submit" class="btn btn-fill btn-primary">Save</button>
                                 </div>
                             </div>
                         </div>
@@ -212,18 +231,21 @@
             </div>
         </div>
         <!--   Core JS Files   -->
-        <script src="assets/js/core/jquery.min.js"></script>
-        <script src="assets/js/core/popper.min.js"></script>
-        <script src="assets/js/core/bootstrap.min.js"></script>
-        <script src="assets/js/plugins/perfect-scrollbar.jquery.min.js"></script>
+        <script type="text/javascript" src="assets/js/core/jquery.min.js"></script>
+        <script type="text/javascript" src="assets/js/core/popper.min.js"></script>
+        <script type="text/javascript" src="assets/js/core/bootstrap.min.js"></script>
+        <script type="text/javascript" src="assets/js/plugins/perfect-scrollbar.jquery.min.js"></script>
         <!-- Chart JS -->
-        <script src="assets/js/plugins/chartjs.min.js"></script>
-        <!--  Notifications Plugin    -->
-        <script src="assets/js/plugins/bootstrap-notify.js"></script>
-        <!-- Control Center for Black Dashboard: parallax effects, scripts for the example pages etc -->
-        <script src="assets/js/black-dashboard.min.js?v=1.0.0"></script>
-        <script src="assets/exodus/init.js"></script>
-        <script src="assets/exodus/missionsettings.js"></script>
+        <script type="text/javascript" src="assets/js/plugins/chartjs.min.js"></script>
+        <script type="text/javascript" src="assets/js/plugins/bootstrap-notify.js"></script>
+        <script type="text/javascript" src="assets/js/black-dashboard.min.js?v=1.0.0"></script>
+        <script type="text/javascript" src="node_modules/vue/dist/vue.min.js"></script>
+        <script type="text/javascript" src="node_modules/vue-router/dist/vue-router.min.js"></script>
+        <script type="text/javascript" src="node_modules/axios/dist/axios.min.js"></script>
+        <script type="text/javascript" src="assets/exodus/general.js"></script>
+        <script type="text/javascript" src="assets/exodus/init.js"></script>
+        <script type="text/javascript" src="assets/js/LinedTextDiv/linedTextEditor-jquery.js"></script>
+        <script type="text/javascript" src="assets/exodus/missionsettings.js"></script>
     </body>
 
 </html>

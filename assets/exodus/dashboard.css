@@ -120,6 +120,9 @@ canvas#earth_map_img {
     -ms-transition: all 0.3s ease; */
 }
 
+#recipient-name, #recipient-email{
+    color: #000000!important;
+}
 
 @media (min-width: 350px) and (max-width: 900px){
     .card{
