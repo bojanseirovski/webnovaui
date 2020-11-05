@@ -8,6 +8,7 @@ var app = new Vue({
 		interval: null,
 		stopQuery: false,
 		mid: null,
+		missionId: 0,
 		satEnvironment: null,
 		satLocation:null,
 		reqData:{
@@ -41,6 +42,7 @@ var app = new Vue({
 	mounted: function () {
 		var theApp = this;
 		theApp.datalocation.cameraBox = initCameraBox;
+		// hash mission ID
 		if(theApp._route.query && theApp._route.query.mid && theApp._route.query.mid.length>5){
 			theApp.mid = theApp._route.query.mid;
 			if(!theApp.stopQuery){
@@ -52,6 +54,10 @@ var app = new Vue({
 					theApp.simStep();
 				}.bind(theApp), loopBreak);
 			}
+		}
+		// mission ID from first screen
+		if(theApp._route.query && theApp._route.query.mission_id && theApp._route.query.mission_id.length>0){
+			theApp.missionId = theApp._route.query.mission_id;
 		}
 	},
 	methods: {

@@ -136,47 +136,15 @@
                                         <div class="col-md-12">
                                             <select id="sel_mission_type" class="form-control">
                                                 <option value="0">Mission Type</option>
-                                                <!--
-                                                <option value="1">Earth Observation</option>
-                                                <option value="2">Software Defined Radio</option>
-                                                <option value="3">Forest Fire Detection</option>
-                                                -->
-                                                <option selected value="4">Custom</option>
                                             </select>
-                                            <div id="earth_mission" class="mission_type">
-                                                <div class="row"></div>
-                                                <div class="row"></div>
-                                                <div class="row"></div>
-                                                <div class="row"></div>
-                                            </div>
-                                            <div id="sdr_mission" class="mission_type">
-                                                <div class="row"></div>
-                                                <div class="row"></div>
-                                                <div class="row"></div>
-                                                <div class="row"></div>
-                                            </div>
-                                            <div id="fire_mission" class="mission_type">
-                                                <div class="row"></div>
-                                                <div class="row"></div>
-                                                <div class="row"></div>
-                                                <div class="row"></div>
-                                            </div>
                                             <div id="custom_mission" class="mission_type">
                                                 <div class="row">
                                                     <h3>Upload your custom code.</h3>
                                                 </div>
-                                                <!--
-                                                <div class="row">
-                                                    <div class="col-md-6"><input type="radio" name="code_type" value="tool"> Mission Tool</div>
-                                                    <div class="col-md-6"><input type="radio" name="code_type" value="custom" checked="checked"> Custom Code</div>
-                                                </div>
-                                                -->
                                                 <div class="row">
                                                     <div class="col-md-12">
-                                                        <div class="row">
-                                                            <div class="col-md-12">
-                                                                <input type="text" name="mission_name" id="mission_name" class="form-control" placeholder="Mission Name"> 
-                                                            </div>
+                                                        <div class="row missionDetails">
+
                                                         </div>
                                                         <div id="c_code"></div>
                                                     </div>
@@ -194,7 +162,7 @@
                                     <div class="row"></div>
                                 </div>
                                 <div class="card-footer">
-                                    <button type="submit" class="btn btn-fill btn-primary">Save</button>
+                                    <a class="btn btn-fill btn-primary continueMission" href="dashboard.html?mission_id={{ mid }}">Continue</a>
                                 </div>
                             </div>
                         </div>

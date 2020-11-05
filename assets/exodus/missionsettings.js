@@ -1,61 +1,54 @@
-// $(".mission_type").hide();
 var editor;
-var app = new Vue({
+var missionApp = new Vue({
 	router,
 	el: '#mission_app',
 	data: {
-		norad_id: 0,
-		sat_name: 0,
-		path: [],
-		interval: null,
-		stopQuery: false,
-		mid: null,
-		satEnvironment: null,
-		satLocation:null,
-		reqData:{
-			mission_instance:{}
-		},
+		mid: '',
 		api: {
-			list: baseUrl + "/list/",
-			location: baseUrl + "/location/" + norad_url,
-			telemetry: baseUrl + "/telemetry/" + norad_url,
-			log: baseUrl + "/log/" + norad_url,
-			instruments: baseUrl + "/instruments/" + norad_url,
-			sim_init: baseUrl+"/mse_init/"+norad_url,
-			sim_step: baseUrl+"/mse_step/"+sim_step_url,
-			sim_reset: baseUrl+"/mse_reset/",
-			sim_save: baseUrl+"/mse_save/"
+			mission_list: baseUrl+"/mse_mission_list",
+			mission_details: baseUrl+"/mse_mission_details"
 		}
 	},
 	mounted: function () {
+		$('.continueMission').addClass('disabled');
 		var theApp = this;
+		theApp.getMissionList();
 		$("#sel_mission_type").change(function () {
-			var missionType = $(this).find('option:selected').val();
-			switch (missionType) {
-				case "1":
-					$(".mission_type").hide();
-					$("#earth_mission").show();
-					break;
-				case "2":
-					$(".mission_type").hide();
-					$("#sdr_mission").show();
-					break;
-				case "3":
-					$(".mission_type").hide();
-					$("#fire_mission").show();
-					break;
-				case "4":
-					$(".mission_type").hide();
-					$("#custom_mission").show();
-					break;
-				default:
-					$(".mission_type").hide();
-					break;
-			}
+			theApp.mid = $(this).find('option:selected').val();
+			theApp.getMissionDetails(theApp.mid);
 		});
 		editor = $("#c_code").linedTextEditor();;
 	},
 	methods: {
+		getMissionList(){
+			var theApp = this;
+			theApp.loadApiGet(theApp.api.mission_list, function(data){
+				$.each(data.data, function(k, v){
+					var opt = $('<option/>')
+					opt.attr('value',v.mission_id);
+					opt.html(v.name);
+					$("#sel_mission_type").append(opt);
+				});
+			});
+		},
+		getMissionDetails(mid){
+			var theApp = this;
+			theApp.mid = mid;
+			$('.continueMission').attr('href','dashboard.html?mission_id='+mid)
+			theApp.loadApiGet(theApp.api.mission_details+'?mission_id='+mid, function(data){
+				var nameElem = $('<div>');
+				var detailElem = $('<div>');
+	
+				nameElem.attr('class','col-md-6');
+				nameElem.html(data.mission_name);
+
+				detailElem.attr('class','col-md-6');
+				detailElem.html(data.mission_details);
+				$('.missionDetails').append(nameElem).append(detailElem);
+				$('.continueMission').removeClass('disabled');
+			});
+
+		},
 		loadApiGet(endpoint, callback) {
 			var theApp = this;
 			axios.get(endpoint, { withCredentials: true }).then((response) => {
