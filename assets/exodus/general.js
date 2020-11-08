@@ -24,8 +24,11 @@ var norad_url = "";
 var sim_step_url = "?steps=1"; // in seconds
 var sim_steps = 1;
 
-
+try{
 var router = new VueRouter({
 	mode: 'history',
 	routes: []
 });
+} catch(e){
+	
+}
