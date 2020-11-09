@@ -22,8 +22,8 @@
         <![endif]-->
         <link href="assets/exodus/mission.css" rel="stylesheet">
     </head>
-    <body data-new-gr-c-s-check-loaded="14.982.0">
-        <div id="page" class="page">
+    <body>
+        <div id="mission_app" class="page">
         
             <header class="header8" id="header8">
 
@@ -48,7 +48,7 @@
                                 <form class="login-reg subscribe text-center form-inline">
                                     <div class="row margin-bottom-0">
                                         <div class="col-md-12 col-sm-12">
-                                            <a class="btn btn-info button" href="mission.html">Start Coding</a>
+                                            <a class="btn btn-info button goto_start_mission" v-on:click="gotoStartMission">Start Coding</a>
                                         </div> 
                                     </div>	
                                 </form>
@@ -61,7 +61,7 @@
                 </div><!-- container -->
 
             </header><!-- header -->
-            <section class="content-section3">
+            <section class="content-section3" id="start_the_mission">
                 <div class="item dark">
 
                     <div class="container">

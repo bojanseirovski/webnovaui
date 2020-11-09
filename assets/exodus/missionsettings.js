@@ -49,6 +49,11 @@ var missionApp = new Vue({
 			});
 
 		},
+		gotoStartMission(){
+			$('html, body').animate({
+				scrollTop: $("#start_the_mission").offset().top
+			}, 1000);
+		},
 		loadApiGet(endpoint, callback) {
 			var theApp = this;
 			axios.get(endpoint, { withCredentials: true }).then((response) => {

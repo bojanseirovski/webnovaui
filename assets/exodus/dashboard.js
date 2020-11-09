@@ -293,8 +293,15 @@ var MOdalApp = new Vue({
 	methods:{
 		sendLink(){
 			var formData = new FormData();
-			formData.append('mission_instance', JSON.stringify(app.reqData.mission_instance));
 
+			var rname = $('#recipient-name').val();
+			var remail = $('#recipient-email').val();
+			if(rname.length===0 || remail.length ===0){
+				return;
+			}
+			app.reqData.mission_instance.remail= remail;
+			app.reqData.mission_instance.rname = rname;
+			formData.append('mission_instance', JSON.stringify(app.reqData.mission_instance));
 			app.loadApiPost(app.api.sim_save, formData, function(data){
 				app.resetUiComponents(app);
 				$('#send_hash_link_modal').modal('hide');
