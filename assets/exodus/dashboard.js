@@ -119,7 +119,7 @@ var app = new Vue({
 			var formData = new FormData();
 			formData.append('mission_instance', JSON.stringify(theApp.reqData.mission_instance));
 
-			theApp.loadApiPost(theApp.api.sim_step, formData, function (data) { 
+			theApp.loadApiPost(theApp.api.sim_step, formData, function (data) {
 				theApp.satLocation = data.mission_instance.satellite.location;
 				var ctx = document.getElementById("earth_map_img").getContext("2d");
 
@@ -132,8 +132,10 @@ var app = new Vue({
 				theApp.path.push({ x, y });
 
 				theApp.drawSatellite(ctx, x, y);
+				//theApp.drawTrajectory(ctx)
 
 				theApp.getTelemetry(data.mission_instance.satellite.formatted_telemetry);
+				theApp.reqData.mission_instance = data.mission_instance;
 			}, true);
 		},
 		getTelemetry(data) {
