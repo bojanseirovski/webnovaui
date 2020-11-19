@@ -13,7 +13,7 @@ var mapHeight = 150;
  * Pause between AJAX calls
  */
 var loopBreak = 4000;
-var baseUrl = "http://api.nova.test:8000"
+var baseUrl = "http://localhost:8000"
 
 /**
  * Initial camera view coordinates
@@ -31,7 +31,7 @@ try{
 		routes: []
 	});
 } catch(e){
-	
+
 }
 
 var map;
