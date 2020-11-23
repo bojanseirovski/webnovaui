@@ -17,7 +17,7 @@ var missionApp = new Vue({
 			theApp.mid = $(this).find('option:selected').val();
 			theApp.getMissionDetails(theApp.mid);
 		});
-		editor = $("#c_code").linedTextEditor();;
+		// editor = $("#c_code").linedTextEditor();
 	},
 	methods: {
 		getMissionList(){
