@@ -269,7 +269,6 @@ var app = new Vue({
 			L.tileLayer(mapUrl,{maxZoom: 18}).addTo(map);
 		},
 		setupLeafletMapView(lat, lng){
-			console.log(lat+'  '+lng);
 			if(lat!=null && lng!=null){
 				map.invalidateSize();
 				map.setView([lat,lng], defaultMapZoom);
