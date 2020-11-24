@@ -21,14 +21,19 @@ var baseUrl = "http://api.nova.test:8000"
 var initCameraBox = "-79.40598249435426,43.64671207408792,-79.37158584594728,43.66108833030815";
 
 var norad_url = "";
-var sim_step_url = "?steps=1"; // in seconds
+var sim_step_url = "?steps=90"; // in seconds
 var sim_steps = 1;
 
 try{
-var router = new VueRouter({
-	mode: 'history',
-	routes: []
-});
+	var router = new VueRouter({
+		mode: 'history',
+		routes: []
+	});
 } catch(e){
 	
 }
+
+var map;
+var mapUrl = 'https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png';
+
+var defaultMapZoom = 3;

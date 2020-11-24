@@ -59,6 +59,7 @@ var app = new Vue({
 		if(theApp._route.query && theApp._route.query.mission_id && theApp._route.query.mission_id.length>0){
 			theApp.missionId = theApp._route.query.mission_id;
 		}
+		theApp.setupLeafletMap(0,0);
 	},
 	methods: {
 		startMission(){
@@ -132,7 +133,7 @@ var app = new Vue({
 				theApp.path.push({ x, y });
 
 				theApp.drawSatellite(ctx, x, y);
-
+				theApp.setupLeafletMapView(lat,lng);
 				theApp.getTelemetry(data.mission_instance.satellite.formatted_telemetry);
 			}, true);
 		},
@@ -209,9 +210,6 @@ var app = new Vue({
 			var bottomLng = lng + (lngSign* 0.01);
 
 			theApp.datalocation.cameraBox = ''+topLat+','+topLng+','+bottomLat+','+bottomLng;
-			console.log(theApp.datalocation.cameraBox);
-			var ifr = '<iframe width="425" height="250" frameborder="0" scrolling="no" marginheight="0" marginwidth="0" src="https://www.openstreetmap.org/export/embed.html?bbox='+ theApp.datalocation.cameraBox +'&layer=mapnik"></iframe>';
-			$('#camera_sect').html(ifr);
 		},
 		resetUiComponents(theApp){
 			theApp.stopQuery = true;
@@ -264,6 +262,18 @@ var app = new Vue({
 			}).catch(error => {
 				console.log(error);
 			});
+		},
+		setupLeafletMap: function (lat, lng) {
+			$('#camera_sect').css({height:"400%"});
+			map = L.map('camera_sect').setView([lat,lng], defaultMapZoom);
+			L.tileLayer(mapUrl,{maxZoom: 18}).addTo(map);
+		},
+		setupLeafletMapView(lat, lng){
+			console.log(lat+'  '+lng);
+			if(lat!=null && lng!=null){
+				map.invalidateSize();
+				map.setView([lat,lng], defaultMapZoom);
+			}
 		}
 	},
 	beforeDestroy: function () {
