@@ -135,6 +135,7 @@ var app = new Vue({
 				//theApp.drawTrajectory(ctx)
 
 				theApp.getTelemetry(data.mission_instance.satellite.formatted_telemetry);
+				console.log(data.mission_instance);
 				theApp.reqData.mission_instance = data.mission_instance;
 			}, true);
 		},
