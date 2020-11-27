@@ -133,7 +133,7 @@ var app = new Vue({
 				theApp.path.push({ x, y });
 
 				theApp.drawSatellite(ctx, x, y);
-				theApp.setupLeafletMapView(lat,lng);
+				theApp.setupLeafletMapView(theApp.satLocation.lat,theApp.satLocation.lng);
 				theApp.getTelemetry(data.mission_instance.satellite.formatted_telemetry);
 			}, true);
 		},
@@ -270,8 +270,10 @@ var app = new Vue({
 		},
 		setupLeafletMapView(lat, lng){
 			if(lat!=null && lng!=null){
-				map.invalidateSize();
-				map.setView([lat,lng], defaultMapZoom);
+				var topC = [lat+0.005, lng-0.005];
+				var bottomC = [lat-0.005, lng+0.005];
+				// map.invalidateSize();
+				map.fitBounds([topC,bottomC]);
 			}
 		}
 	},
