@@ -272,7 +272,6 @@ var app = new Vue({
 			if(lat!=null && lng!=null){
 				var topC = [lat+0.005, lng-0.005];
 				var bottomC = [lat-0.005, lng+0.005];
-				// map.invalidateSize();
 				map.fitBounds([topC,bottomC]);
 			}
 		}
