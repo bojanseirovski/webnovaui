@@ -135,6 +135,7 @@ var app = new Vue({
 				theApp.drawSatellite(ctx, x, y);
 				theApp.setupLeafletMapView(theApp.satLocation.lat,theApp.satLocation.lng);
 				theApp.getTelemetry(data.mission_instance.satellite.formatted_telemetry);
+				theApp.getLog(data.mission_instance.environment.log_buffer);
 			}, true);
 		},
 		getTelemetry(data) {
@@ -154,6 +155,17 @@ var app = new Vue({
 				obdh.append('<div class="col-8">' + data.obdh[i].name + '</div><div class="col-4">' + data.obdh[i].value + '</div>');
 				thermal.append('<div class="col-8">' + data.thermal[i].name + '</div><div class="col-4">' + data.thermal[i].value + '</div>');
 			}
+		},
+		getLog(data) {
+			var log = $("#row_logs");
+			var howMany = log.find('.row').length;
+			if(howMany>8){
+				for(i=6;i<howMany;i++){
+					log.find('.row:nth-child('+i+')').remove();
+				}
+			}
+
+			log.prepend('<div class="row"><div class="col-4">' + data[0][0] + '</div><div class="col-4">&nbsp;</div><div class="col-4">' + data[0][1] + '</div></div>');
 		},
 		getActions(data) {
 			var power = $("#power_sect");
