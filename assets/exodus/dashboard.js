@@ -160,12 +160,12 @@ var app = new Vue({
 			var log = $("#row_logs");
 			var howMany = log.find('.row').length;
 			if(howMany>8){
-				for(i=6;i<howMany;i++){
+				for(i=8;i<howMany;i++){
 					log.find('.row:nth-child('+i+')').remove();
 				}
 			}
 
-			log.prepend('<div class="row"><div class="col-4">' + data[0][0] + '</div><div class="col-4">&nbsp;</div><div class="col-4">' + data[0][1] + '</div></div>');
+			log.prepend('<div class="row"><div class="col-4">' + data[0][0] + '</div><div class="col-8">' + data[0][1] + '</div></div>');
 		},
 		getActions(data) {
 			var power = $("#power_sect");
