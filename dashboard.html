@@ -317,7 +317,26 @@
             </div>
           </div>
         </div>
-      </div>
+    </div>
+    <div class="modal fade" id="reset_mission_link_modal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal-dialog" role="document">
+          <div class="modal-content">
+            <div class="modal-header">
+              <h5 class="modal-title" id="exampleModalLabel">Reset Mission?</h5>
+              <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+              </button>
+            </div>
+            <div class="modal-body">
+              <h2 class="black-text">Are you sure?</h2>
+            </div>
+            <div class="modal-footer">
+              <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+              <button type="button" id="send_hash_link_btn" class="btn btn-primary" v-on:click="resetLink">Reset Mission</button>
+            </div>
+          </div>
+        </div>
+    </div>
     <img id="satelite_icon" ref="satelite_icon" alt="satelite icon" src="/assets/img/satellite-icon.png" style="display: none;">
     <!--   Core JS Files   -->
     <script type="text/javascript" src="assets/js/core/jquery.min.js"></script>

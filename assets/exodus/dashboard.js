@@ -77,17 +77,9 @@ var app = new Vue({
 			}.bind(this), loopBreak);
 		},
 		resetMission(){
-			var theApp = this;
-			var formData = new FormData();
-			formData.append('mission_instance', JSON.stringify(this.reqData.mission_instance));
-
-			this.loadApiPost(this.api.sim_reset, formData, function(data){
-				theApp.resetUiComponents(theApp);
-			}, true);
+			$('#reset_mission_link_modal').modal('show');
 		},
 		saveMission(){
-			var theApp = this;
-
 			$('#send_hash_link_modal').modal('show');
 		},
 		getNoradId() {
@@ -327,6 +319,23 @@ var MOdalApp = new Vue({
 			app.loadApiPost(app.api.sim_save, formData, function(data){
 				app.resetUiComponents(app);
 				$('#send_hash_link_modal').modal('hide');
+			}, true);
+		}
+
+	}
+});
+
+
+var MOdalAppReset = new Vue({
+	el: '#reset_mission_link_modal',
+	methods:{
+		resetLink(){
+			var formData = new FormData();
+			formData.append('mission_instance', JSON.stringify(app.reqData.mission_instance));
+
+			app.loadApiPost(app.api.sim_reset, formData, function(data){
+				app.resetUiComponents(app);
+				$('#reset_mission_link_modal').modal('hide');
 			}, true);
 		}
 
