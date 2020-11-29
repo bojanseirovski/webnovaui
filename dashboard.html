@@ -18,6 +18,7 @@
     <link href="assets/css/black-dashboard.css?v=1.0.0" rel="stylesheet" />
     <link href="assets/exodus/exodus.css" rel="stylesheet" />
     <link href="assets/exodus/dashboard.css" rel="stylesheet" />
+    <link href="node_modules/leaflet/dist/leaflet.css" rel="stylesheet" />
 </head>
 
 <body class="">
@@ -66,12 +67,6 @@
                         <a href="./missionsum.html">
                             <i class="tim-icons icon-chart-pie-36"></i>
                             <p>Mission Summary</p>
-                        </a>
-                    </li>
-                    <li>
-                        <a href="./terms.html">
-                            <i class="tim-icons icon-bullet-list-67"></i>
-                            <p>Terms and Conditions</p>
                         </a>
                     </li>
                     <!-- <li>
@@ -211,19 +206,19 @@
                             </div>
                             <div class="card-body text-left" id="actions_box">
                                 <div class="row">
-                                    <div class="col-6">
+                                    <div class="col-12">
                                         <h3>Camera</h3>
                                         <div class="row" id="camera_sect">
 
                                         </div>
                                     </div>
-                                    <div class="col-6">
+                                    <!-- <div class="col-6">
                                         <h3>SDR</h3>
                                         <div class="row" id="sdr_sect">
                                         </div>
-                                    </div>
+                                    </div> -->
                                 </div>
-                                <div class="row">
+                                <!-- <div class="row">
                                     <div class="col-12">
                                         <h3>Task manager</h3>
                                         <div class="row" id="taskman_sect">
@@ -234,7 +229,7 @@
                                         <div class="row" id="adcsact_sect">
                                         </div>
                                     </div>
-                                </div>
+                                </div> -->
                             </div>
                         </div>
 
@@ -250,14 +245,11 @@
                                     <div class="col-4">
                                         Timestamp
                                     </div>
-                                    <div class="col-4">
-                                        Severity
-                                    </div>
-                                    <div class="col-4">
+                                    <div class="col-8">
                                         Description
                                     </div>
                                 </div>
-                                <div class="row row_log" id="row_logs">
+                                <div class="row_log" id="row_logs">
 
                                 </div>
                             </div>
@@ -282,6 +274,11 @@
                         <li class="nav-item">
                             <a href="https://blog.exodusorbitals.com/" class="nav-link">
                                 Blog
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a href="./terms.html" class="nav-link">
+                                Terms and Conditions
                             </a>
                         </li>
                     </ul>
@@ -320,7 +317,26 @@
             </div>
           </div>
         </div>
-      </div>
+    </div>
+    <div class="modal fade" id="reset_mission_link_modal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal-dialog" role="document">
+          <div class="modal-content">
+            <div class="modal-header">
+              <h5 class="modal-title" id="exampleModalLabel">Reset Mission?</h5>
+              <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+              </button>
+            </div>
+            <div class="modal-body">
+              <h2 class="black-text">Are you sure?</h2>
+            </div>
+            <div class="modal-footer">
+              <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+              <button type="button" id="send_hash_link_btn" class="btn btn-primary" v-on:click="resetLink">Reset Mission</button>
+            </div>
+          </div>
+        </div>
+    </div>
     <img id="satelite_icon" ref="satelite_icon" alt="satelite icon" src="/assets/img/satellite-icon.png" style="display: none;">
     <!--   Core JS Files   -->
     <script type="text/javascript" src="assets/js/core/jquery.min.js"></script>
@@ -334,6 +350,7 @@
     <script type="text/javascript" src="node_modules/vue/dist/vue.min.js"></script>
     <script type="text/javascript" src="node_modules/vue-router/dist/vue-router.min.js"></script>
     <script type="text/javascript" src="node_modules/axios/dist/axios.min.js"></script>
+    <script type="text/javascript" src="node_modules/leaflet/dist/leaflet.js"></script>
     <script type="text/javascript" src="assets/exodus/general.js"></script>
     <script type="text/javascript" src="assets/exodus/init.js"></script>
     <script type="text/javascript" src="assets/exodus/dashboard.js"></script>

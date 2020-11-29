@@ -59,6 +59,7 @@ var app = new Vue({
 		if(theApp._route.query && theApp._route.query.mission_id && theApp._route.query.mission_id.length>0){
 			theApp.missionId = theApp._route.query.mission_id;
 		}
+		theApp.setupLeafletMap(0,0);
 	},
 	methods: {
 		startMission(){
@@ -76,17 +77,9 @@ var app = new Vue({
 			}.bind(this), loopBreak);
 		},
 		resetMission(){
-			var theApp = this;
-			var formData = new FormData();
-			formData.append('mission_instance', JSON.stringify(this.reqData.mission_instance));
-
-			this.loadApiPost(this.api.sim_reset, formData, function(data){
-				theApp.resetUiComponents(theApp);
-			}, true);
+			$('#reset_mission_link_modal').modal('show');
 		},
 		saveMission(){
-			var theApp = this;
-
 			$('#send_hash_link_modal').modal('show');
 		},
 		getNoradId() {
@@ -132,8 +125,9 @@ var app = new Vue({
 				theApp.path.push({ x, y });
 
 				theApp.drawSatellite(ctx, x, y);
-
+				theApp.setupLeafletMapView(theApp.satLocation.lat,theApp.satLocation.lng);
 				theApp.getTelemetry(data.mission_instance.satellite.formatted_telemetry);
+				theApp.getLog(data.mission_instance.environment.log_buffer);
 			}, true);
 		},
 		getTelemetry(data) {
@@ -153,6 +147,17 @@ var app = new Vue({
 				obdh.append('<div class="col-8">' + data.obdh[i].name + '</div><div class="col-4">' + data.obdh[i].value + '</div>');
 				thermal.append('<div class="col-8">' + data.thermal[i].name + '</div><div class="col-4">' + data.thermal[i].value + '</div>');
 			}
+		},
+		getLog(data) {
+			var log = $("#row_logs");
+			var howMany = log.find('.row').length;
+			if(howMany>8){
+				for(i=8;i<howMany;i++){
+					log.find('.row:nth-child('+i+')').remove();
+				}
+			}
+
+			log.prepend('<div class="row"><div class="col-4">' + data[0][0] + '</div><div class="col-8">' + data[0][1] + '</div></div>');
 		},
 		getActions(data) {
 			var power = $("#power_sect");
@@ -209,9 +214,6 @@ var app = new Vue({
 			var bottomLng = lng + (lngSign* 0.01);
 
 			theApp.datalocation.cameraBox = ''+topLat+','+topLng+','+bottomLat+','+bottomLng;
-			console.log(theApp.datalocation.cameraBox);
-			var ifr = '<iframe width="425" height="250" frameborder="0" scrolling="no" marginheight="0" marginwidth="0" src="https://www.openstreetmap.org/export/embed.html?bbox='+ theApp.datalocation.cameraBox +'&layer=mapnik"></iframe>';
-			$('#camera_sect').html(ifr);
 		},
 		resetUiComponents(theApp){
 			theApp.stopQuery = true;
@@ -264,6 +266,18 @@ var app = new Vue({
 			}).catch(error => {
 				console.log(error);
 			});
+		},
+		setupLeafletMap: function (lat, lng) {
+			$('#camera_sect').css({height:"400%"});
+			map = L.map('camera_sect').setView([lat,lng], defaultMapZoom);
+			L.tileLayer(mapUrl,{maxZoom: 18}).addTo(map);
+		},
+		setupLeafletMapView(lat, lng){
+			if(lat!=null && lng!=null){
+				var topC = [lat+0.005, lng-0.005];
+				var bottomC = [lat-0.005, lng+0.005];
+				map.fitBounds([topC,bottomC]);
+			}
 		}
 	},
 	beforeDestroy: function () {
@@ -305,6 +319,23 @@ var MOdalApp = new Vue({
 			app.loadApiPost(app.api.sim_save, formData, function(data){
 				app.resetUiComponents(app);
 				$('#send_hash_link_modal').modal('hide');
+			}, true);
+		}
+
+	}
+});
+
+
+var MOdalAppReset = new Vue({
+	el: '#reset_mission_link_modal',
+	methods:{
+		resetLink(){
+			var formData = new FormData();
+			formData.append('mission_instance', JSON.stringify(app.reqData.mission_instance));
+
+			app.loadApiPost(app.api.sim_reset, formData, function(data){
+				app.resetUiComponents(app);
+				$('#reset_mission_link_modal').modal('hide');
 			}, true);
 		}
 

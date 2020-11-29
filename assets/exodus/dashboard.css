@@ -128,7 +128,7 @@ canvas#earth_map_img {
     -ms-transition: all 0.3s ease; */
 }
 
-#recipient-name, #recipient-email{
+#recipient-name, #recipient-email, .black-text{
     color: #000000!important;
 }
 
