@@ -268,7 +268,7 @@ var app = new Vue({
 			});
 		},
 		setupLeafletMap: function (lat, lng) {
-			$('#camera_sect').css({height:"400%"});
+			$('#camera_sect').css({height:"350%"});
 			map = L.map('camera_sect').setView([lat,lng], defaultMapZoom);
 			L.tileLayer(mapUrl,{maxZoom: 18}).addTo(map);
 		},
