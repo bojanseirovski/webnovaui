@@ -25,15 +25,6 @@ var sim_step_time = 90;
 var sim_step_url = "?steps="+sim_step_time; // in seconds
 var sim_steps = 1;
 
-try{
-	var router = new VueRouter({
-		mode: 'history',
-		routes: []
-	});
-} catch(e){
-	
-}
-
 var map;
 var mapUrl = 'https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png';
 
