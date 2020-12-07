@@ -18,7 +18,7 @@
     <link href="assets/css/black-dashboard.css?v=1.0.0" rel="stylesheet" />
     <link href="assets/exodus/exodus.css" rel="stylesheet" />
     <link href="assets/exodus/dashboard.css" rel="stylesheet" />
-    <link href="node_modules/leaflet/dist/leaflet.css" rel="stylesheet" />
+    <link href="assets/leaflet/leaflet.css" rel="stylesheet" />
 </head>
 
 <body class="">
@@ -142,9 +142,9 @@
                             <div class="card-body map-box-class" id="map_box">
 
                                 <div id="earth_map_top_bar">
-                                    <span id="lat">LAT: {{ datalocation.lat.toFixed(6) }}</span>
-                                    <span id="lng">LNG: {{ datalocation.lng.toFixed(6) }}</span>
-                                    <span id="alt">ALT: {{ datalocation.alt.toFixed(4) }}</span>
+                                    <span id="lat">LAT: {{ datalocation.lat }}</span>
+                                    <span id="lng">LNG: {{ datalocation.lng }}</span>
+                                    <span id="alt">ALT: {{ datalocation.alt }}</span>
                                     <span id="time">TIME: {{ datalocation.time }}</span>
                                 </div>
                                 <canvas id="earth_map_img" ref="earth_map_img"></canvas>
@@ -154,7 +154,7 @@
                                     <span id="i_bar">i: {{ datalocation.i }}</span>
                                     <span id="ra_bar">RA: {{ datalocation.ra }}</span>
                                     <span id="w_bar">w: {{ datalocation.w }}</span>
-                                    <span id="tp_bar">Tp: {{ datalocation.tp.toFixed(6) }}</span>
+                                    <span id="tp_bar">Tp: {{ datalocation.tp }}</span>
                                 </div>
                             </div>
                         </div>
@@ -323,7 +323,7 @@
             </div>
             <div class="modal-footer">
               <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-              <button type="button" id="send_hash_link_btn" class="btn btn-primary" v-on:click="resetLink">Reset Mission</button>
+              <button type="button" id="send_hash_link_btn" class="btn btn-primary resetLink" v-on:click="resetLink">Reset Mission</button>
             </div>
           </div>
         </div>
@@ -338,13 +338,11 @@
     <script type="text/javascript" src="assets/js/plugins/chartjs.min.js"></script>
     <script type="text/javascript" src="assets/js/plugins/bootstrap-notify.js"></script>
     <script type="text/javascript" src="assets/js/black-dashboard.min.js?v=1.0.0"></script>
-    <script type="text/javascript" src="node_modules/vue/dist/vue.min.js"></script>
-    <script type="text/javascript" src="node_modules/vue-router/dist/vue-router.min.js"></script>
-    <script type="text/javascript" src="node_modules/axios/dist/axios.min.js"></script>
-    <script type="text/javascript" src="node_modules/leaflet/dist/leaflet.js"></script>
+    <script type="text/javascript" src="assets/leaflet/leaflet.js"></script>
     <script type="text/javascript" src="assets/exodus/general.js"></script>
     <script type="text/javascript" src="assets/exodus/init.js"></script>
-    <script type="text/javascript" src="assets/exodus/dashboard.js"></script>
+    <script type="text/javascript" src="assets/exodus/apiSdk.js"></script>
+    <script type="text/javascript" src="assets/exodus/dash.js"></script>
 </body>
 
 </html>

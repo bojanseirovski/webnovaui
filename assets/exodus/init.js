@@ -142,7 +142,5 @@ $(document).ready(function () {
             $('body').removeClass('white-content');
         });
     });
-});
-$(document).ready(function () {
     $('#footer-year').html(new Date().getFullYear());
 });
