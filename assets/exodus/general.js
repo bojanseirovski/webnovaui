@@ -21,9 +21,9 @@ var baseUrl = "http://api.nova.test:8000"
 var initCameraBox = "-79.40598249435426,43.64671207408792,-79.37158584594728,43.66108833030815";
 
 var norad_url = "";
-var sim_step_time = 90;
+var sim_step_time = 4;
 var sim_step_url = "?steps="+sim_step_time; // in seconds
-var sim_steps = 1;
+var sim_steps = 4;
 
 try{
 	var router = new VueRouter({

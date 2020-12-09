@@ -66,7 +66,7 @@ var app = new Vue({
 			var theApp = this;
 			theApp.getNoradId();
 			theApp.drawSatImage();
-			setTimeout(() => {}, 3000);
+			setTimeout(() => {}, 4000);
 			$('#startMissionButton').addClass('disabled');
 			$('#resetMissionButton').removeClass('disabled');
 			$('#saveMissionButton').removeClass('disabled');
@@ -128,6 +128,7 @@ var app = new Vue({
 				theApp.setupLeafletMapView(theApp.satLocation.lat,theApp.satLocation.lng);
 				theApp.getTelemetry(data.mission_instance.satellite.formatted_telemetry);
 				theApp.getLog(data.mission_instance.environment.log_buffer);
+				theApp.reqData.mission_instance = data.mission_instance;
 			}, true);
 		},
 		getTelemetry(data) {
@@ -239,6 +240,7 @@ var app = new Vue({
 			$("#thermal_sect").html('');
 			$("#obdh_sect").html('');
 			$("#adcs_sect").html('');
+			$("#row_logs").html('');
 		},
 		loadApiGet(endpoint, callback, refreshData) {
 			var theApp = this;
@@ -261,6 +263,15 @@ var app = new Vue({
 					//	refresh location data
 					if (refreshData && response.data.mission_instance.satellite.location){
 						theApp.datalocation = response.data.mission_instance.satellite.location;
+						theApp.datalocation.a = theApp.datalocation.a.toFixed(2);
+						theApp.datalocation.e = theApp.datalocation.e.toFixed(4);
+						theApp.datalocation.i = theApp.datalocation.i.toFixed(2);
+						theApp.datalocation.ra = theApp.datalocation.ra.toFixed(2);
+						theApp.datalocation.w = theApp.datalocation.w.toFixed(2);
+						theApp.datalocation.tp = theApp.datalocation.tp.toFixed(2);
+						theApp.datalocation.lat = theApp.datalocation.lat.toFixed(2);
+						theApp.datalocation.lng = theApp.datalocation.lng.toFixed(2);
+						theApp.datalocation.alt = theApp.datalocation.alt.toFixed(2);
 					}
 				}
 			}).catch(error => {
