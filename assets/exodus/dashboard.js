@@ -66,7 +66,7 @@ var app = new Vue({
 			var theApp = this;
 			theApp.getNoradId();
 			theApp.drawSatImage();
-			setTimeout(() => {}, 3000);
+			setTimeout(() => {}, 4000);
 			$('#startMissionButton').addClass('disabled');
 			$('#resetMissionButton').removeClass('disabled');
 			$('#saveMissionButton').removeClass('disabled');
@@ -128,6 +128,7 @@ var app = new Vue({
 				theApp.setupLeafletMapView(theApp.satLocation.lat,theApp.satLocation.lng);
 				theApp.getTelemetry(data.mission_instance.satellite.formatted_telemetry);
 				theApp.getLog(data.mission_instance.environment.log_buffer);
+				theApp.reqData.mission_instance = data.mission_instance;
 			}, true);
 		},
 		getTelemetry(data) {
