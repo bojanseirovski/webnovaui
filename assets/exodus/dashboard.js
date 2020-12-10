@@ -240,6 +240,7 @@ var app = new Vue({
 			$("#thermal_sect").html('');
 			$("#obdh_sect").html('');
 			$("#adcs_sect").html('');
+			$("#row_logs").html('');
 		},
 		loadApiGet(endpoint, callback, refreshData) {
 			var theApp = this;
@@ -262,6 +263,15 @@ var app = new Vue({
 					//	refresh location data
 					if (refreshData && response.data.mission_instance.satellite.location){
 						theApp.datalocation = response.data.mission_instance.satellite.location;
+						theApp.datalocation.a = theApp.datalocation.a.toFixed(2);
+						theApp.datalocation.e = theApp.datalocation.e.toFixed(4);
+						theApp.datalocation.i = theApp.datalocation.i.toFixed(2);
+						theApp.datalocation.ra = theApp.datalocation.ra.toFixed(2);
+						theApp.datalocation.w = theApp.datalocation.w.toFixed(2);
+						theApp.datalocation.tp = theApp.datalocation.tp.toFixed(2);
+						theApp.datalocation.lat = theApp.datalocation.lat.toFixed(2);
+						theApp.datalocation.lng = theApp.datalocation.lng.toFixed(2);
+						theApp.datalocation.alt = theApp.datalocation.alt.toFixed(2);
 					}
 				}
 			}).catch(error => {
