@@ -352,3 +352,12 @@ var MOdalAppReset = new Vue({
 
 	}
 });
+
+window.addEventListener('beforeunload', function (e) {
+    e.preventDefault();
+	e.returnValue = '';
+	if(confirm("You are about to close this window. Are you sure?")){
+		return true;
+	}
+	return false;
+});
