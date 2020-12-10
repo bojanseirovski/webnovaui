@@ -69,24 +69,6 @@
                             <p>Mission Summary</p>
                         </a>
                     </li>
-                    <!-- <li>
-                        <a href="./mission.html">
-                            <i class="tim-icons icon-planet"></i>
-                            <p>Mission Settings</p>
-                        </a>
-                    </li>
-                    <li>
-                        <a href="./board.html">
-                            <i class="tim-icons icon-paper"></i>
-                            <p>Leader Board</p>
-                        </a>
-                    </li>
-                    <li>
-                        <a href="./notifications.html">
-                            <i class="tim-icons icon-bell-55"></i>
-                            <p>Notifications</p>
-                        </a>
-                    </li> -->
                 </ul>
             </div>
         </div>
@@ -104,32 +86,12 @@
                         </div>
                         <a class="navbar-brand" href="javascript:void(0)">Mission Dashboard</a>
                     </div>
-                    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navigation"
-                        aria-expanded="false" aria-label="Toggle navigation">
-                        <span class="navbar-toggler-bar navbar-kebab"></span>
-                        <span class="navbar-toggler-bar navbar-kebab"></span>
-                        <span class="navbar-toggler-bar navbar-kebab"></span>
-                    </button>
-                    <div class="collapse navbar-collapse" id="navigation">
-                        <ul class="navbar-nav ml-auto">
-                            <li class="dropdown nav-item">
-                                <a href="missionsum.html" class="dropdown-toggle nav-link">
-                                    <i class="tim-icons icon-sound-wave"></i>
-                                    <p class="d-lg-none">
-                                        Summary
-                                    </p>
-                                </a>
-                            </li>
-                            <!-- q -->
-                            <li class="separator d-lg-none"></li>
-                        </ul>
-                    </div>
                 </div>
             </nav>
             <!-- End Navbar -->
             <div class="content" id="dash_app">
                 <div class="row">
-                    <div class="col-6">
+                    <div class="col-lg-6">
                         <div class="card card-chart">
                             <div class="card-header ">
                                 <div class="row">
@@ -142,9 +104,9 @@
                             <div class="card-body map-box-class" id="map_box">
 
                                 <div id="earth_map_top_bar">
-                                    <span id="lat">LAT: {{ datalocation.lat.toFixed(6) }}</span>
-                                    <span id="lng">LNG: {{ datalocation.lng.toFixed(6) }}</span>
-                                    <span id="alt">ALT: {{ datalocation.alt.toFixed(4) }}</span>
+                                    <span id="lat">LAT: {{ datalocation.lat }}</span>
+                                    <span id="lng">LNG: {{ datalocation.lng }}</span>
+                                    <span id="alt">ALT: {{ datalocation.alt }}</span>
                                     <span id="time">TIME: {{ datalocation.time }}</span>
                                 </div>
                                 <canvas id="earth_map_img" ref="earth_map_img"></canvas>
@@ -154,7 +116,7 @@
                                     <span id="i_bar">i: {{ datalocation.i }}</span>
                                     <span id="ra_bar">RA: {{ datalocation.ra }}</span>
                                     <span id="w_bar">w: {{ datalocation.w }}</span>
-                                    <span id="tp_bar">Tp: {{ datalocation.tp.toFixed(6) }}</span>
+                                    <span id="tp_bar">Tp: {{ datalocation.tp }}</span>
                                 </div>
                             </div>
                         </div>
