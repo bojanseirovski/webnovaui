@@ -1,39 +1,4 @@
-type = ['primary', 'info', 'success', 'warning', 'danger'];
-
-demo = {
-    initPickColor: function () {
-        $('.pick-class-label').click(function () {
-            var new_class = $(this).attr('new-class');
-            var old_class = $('#display-buttons').attr('data-class');
-            var display_div = $('#display-buttons');
-            if (display_div.length) {
-                var display_buttons = display_div.find('.btn');
-                display_buttons.removeClass(old_class);
-                display_buttons.addClass(new_class);
-                display_div.attr('data-class', new_class);
-            }
-        });
-    },
-
-    showNotification: function (from, align) {
-        color = Math.floor((Math.random() * 4) + 1);
-
-        $.notify({
-            icon: "tim-icons icon-bell-55",
-            message: "Welcome to <b>Black Dashboard</b> - a beautiful freebie for every web developer."
-
-        }, {
-            type: type[color],
-            timer: 8000,
-            placement: {
-                from: from,
-                align: align
-            }
-        });
-    }
-
-};
-
+//  look and feel
 $(document).ready(function () {
     $().ready(function () {
         $sidebar = $('.sidebar');
@@ -43,14 +8,6 @@ $(document).ready(function () {
         $full_page = $('.full-page');
 
         $sidebar_responsive = $('body > .navbar-collapse');
-        sidebar_mini_active = true;
-        white_color = false;
-
-        window_width = $(window).width();
-
-        fixed_plugin_open = $('.sidebar .sidebar-wrapper .nav li.active a p').html();
-
-
 
         $('.fixed-plugin a').click(function (event) {
             if ($(this).hasClass('switch-trigger')) {
@@ -85,64 +42,6 @@ $(document).ready(function () {
             }
         });
 
-        $('.switch-sidebar-mini input').on("switchChange.bootstrapSwitch", function () {
-            var $btn = $(this);
-
-            if (sidebar_mini_active == true) {
-                $('body').removeClass('sidebar-mini');
-                sidebar_mini_active = false;
-                blackDashboard.showSidebarMessage('Sidebar mini deactivated...');
-            } else {
-                $('body').addClass('sidebar-mini');
-                sidebar_mini_active = true;
-                blackDashboard.showSidebarMessage('Sidebar mini activated...');
-            }
-
-            // we simulate the window Resize so the charts will get updated in realtime.
-            var simulateWindowResize = setInterval(function () {
-                window.dispatchEvent(new Event('resize'));
-            }, 180);
-
-            // we stop the simulation of Window Resize after the animations are completed
-            setTimeout(function () {
-                clearInterval(simulateWindowResize);
-            }, 1000);
-        });
-
-        $('.switch-change-color input').on("switchChange.bootstrapSwitch", function () {
-            var $btn = $(this);
-
-            if (white_color == true) {
-
-                $('body').addClass('change-background');
-                setTimeout(function () {
-                    $('body').removeClass('change-background');
-                    $('body').removeClass('white-content');
-                }, 900);
-                white_color = false;
-            } else {
-
-                $('body').addClass('change-background');
-                setTimeout(function () {
-                    $('body').removeClass('change-background');
-                    $('body').addClass('white-content');
-                }, 900);
-
-                white_color = true;
-            }
-
-
-        });
-
-        $('.light-badge').click(function () {
-            $('body').addClass('white-content');
-        });
-
-        $('.dark-badge').click(function () {
-            $('body').removeClass('white-content');
-        });
+        $('#footer-year').html(new Date().getFullYear());
     });
-});
-$(document).ready(function () {
-    $('#footer-year').html(new Date().getFullYear());
 });
