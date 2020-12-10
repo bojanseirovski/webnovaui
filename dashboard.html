@@ -141,20 +141,20 @@
                             </div>
                             <div class="card-body map-box-class" id="map_box">
 
-                                <div id="earth_map_top_bar">
-                                    <span id="lat">LAT: {{ datalocation.lat.toFixed(2) }}</span>
-                                    <span id="lng">LNG: {{ datalocation.lng.toFixed(2) }}</span>
-                                    <span id="alt">ALT: {{ datalocation.alt.toFixed(2) }}</span>
+                              <div id="earth_map_top_bar">
+                                    <span id="lat">LAT: {{ datalocation.lat }}</span>
+                                    <span id="lng">LNG: {{ datalocation.lng }}</span>
+                                    <span id="alt">ALT: {{ datalocation.alt }}</span>
                                     <span id="time">TIME: {{ datalocation.time }}</span>
                                 </div>
                                 <canvas id="earth_map_img" ref="earth_map_img"></canvas>
                                 <div id="earth_map_bottom_bar">
-                                    <span id="a_bar">a: {{ datalocation.a.toFixed(2) }}</span>
-                                    <span id="e_bar">e: {{ datalocation.e.toFixed(4) }}</span>
-                                    <span id="i_bar">i: {{ datalocation.i.toFixed(2) }}</span>
-                                    <span id="ra_bar">RA: {{ datalocation.ra.toFixed(2) }}</span>
-                                    <span id="w_bar">w: {{ datalocation.w.toFixed(2) }}</span>
-                                    <span id="tp_bar">Tp: {{ datalocation.tp.toFixed(2) }}</span>
+                                    <span id="a_bar">a: {{ datalocation.a }}</span>
+                                    <span id="e_bar">e: {{ datalocation.e }}</span>
+                                    <span id="i_bar">i: {{ datalocation.i }}</span>
+                                    <span id="ra_bar">RA: {{ datalocation.ra }}</span>
+                                    <span id="w_bar">w: {{ datalocation.w }}</span>
+                                    <span id="tp_bar">Tp: {{ datalocation.tp }}</span>
                                 </div>
                             </div>
                         </div>
