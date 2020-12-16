@@ -143,3 +143,9 @@ canvas#earth_map_img {
         margin-top: 26%;
     }
 }
+
+@media (min-width: 2000px){
+    .download-img-button{
+        margin-top: 34%;
+    }
+}
