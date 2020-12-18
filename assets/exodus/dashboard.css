@@ -120,7 +120,9 @@ canvas#earth_map_img {
 }
 
 .download-img-button{
-    margin-top: 32%;
+    position: relative;
+    margin-top: 230px!important;
+    margin-bottom: 0!important;
 }
 .take-photo{
     font-size: 16pt;
@@ -138,14 +140,5 @@ canvas#earth_map_img {
     }
     canvas#earth_map_img{
         margin-left: auto;
-    }
-    .download-img-button{
-        margin-top: 26%;
-    }
-}
-
-@media (min-width: 2000px){
-    .download-img-button{
-        margin-top: 34%;
     }
 }

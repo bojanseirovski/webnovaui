@@ -60,12 +60,12 @@ var app = new Vue({
 			theApp.missionId = theApp._route.query.mission_id;
 		}
 		theApp.setupLeafletMap(0,0);
+		theApp.setupLeafletTopMap(0,0);
 	},
 	methods: {
 		startMission(){
 			var theApp = this;
 			theApp.getNoradId();
-			theApp.drawSatImage();
 			setTimeout(() => {}, 4000);
 			$('#startMissionButton').addClass('disabled');
 			$('#resetMissionButton').removeClass('disabled');
@@ -95,7 +95,6 @@ var app = new Vue({
 		initSim() {
 			var theApp = this;
 			var timeNow =  new Date().toJSON().replace(/-/g,',').replace(/T/g,',').replace(/:/g,',').replace(/Z/g,'').slice(0,19);
-			theApp.drawSatImage();
 			var hashId = theApp.mid ? '?hash_id='+theApp.mid : '';
 			var initUrl = theApp.api.sim_init + norad_url+"&date="+timeNow
 			if(theApp.mid){
@@ -114,17 +113,7 @@ var app = new Vue({
 
 			theApp.loadApiPost(theApp.api.sim_step, formData, function (data) { 
 				theApp.satLocation = data.mission_instance.satellite.location;
-				var ctx = document.getElementById("earth_map_img").getContext("2d");
-
-				var lng = (theApp.satLocation.lng < 0) ? theApp.satLocation.lng : theApp.satLocation.lng * 2;
-				var lat = (theApp.satLocation.lat > 0) ? theApp.satLocation.lat : theApp.satLocation.lat * 2;
-
-				var x = Math.abs(Math.round(lng * mapConversionConstX));
-				var y = Math.abs(Math.round(lat * mapConversionConstY));
-
-				theApp.path.push({ x, y });
-
-				theApp.drawSatellite(ctx, x, y);
+				theApp.setupLeafletTopMapView(theApp.satLocation.lat,theApp.satLocation.lng);
 				theApp.setupLeafletMapView(theApp.satLocation.lat,theApp.satLocation.lng);
 				theApp.getTelemetry(data.mission_instance.satellite.formatted_telemetry);
 				theApp.getLog(data.mission_instance.environment.log_buffer);
@@ -184,42 +173,8 @@ var app = new Vue({
 				thermal.append('<div class="col-6">' + val.param + '</div><div class="col-6">' + val.value + '</div>');
 			});
 		},
-		drawSatellite(ctx, x, y) {
-			var img = document.getElementById("satelite_icon");
-			ctx.clearRect(0, 0, mapWidth, mapHeight);
-			ctx.drawImage(img, x - 5, y - 5, 20, 20);
-		},
-		drawTrajectory(ctx) {
-			this.path.forEach(function (coord) {
-				ctx.beginPath();
-				ctx.moveTo(coord.x, coord.y);
-				ctx.lineTo(coord.x + 1, coord.y + 1);
-				ctx.stroke();
-			});
-		},
-		drawSatImage(){
-			var theApp = this;
-			if(!theApp.satLocation){
-				return;
-			}
-			var lat = theApp.satLocation.lat;
-			var lng = theApp.satLocation.lng;
-
-			var latSign = lat>0 ? 1 : -1;
-			var lngSign = lng>0 ? 1 : -1;
-
-			var topLat = lat - (latSign* 0.01);
-			var bottomLat = lat + (latSign* 0.01);
-
-			var topLng = lng - (lngSign* 0.01);
-			var bottomLng = lng + (lngSign* 0.01);
-
-			theApp.datalocation.cameraBox = ''+topLat+','+topLng+','+bottomLat+','+bottomLng;
-		},
 		resetUiComponents(theApp){
 			theApp.stopQuery = true;
-			var ctx = document.getElementById("earth_map_img").getContext("2d");
-			ctx.clearRect(0, 0, mapWidth, mapHeight);
 			theApp.datalocation = {
 				lat: 0,
 				lng: 0,
@@ -288,6 +243,25 @@ var app = new Vue({
 				var topC = [lat+0.005, lng-0.005];
 				var bottomC = [lat-0.005, lng+0.005];
 				map.fitBounds([topC,bottomC]);
+			}
+		},
+		setupLeafletTopMap: function (lat, lng) {
+			$('#earth_map_img').css({height:"80%"});
+			map1 = L.map('earth_map_img',{ zoomControl: false }).setView([lat,lng], 1);
+			L.tileLayer(mapUrl,{maxZoom: 2}).addTo(map1);
+		},
+		setupLeafletTopMapView(lat, lng){
+			if(lat!=null && lng!=null){
+				$('#earth_map_img .leaflet-pane.leaflet-marker-pane img').remove();
+				if (lat>81) {
+					lat = lat -10;
+				}
+				if (lat<-81) {
+					lat = lat +10;
+				}
+				satMarker = L.marker([lat, lng], {icon: sateliteIcon}).addTo(map1);
+				map1.fitBounds([[lat+20, lng+20],[lat-20, lng-20]]);
+				map1.invalidateSize();
 			}
 		}
 	},
