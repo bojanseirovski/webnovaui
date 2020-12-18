@@ -12,7 +12,7 @@ var mapHeight = 150;
 /**
  * Pause between AJAX calls
  */
-var loopBreak = 4000;
+var loopBreak = 5000;
 var baseUrl = "http://api.nova.test:8000"
 
 /**
@@ -21,9 +21,9 @@ var baseUrl = "http://api.nova.test:8000"
 var initCameraBox = "-79.40598249435426,43.64671207408792,-79.37158584594728,43.66108833030815";
 
 var norad_url = "";
-var sim_step_time = 4;
+var sim_step_time = 5;
 var sim_step_url = "?steps="+sim_step_time; // in seconds
-var sim_steps = 4;
+var sim_steps = 5;
 
 try{
 	var router = new VueRouter({
@@ -35,6 +35,13 @@ try{
 }
 
 var map;
+var map1;
 var mapUrl = 'https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png';
-
+var sateliteIcon = L.icon({
+    iconUrl: '/assets/img/satellite-icon.png',
+    iconSize: [35, 35],
+    iconAnchor: [22, 94],
+    popupAnchor: [-3, -76]
+});
+var satMarker;
 var defaultMapZoom = 3;
