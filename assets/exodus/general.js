@@ -36,12 +36,17 @@ try{
 
 var map;
 var map1;
-var mapUrl = 'https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png';
-var sateliteIcon = L.icon({
-    iconUrl: '/assets/img/satellite-icon.png',
-    iconSize: [35, 35],
-    iconAnchor: [22, 94],
-    popupAnchor: [-3, -76]
-});
-var satMarker;
 var defaultMapZoom = 3;
+var mapUrl = 'https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png';
+var satMarker;
+var sateliteIcon;
+try{
+    sateliteIcon = L.icon({
+        iconUrl: '/assets/img/satellite-icon.png',
+        iconSize: [35, 35],
+        iconAnchor: [22, 94],
+        popupAnchor: [-3, -76]
+    });
+} catch(e){
+
+}

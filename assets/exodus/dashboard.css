@@ -131,6 +131,9 @@ canvas#earth_map_img {
     font-size: 20pt!important;
     padding-bottom: 5px;
 }
+.mobile_control_panel{
+    display: none;
+}
 
 @media (min-width: 350px) and (max-width: 1000px){
     .col-lg-6{
@@ -140,5 +143,14 @@ canvas#earth_map_img {
     }
     canvas#earth_map_img{
         margin-left: auto;
+    }
+    .mobile_control_panel{
+        display: inline;
+    }
+    .mobile_control_panel .col-4{
+        display: inline-block;
+        margin-top: 5px;
+        margin-bottom: 4px;
+        text-align: center;
     }
 }

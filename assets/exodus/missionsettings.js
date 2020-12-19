@@ -39,12 +39,21 @@ var missionApp = new Vue({
 				var nameElem = $('<div>');
 				var detailElem = $('<div>');
 	
-				nameElem.attr('class','col-md-6');
-				nameElem.html(data.mission_name);
+				nameElem.attr('class','col-md-6 text_yellow');
+				nameElem.html('Name');
 
-				detailElem.attr('class','col-md-6');
-				detailElem.html(data.mission_details);
+				detailElem.attr('class','col-md-6 text_yellow');
+				detailElem.html('Mission Details');
 				$('.missionDetails').append(nameElem).append(detailElem);
+
+				var nameElemV = $('<div>');
+				var detailElemV = $('<div>');
+				nameElemV.attr('class','col-md-6');
+				detailElemV.attr('class','col-md-6');
+				nameElemV.html(data.mission_name);
+				detailElemV.html(data.mission_details);
+				$('.missionDetails').append(nameElemV).append(detailElemV);
+
 				$('.continueMission').removeClass('disabled');
 			});
 
