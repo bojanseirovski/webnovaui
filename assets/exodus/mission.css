@@ -10,3 +10,25 @@
     padding-bottom: 20px;
     font-size: 14pt;
 }
+
+#sel_mission_type option{
+    color:#000000;
+}
+
+.mission_type{
+    padding-left: 15px;
+    padding-right: 15px;
+    padding-top: 15px;
+}
+
+#mission_name{
+    margin-bottom: 15px;
+}
+.row.missionDetails{
+    margin-top: 5px;
+    margin-bottom: 10px;
+    color: #fff;
+}
+.missionDetails .row{
+    margin-top: 20px;
+}
