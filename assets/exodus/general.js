@@ -34,8 +34,8 @@ try{
 	
 }
 
-var map;
-var map1;
+var mapCam;
+var mapSat;
 var defaultMapZoom = 3;
 var mapUrl = 'https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png';
 var satMarker;

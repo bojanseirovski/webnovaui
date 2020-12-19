@@ -135,7 +135,10 @@ canvas#earth_map_img {
     display: none;
 }
 
-@media (min-width: 350px) and (max-width: 1000px){
+div.modal{
+    z-index: 30000;
+}
+@media (min-width: 150px) and (max-width: 1000px){
     .col-lg-6{
         width: 100%!important;
         max-width: 100%;
@@ -152,5 +155,9 @@ canvas#earth_map_img {
         margin-top: 5px;
         margin-bottom: 4px;
         text-align: center;
+    }
+    .mobile_control_panel .col-4 .btn{
+        padding-left: 30px;
+        padding-right: 30px;
     }
 }
