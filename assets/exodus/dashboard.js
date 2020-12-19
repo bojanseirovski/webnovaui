@@ -49,6 +49,10 @@ var app = new Vue({
 				$('#startMissionButton').addClass('disabled');
 				$('#resetMissionButton').removeClass('disabled');
 				$('#saveMissionButton').removeClass('disabled');
+				$('#startMissionButtonM').addClass('disabled');
+				$('#resetMissionButtonM').removeClass('disabled');
+				$('#saveMissionButtonM').removeClass('disabled');
+
 				theApp.initSim();
 				theApp.interval = setInterval(function () {
 					theApp.simStep();
@@ -70,6 +74,9 @@ var app = new Vue({
 			$('#startMissionButton').addClass('disabled');
 			$('#resetMissionButton').removeClass('disabled');
 			$('#saveMissionButton').removeClass('disabled');
+			$('#startMissionButtonM').addClass('disabled');
+			$('#resetMissionButtonM').removeClass('disabled');
+			$('#saveMissionButtonM').removeClass('disabled');
 			theApp.interval = setInterval(function () {
 				if(!theApp.stopQuery){
 					theApp.simStep();
