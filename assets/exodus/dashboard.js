@@ -63,8 +63,8 @@ var app = new Vue({
 		if(theApp._route.query && theApp._route.query.mission_id && theApp._route.query.mission_id.length>0){
 			theApp.missionId = theApp._route.query.mission_id;
 		}
-		theApp.setupLeafletMap(0,0);
-		theApp.setupLeafletTopMap(0,0);
+		theApp.setupCamMap(0,0);
+		theApp.setupSatMap(0,0);
 	},
 	methods: {
 		startMission(){
@@ -82,6 +82,8 @@ var app = new Vue({
 					theApp.simStep();
 				}
 			}.bind(this), loopBreak);
+			$('#startMissionButton').blur();
+			$('#startMissionButtonM').blur();
 		},
 		resetMission(){
 			$('#reset_mission_link_modal').modal('show');
@@ -120,8 +122,8 @@ var app = new Vue({
 
 			theApp.loadApiPost(theApp.api.sim_step, formData, function (data) { 
 				theApp.satLocation = data.mission_instance.satellite.location;
-				theApp.setupLeafletTopMapView(theApp.satLocation.lat,theApp.satLocation.lng);
-				theApp.setupLeafletMapView(theApp.satLocation.lat,theApp.satLocation.lng);
+				theApp.setupSatMapView(theApp.satLocation.lat,theApp.satLocation.lng);
+				theApp.setupCamMapView(theApp.satLocation.lat,theApp.satLocation.lng);
 				theApp.getTelemetry(data.mission_instance.satellite.formatted_telemetry);
 				theApp.getLog(data.mission_instance.environment.log_buffer);
 				theApp.reqData.mission_instance = data.mission_instance;
@@ -198,11 +200,18 @@ var app = new Vue({
 			$('#startMissionButton').removeClass('disabled');
 			$('#resetMissionButton').addClass('disabled');
 			$('#saveMissionButton').addClass('disabled');
+			$('#startMissionButtonM').removeClass('disabled');
+			$('#resetMissionButtonM').addClass('disabled');
+			$('#saveMissionButtonM').addClass('disabled');
 			$("#power_sect").html('');
 			$("#thermal_sect").html('');
 			$("#obdh_sect").html('');
 			$("#adcs_sect").html('');
 			$("#row_logs").html('');
+			theApp.setupCamMap(0,0);
+			theApp.setupSatMap(0,0);
+			$('#resetMissionButton').blur();
+			$('#resetMissionButtonM').blur();
 		},
 		loadApiGet(endpoint, callback, refreshData) {
 			var theApp = this;
@@ -240,24 +249,32 @@ var app = new Vue({
 				console.log(error);
 			});
 		},
-		setupLeafletMap: function (lat, lng) {
+		setupCamMap: function (lat, lng) {
+			if (mapCam) {
+				mapCam.off();
+				mapCam.remove();
+			}
 			$('#camera_sect').css({height:"350%"});
-			map = L.map('camera_sect').setView([lat,lng], defaultMapZoom);
-			L.tileLayer(mapUrl,{maxZoom: 18}).addTo(map);
+			mapCam = L.map('camera_sect').setView([lat,lng], defaultMapZoom);
+			L.tileLayer(mapUrl,{maxZoom: 18}).addTo(mapCam);
 		},
-		setupLeafletMapView(lat, lng){
+		setupCamMapView(lat, lng){
 			if(lat!=null && lng!=null){
 				var topC = [lat+0.005, lng-0.005];
 				var bottomC = [lat-0.005, lng+0.005];
-				map.fitBounds([topC,bottomC]);
+				mapCam.fitBounds([topC,bottomC]);
 			}
 		},
-		setupLeafletTopMap: function (lat, lng) {
+		setupSatMap: function (lat, lng) {
+			if (mapSat) {
+				mapSat.off();
+				mapSat.remove();
+			}
 			$('#earth_map_img').css({height:"80%"});
-			map1 = L.map('earth_map_img',{ zoomControl: false }).setView([lat,lng], 1);
-			L.tileLayer(mapUrl,{maxZoom: 2}).addTo(map1);
+			mapSat = L.map('earth_map_img',{ zoomControl: false }).setView([lat,lng], 1);
+			L.tileLayer(mapUrl,{maxZoom: 2}).addTo(mapSat);
 		},
-		setupLeafletTopMapView(lat, lng){
+		setupSatMapView(lat, lng){
 			if(lat!=null && lng!=null){
 				$('#earth_map_img .leaflet-pane.leaflet-marker-pane img').remove();
 				if (lat>81) {
@@ -266,9 +283,9 @@ var app = new Vue({
 				if (lat<-81) {
 					lat = lat +10;
 				}
-				satMarker = L.marker([lat, lng], {icon: sateliteIcon}).addTo(map1);
-				map1.fitBounds([[lat+20, lng+20],[lat-20, lng-20]]);
-				map1.invalidateSize();
+				satMarker = L.marker([lat, lng], {icon: sateliteIcon}).addTo(mapSat);
+				mapSat.fitBounds([[lat+20, lng+20],[lat-20, lng-20]]);
+				mapSat.invalidateSize();
 			}
 		}
 	},
@@ -311,6 +328,8 @@ var MOdalApp = new Vue({
 			app.loadApiPost(app.api.sim_save, formData, function(data){
 				app.resetUiComponents(app);
 				$('#send_hash_link_modal').modal('hide');
+				$('#saveMissionButton').blur();
+				$('#saveMissionButtonM').blur();
 			}, true);
 		}
 
@@ -337,8 +356,11 @@ var MOdalAppReset = new Vue({
 window.addEventListener('beforeunload', function (e) {
     e.preventDefault();
 	e.returnValue = '';
-	if(confirm("You are about to close this window. Are you sure?")){
-		return true;
+	if(app.stopQuery){
+		if(confirm("You are about to close this window. Are you sure?")){
+			return true;
+		}
 	}
+
 	return false;
 });
