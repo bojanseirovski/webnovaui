@@ -1,4 +1,3 @@
-
 .card .card-body {
     height: 380px!important;
 }
@@ -6,13 +5,13 @@
 canvas#earth_map_img {
     position: absolute;
     background-repeat: no-repeat;
-    background-image:url('/assets/img/world.png'); 
-    background-size: contain;
+    background-image:url('/assets/img/world.jpg'); 
+    background-size: cover;
 
     left: 0;
     right: 0;
-    top: 75px;
-    width: 537px!important;
+    top: 95px;
+    width: 427px!important;
     height: auto!important;
     margin-left: auto;
     margin-right: auto;
@@ -159,5 +158,9 @@ div.modal{
     .mobile_control_panel .col-4 .btn{
         padding-left: 30px;
         padding-right: 30px;
+    }
+    #earth_map_top_bar span, 
+    #earth_map_bottom_bar span{
+        font-size: smaller;
     }
 }

@@ -64,7 +64,7 @@ var app = new Vue({
 			theApp.missionId = theApp._route.query.mission_id;
 		}
 		theApp.setupCamMap(0,0);
-		theApp.setupSatMap(0,0);
+		// theApp.setupSatMap(0,0);
 	},
 	methods: {
 		startMission(){
@@ -122,7 +122,8 @@ var app = new Vue({
 
 			theApp.loadApiPost(theApp.api.sim_step, formData, function (data) { 
 				theApp.satLocation = data.mission_instance.satellite.location;
-				theApp.setupSatMapView(theApp.satLocation.lat,theApp.satLocation.lng);
+				// theApp.setupSatMapView(theApp.satLocation.lat,theApp.satLocation.lng);
+				theApp.showLocation(theApp.satLocation.lat,theApp.satLocation.lng);
 				theApp.setupCamMapView(theApp.satLocation.lat,theApp.satLocation.lng);
 				theApp.getTelemetry(data.mission_instance.satellite.formatted_telemetry);
 				theApp.getLog(data.mission_instance.environment.log_buffer);
@@ -209,7 +210,7 @@ var app = new Vue({
 			$("#adcs_sect").html('');
 			$("#row_logs").html('');
 			theApp.setupCamMap(0,0);
-			theApp.setupSatMap(0,0);
+			// theApp.setupSatMap(0,0);
 			$('#resetMissionButton').blur();
 			$('#resetMissionButtonM').blur();
 		},
@@ -287,6 +288,39 @@ var app = new Vue({
 				mapSat.fitBounds([[lat+20, lng+20],[lat-20, lng-20]]);
 				mapSat.invalidateSize();
 			}
+		},
+		showLocation(lat, lng) {
+			var theApp = this;
+			var ctx = document.getElementById("earth_map_img").getContext("2d");
+
+			var signX = (lng>1) ? 1: -1;
+			var signY = (lat>1) ? 1: -1;
+			
+			var x = Math.round(mapXhalf + signX * lng * mapConversionConst);
+			var y = Math.round(mapYhalf + signY * lat * mapConversionConst);
+
+			theApp.path.push({ x, y });
+
+			theApp.drawSatellite(ctx, x, y);
+			theApp.drawTrajectory(ctx);
+		},
+		drawSatellite(ctx, x, y) {
+			ctx.clearRect(0, 0, mapWidth, mapHeight);
+			img = new Image(); 
+			img.src = "/assets/img/satellite-icon.png";
+			ctx.drawImage(img, x, y, 20, 20);
+			img.onload =function() {				
+			};
+		},
+		drawTrajectory(ctx) {
+			ctx.lineWidth = 4;
+			ctx.strokeStyle = "#ffffff";
+			ctx.beginPath();
+			this.path.forEach(function (coord) {
+				ctx.moveTo(coord.x, coord.y);
+				ctx.lineTo(coord.x + 1, coord.y + 1);
+			});
+			ctx.stroke();
 		}
 	},
 	beforeDestroy: function () {
