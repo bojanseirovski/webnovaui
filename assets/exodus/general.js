@@ -1,14 +1,18 @@
 /**
  * Map width/360 or Map height/180
- * 298/360 , 150/360
+ * 427/360 , 213.5/360
  */
-var mapConversionConstX = 0.8277;
-var mapConversionConstY = 0.8333;
+// var mapConversionConstX = 0.8277;
+// var mapConversionConstY = 0.8333;
+var mapConversionConstX = 1.186111111;
+var mapConversionConstY = 0.593055556;
 /**
  * Map size
  */
-var mapWidth = 298;
-var mapHeight = 150;
+var mapWidth = 427;
+var mapHeight = 213.5;
+var mapXhalf = mapWidth/2;
+var mapYhalf = mapHeight/2;
 /**
  * Pause between AJAX calls
  */
