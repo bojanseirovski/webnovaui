@@ -1,18 +1,16 @@
 /**
  * Map width/360 or Map height/180
- * 427/360 , 213.5/360
+ * 427/360 , 213.5/180
  */
-// var mapConversionConstX = 0.8277;
-// var mapConversionConstY = 0.8333;
+
 var mapConversionConstX = 1.186111111;
-var mapConversionConstY = 0.593055556;
+var mapConversionConstY = 1.186111111;
 /**
  * Map size
  */
 var mapWidth = 427;
 var mapHeight = 213.5;
-var mapXhalf = mapWidth/2;
-var mapYhalf = mapHeight/2;
+
 /**
  * Pause between AJAX calls
  */
@@ -35,8 +33,13 @@ try{
 		routes: []
 	});
 } catch(e){
-	
+
 }
+
+//need to initialize canvas dimensions, otherwise it will default to 300x150
+var ctx = document.getElementById("earth_map_img").getContext("2d");
+ctx.canvas.width  = mapWidth;
+ctx.canvas.height = mapHeight;
 
 var mapCam;
 var mapSat;

@@ -120,7 +120,7 @@ var app = new Vue({
 			var formData = new FormData();
 			formData.append('mission_instance', JSON.stringify(theApp.reqData.mission_instance));
 
-			theApp.loadApiPost(theApp.api.sim_step, formData, function (data) { 
+			theApp.loadApiPost(theApp.api.sim_step, formData, function (data) {
 				theApp.satLocation = data.mission_instance.satellite.location;
 				// theApp.setupSatMapView(theApp.satLocation.lat,theApp.satLocation.lng);
 				theApp.showLocation(theApp.satLocation.lat,theApp.satLocation.lng);
@@ -291,30 +291,30 @@ var app = new Vue({
 		},
 		showLocation(lat, lng) {
 			var theApp = this;
-
-			var x = Math.round(mapXhalf + lng * mapConversionConstX);
-			var y = Math.round(mapYhalf + lat * mapConversionConstY);
-
-			theApp.path.push({ x, y });
-
-			theApp.drawSatellite(x, y);
+			// shift lat from 90..-90 to 0..180
+			lat = 90 - lat;
+			// shift lon from -180..180 to 0..360
+			lng = lng + 180;
+			// multiply by scale factor
+			var	x = lng * mapConversionConstX;
+			var y = lat * mapConversionConstY;
+			theApp.drawSatellite(x, y); // or theApp.drawPath(x, y);
+		},
+		drawPath(x, y)
+		{
+			var ctx = document.getElementById("earth_map_img").getContext("2d");
+			ctx.beginPath();
+			ctx.strokeStyle = "#FFFF00";
+			ctx.arc(x, y, 1, 0, 2 * Math.PI);
+			ctx.stroke();
 		},
 		drawSatellite(x, y) {
 			var ctx = document.getElementById("earth_map_img").getContext("2d");
 			ctx.clearRect(0, 0, mapWidth, mapHeight);
 
-			var xMargin = 10;
-			var yMargin = 10;
-			if(x<10 || x>mapWidth-15){
-				xMargin = 0;
-			}
-			if(y<10 || y>mapHeight-15){
-				yMargin = 0;
-			}
-
 			var img = new Image();
 			img.onload = function () {
-				ctx.drawImage(this, x-xMargin, y-yMargin, 20, 20);
+				ctx.drawImage(this, x-10, y-10, 20, 20);
 			};
 			img.src = "/assets/img/satellite-icon.png";
 		},
