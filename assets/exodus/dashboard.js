@@ -41,6 +41,7 @@ var app = new Vue({
 	},
 	mounted: function () {
 		var theApp = this;
+
 		theApp.datalocation.cameraBox = initCameraBox;
 		// hash mission ID
 		if(theApp._route.query && theApp._route.query.mid && theApp._route.query.mid.length>5){
@@ -59,12 +60,31 @@ var app = new Vue({
 				}.bind(theApp), loopBreak);
 			}
 		}
+				
+		theApp.getCookies();
+		if(
+			theApp.reqData.mission_instance.scenario && 
+			theApp.reqData.mission_instance.environment && 
+			theApp.reqData.mission_instance.satellite
+			){
+			if(!theApp.stopQuery){
+				$('#startMissionButton').addClass('disabled');
+				$('#resetMissionButton').removeClass('disabled');
+				$('#saveMissionButton').removeClass('disabled');
+				$('#startMissionButtonM').addClass('disabled');
+				$('#resetMissionButtonM').removeClass('disabled');
+				$('#saveMissionButtonM').removeClass('disabled');
+
+				theApp.interval = setInterval(function () {
+					theApp.simStep();
+				}.bind(theApp), loopBreak);
+			}
+		}
 		// mission ID from first screen
 		if(theApp._route.query && theApp._route.query.mission_id && theApp._route.query.mission_id.length>0){
 			theApp.missionId = theApp._route.query.mission_id;
 		}
 		theApp.setupCamMap(0,0);
-		// theApp.setupSatMap(0,0);
 	},
 	methods: {
 		startMission(){
@@ -122,12 +142,14 @@ var app = new Vue({
 
 			theApp.loadApiPost(theApp.api.sim_step, formData, function (data) {
 				theApp.satLocation = data.mission_instance.satellite.location;
-				// theApp.setupSatMapView(theApp.satLocation.lat,theApp.satLocation.lng);
 				theApp.showLocation(theApp.satLocation.lat,theApp.satLocation.lng);
 				theApp.setupCamMapView(theApp.satLocation.lat,theApp.satLocation.lng);
 				theApp.getTelemetry(data.mission_instance.satellite.formatted_telemetry);
 				theApp.getLog(data.mission_instance.environment.log_buffer);
 				theApp.reqData.mission_instance = data.mission_instance;
+				if(data.mission_instance){
+					theApp.setCookies(theApp.reqData.mission_instance);
+				}
 			}, true);
 		},
 		getTelemetry(data) {
@@ -266,29 +288,6 @@ var app = new Vue({
 				mapCam.fitBounds([topC,bottomC]);
 			}
 		},
-		setupSatMap: function (lat, lng) {
-			if (mapSat) {
-				mapSat.off();
-				mapSat.remove();
-			}
-			$('#earth_map_img').css({height:"80%"});
-			mapSat = L.map('earth_map_img',{ zoomControl: false }).setView([lat,lng], 1);
-			L.tileLayer(mapUrl,{maxZoom: 2}).addTo(mapSat);
-		},
-		setupSatMapView(lat, lng){
-			if(lat!=null && lng!=null){
-				$('#earth_map_img .leaflet-pane.leaflet-marker-pane img').remove();
-				if (lat>81) {
-					lat = lat -10;
-				}
-				if (lat<-81) {
-					lat = lat +10;
-				}
-				satMarker = L.marker([lat, lng], {icon: sateliteIcon}).addTo(mapSat);
-				mapSat.fitBounds([[lat+20, lng+20],[lat-20, lng-20]]);
-				mapSat.invalidateSize();
-			}
-		},
 		showLocation(lat, lng) {
 			var theApp = this;
 			// shift lat from 90..-90 to 0..180
@@ -318,15 +317,15 @@ var app = new Vue({
 			};
 			img.src = "/assets/img/satellite-icon.png";
 		},
-		drawTrajectory(ctx) {
-			ctx.lineWidth = 2;
-			ctx.strokeStyle = "#fff";
-			ctx.beginPath();
-			this.path.forEach(function (coord) {
-				ctx.moveTo(coord.x, coord.y);
-				ctx.lineTo(coord.x + 1, coord.y + 1);
-			});
-			ctx.stroke();
+		setCookies(mission_instance){
+			setCookieValue(currentMissionCookie, JSON.stringify(mission_instance.scenario));
+			setCookieValue(currentEnvCookie, JSON.stringify(mission_instance.environment));
+			setCookieValue(currentSatCookie, JSON.stringify(mission_instance.satellite));
+		},
+		getCookies(){
+			this.reqData.mission_instance.scenario = JSON.parse(getCookieValue(currentMissionCookie));
+			this.reqData.mission_instance.environment = JSON.parse(getCookieValue(currentEnvCookie));
+			this.reqData.mission_instance.satellite = JSON.parse(getCookieValue(currentSatCookie));
 		}
 	},
 	beforeDestroy: function () {
@@ -370,6 +369,9 @@ var MOdalApp = new Vue({
 				$('#send_hash_link_modal').modal('hide');
 				$('#saveMissionButton').blur();
 				$('#saveMissionButtonM').blur();
+				setCookieValue(currentMissionCookie, null);
+				setCookieValue(currentEnvCookie, null);
+				setCookieValue(currentSatCookie, null);
 			}, true);
 		}
 
@@ -386,6 +388,9 @@ var MOdalAppReset = new Vue({
 
 			app.loadApiPost(app.api.sim_reset, formData, function(data){
 				app.resetUiComponents(app);
+				setCookieValue(currentMissionCookie, null);
+				setCookieValue(currentEnvCookie, null);
+				setCookieValue(currentSatCookie, null);
 				$('#reset_mission_link_modal').modal('hide');
 			}, true);
 		}
