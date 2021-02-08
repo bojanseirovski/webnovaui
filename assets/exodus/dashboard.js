@@ -323,9 +323,14 @@ var app = new Vue({
 			setCookieValue(currentSatCookie, JSON.stringify(mission_instance.satellite));
 		},
 		getCookies(){
-			this.reqData.mission_instance.scenario = JSON.parse(getCookieValue(currentMissionCookie));
-			this.reqData.mission_instance.environment = JSON.parse(getCookieValue(currentEnvCookie));
-			this.reqData.mission_instance.satellite = JSON.parse(getCookieValue(currentSatCookie));
+			var cmc = getCookieValue(currentMissionCookie);
+			var cec = getCookieValue(currentEnvCookie);
+			var satc = getCookieValue(currentSatCookie);
+			if (cmc && cec && satc){
+				this.reqData.mission_instance.scenario = JSON.parse(getCookieValue(currentMissionCookie));
+				this.reqData.mission_instance.environment = JSON.parse(getCookieValue(currentEnvCookie));
+				this.reqData.mission_instance.satellite = JSON.parse(getCookieValue(currentSatCookie));
+			}
 		}
 	},
 	beforeDestroy: function () {
