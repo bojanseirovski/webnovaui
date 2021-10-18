@@ -1,4 +1,3 @@
-
 .card .card-body {
     height: 380px!important;
 }
@@ -6,22 +5,28 @@
 canvas#earth_map_img {
     position: absolute;
     background-repeat: no-repeat;
-    background-image:url('/assets/img/world.png'); 
-    background-size: contain;
+    background-image:url('/assets/img/world.jpg'); 
+    background-size: cover;
 
     left: 0;
-    top: 75px;
-    width: 537px!important;
+    right: 0;
+    top: 95px;
+    width: 427px!important;
     height: auto!important;
+    margin-left: auto;
+    margin-right: auto;
 }
 
 
 #earth_map_top_bar{
     position: absolute;
-    top: 50px;
-    left: 5px;
     width: 100%;
     z-index: 10000;
+    top: 50px;
+    left: 0;
+    right:0;
+    padding-left: 5%;
+    padding-right: auto;
 }
 #earth_map_top_bar span{
     width: 30%!important;
@@ -37,28 +42,27 @@ canvas#earth_map_img {
 #earth_map_bottom_bar{
     position: absolute;
     bottom: 0;
-    left: 5px;
     width: 100%;
     margin-bottom: 42px;
+    left: 0;
+    right:0;
+    padding-left: 10%;
+    padding-right: auto;
 }
 
 #earth_map_bottom_bar span{
     width: 20%!important;
     margin-right: 5px;
     margin-left: 5px;
-    font-size: 12pt;
+    font-size: 9pt;
     color: #ffffff;
 }
 #earth_map_bottom_bar span:hover{
     color: #ffc107;
 }
 
-.card{
-    width: 480px!important;
-}
-
 #power_sect, #thermal_sect, #obdh_sect, #adcs_sect{
-    font-size: 10pt;
+    font-size: 9pt;
     color: #ffc107;
 }
 
@@ -73,16 +77,17 @@ canvas#earth_map_img {
     color: #ffffff;
 }
 
-#camera_sect, #sdr_sect{
-    background-image: url(/assets/img/BANNER.png) ;
+#camera_sect{
+    margin-left: 2px;
+    margin-right: 2px;
+}
+#sdr_sect{
     background-repeat-x: no-repeat;
     background-repeat-y: no-repeat;
     background-size: 300px auto;
     width: 200px;
     height: 140px;
     margin-left: 3px;
-}
-#sdr_sect{
     background-image: url(/assets/img/sdr.jpg) ;
 }
 
@@ -109,10 +114,53 @@ canvas#earth_map_img {
     margin-top: 5px;
 }
 
-.card-body h3:hover{
-    -webkit-transform: scale(1.2); 
-    -webkit-transition: all 0.3s ease;
-    -moz-transition: all 0.3s ease;
-    -o-transition: all 0.3s ease;
-    -ms-transition: all 0.3s ease;
+#recipient-name, #recipient-email, .black-text{
+    color: #000000!important;
+}
+
+.download-img-button{
+    position: relative;
+    margin-top: 230px!important;
+    margin-bottom: 0!important;
+}
+.take-photo{
+    font-size: 16pt;
+}
+.take-photo i{
+    font-size: 20pt!important;
+    padding-bottom: 5px;
+}
+.mobile_control_panel{
+    display: none;
+}
+
+div.modal{
+    z-index: 30000;
+}
+@media (min-width: 150px) and (max-width: 1000px){
+    .col-lg-6{
+        width: 100%!important;
+        max-width: 100%;
+        flex:0 0 100%;
+    }
+    canvas#earth_map_img{
+        margin-left: auto;
+    }
+    .mobile_control_panel{
+        display: inline;
+    }
+    .mobile_control_panel .col-4{
+        display: inline-block;
+        margin-top: 5px;
+        margin-bottom: 4px;
+        text-align: center;
+    }
+    .mobile_control_panel .col-4 .btn{
+        padding-left: 30px;
+        padding-right: 30px;
+    }
+    #earth_map_top_bar span, 
+    #earth_map_bottom_bar span{
+        font-size: smaller;
+    }
 }

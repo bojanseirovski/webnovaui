@@ -18,6 +18,7 @@
     <link href="assets/css/black-dashboard.css?v=1.0.0" rel="stylesheet" />
     <link href="assets/exodus/exodus.css" rel="stylesheet" />
     <link href="assets/exodus/dashboard.css" rel="stylesheet" />
+    <link href="node_modules/leaflet/dist/leaflet.css" rel="stylesheet" />
 </head>
 
 <body class="">
@@ -25,42 +26,47 @@
         <div class="sidebar">
             <div class="sidebar-wrapper">
                 <div class="logo">
-                    <a href="javascript:void(0)" class="simple-text logo-mini">
+                    <a href="index.html" class="simple-text logo-mini">
                         EO
                     </a>
-                    <a href="javascript:void(0)" class="simple-text logo-normal">
+                    <a href="index.html" class="simple-text logo-normal">
                         Exodus Orbitals
                     </a>
                 </div>
-                <ul class="nav">
-                    <li class="active ">
-                        <a href="dashboard.html">
-                            <i class="tim-icons icon-chart-pie-36"></i>
+                <ul class="nav" id="sideapp">
+                    <li>
+                        <a href="./dashboard.html">
+                            <i class="tim-icons icon-chart-bar-32"></i>
                             <p>Mission Dashboard</p>
                         </a>
+                        <ul class="nav">
+                            <li>
+                                <button class="btn btn-block btn-full btn-primary" id="startMissionButton" v-on:click="startMissionButton">
+                                    <i class="tim-icons icon-minimal-right"></i>Start Mission
+                                </button>
+                            </li>
+                            <li>
+                                <button class="btn btn-block btn-primary disabled" id="saveMissionButton" v-on:click="saveMissionButton">
+                                    <i class="tim-icons icon-check-2"></i>Save Mission
+                                </button>
+                            </li>
+                            <li>
+                                <button class="btn btn-block btn-primary disabled" id="resetMissionButton" v-on:click="resetMissionButton">
+                                    <i class="tim-icons icon-refresh-02"></i>Reset Mission
+                                </button>
+                            </li>
+                        </ul>
                     </li>
                     <li>
-                        <a href="missionsum.html">
-                            <i class="tim-icons icon-single-copy-04"></i>
-                            <p>Mission Summary</p>
-                        </a>
-                    </li>
-                    <li>
-                        <a href="mission.html">
+                        <a href="./mission.html">
                             <i class="tim-icons icon-planet"></i>
-                            <p>Mission Settings</p>
+                            <p>New Mission</p>
                         </a>
                     </li>
                     <li>
-                        <a href="board.html">
-                            <i class="tim-icons icon-paper"></i>
-                            <p>Leader Board</p>
-                        </a>
-                    </li>
-                    <li>
-                        <a href="notifications.html">
-                            <i class="tim-icons icon-bell-55"></i>
-                            <p>Notifications</p>
+                        <a href="./missionsum.html">
+                            <i class="tim-icons icon-chart-pie-36"></i>
+                            <p>Mission Summary</p>
                         </a>
                     </li>
                 </ul>
@@ -80,55 +86,35 @@
                         </div>
                         <a class="navbar-brand" href="javascript:void(0)">Mission Dashboard</a>
                     </div>
-                    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navigation"
-                        aria-expanded="false" aria-label="Toggle navigation">
-                        <span class="navbar-toggler-bar navbar-kebab"></span>
-                        <span class="navbar-toggler-bar navbar-kebab"></span>
-                        <span class="navbar-toggler-bar navbar-kebab"></span>
-                    </button>
-                    <div class="collapse navbar-collapse" id="navigation">
-                        <ul class="navbar-nav ml-auto">
-                            <li class="dropdown nav-item">
-                                <a href="notifications.html" class="dropdown-toggle nav-link">
-                                    <i class="tim-icons icon-sound-wave"></i>
-                                    <p class="d-lg-none">
-                                        Notifications
-                                    </p>
-                                </a>
-                            </li>
-                            <li class="dropdown nav-item">
-                                <a href="#" class="dropdown-toggle nav-link" data-toggle="dropdown">
-                                    <div class="photo">
-                                        <img src="assets/img/anime3.png" alt="Profile Photo">
-                                    </div>
-                                    <b class="caret d-none d-lg-block d-xl-block"></b>
-                                    <p class="d-lg-none">
-                                        Log out
-                                    </p>
-                                </a>
-                                <ul class="dropdown-menu dropdown-navbar">
-                                    <li class="nav-link"><a href="profile.html"
-                                            class="nav-item dropdown-item">Profile</a></li>
-                                    <li class="dropdown-divider"></li>
-                                    <li class="nav-link"><a href="login.html" class="nav-item dropdown-item">Log out</a>
-                                    </li>
-                                </ul>
-                            </li>
-                            <li class="separator d-lg-none"></li>
-                        </ul>
-                    </div>
                 </div>
             </nav>
             <!-- End Navbar -->
             <div class="content" id="dash_app">
+                <div class="row mobile_control_panel">
+                    <div class="col-4">
+                        <button class="btn btn-primary" id="startMissionButtonM" v-on:click="startMission">
+                            <i class="tim-icons icon-minimal-right"></i>&nbsp;&nbsp;Start
+                        </button>
+                    </div>
+                    <div class="col-4">
+                        <button class="btn btn-primary disabled" id="saveMissionButtonM" v-on:click="saveMission">
+                            <i class="tim-icons icon-check-2"></i>&nbsp;&nbsp;Save
+                        </button>
+                    </div>
+                    <div class="col-4">
+                        <button class="btn btn-primary disabled" id="resetMissionButtonM" v-on:click="resetMission">
+                            <i class="tim-icons icon-refresh-02"></i>&nbsp;&nbsp;Reset
+                        </button>
+                    </div>
+                </div>
                 <div class="row">
-                    <div class="col-6">
+                    <div class="col-lg-6">
                         <div class="card card-chart">
                             <div class="card-header ">
                                 <div class="row">
                                     <div class="col-sm-12 text-left">
                                         <h5 class="card-category"></h5>
-                                        <h2 class="card-title">Visualization</h2>
+                                        <h2 class="card-title">Trajectory</h2>
                                     </div>
                                 </div>
                             </div>
@@ -140,7 +126,8 @@
                                     <span id="alt">ALT: {{ datalocation.alt }}</span>
                                     <span id="time">TIME: {{ datalocation.time }}</span>
                                 </div>
-                                <canvas id="earth_map_img" ref="earth_map_img"></canvas>
+                                <!-- <div id="earth_map_img"></div> -->
+                                <canvas id="earth_map_img"></canvas>
                                 <div id="earth_map_bottom_bar">
                                     <span id="a_bar">a: {{ datalocation.a }}</span>
                                     <span id="e_bar">e: {{ datalocation.e }}</span>
@@ -199,29 +186,21 @@
                             </div>
                             <div class="card-body text-left" id="actions_box">
                                 <div class="row">
-                                    <div class="col-6">
+                                    <div class="col-12">
                                         <h3>Camera</h3>
                                         <div class="row" id="camera_sect">
+
                                         </div>
+                                        
                                     </div>
-                                    <div class="col-6">
-                                        <h3>SDR</h3>
-                                        <div class="row" id="sdr_sect">
-                                        </div>
+                                    <div class="col-12 download-img-button">
+                                        <button class="btn btn-info btn-block take-photo"><i class="tim-icons icon-camera-18"></i> Photo</button>
                                     </div>
                                 </div>
                                 <div class="row">
-                                    <div class="col-12">
-                                        <h3>Task manager</h3>
-                                        <div class="row" id="taskman_sect">
-                                        </div>
-                                    </div>
-                                    <div class="col-6">
-                                        <h3>ADCS</h3>
-                                        <div class="row" id="adcsact_sect">
-                                        </div>
-                                    </div>
+                                    
                                 </div>
+                                
                             </div>
                         </div>
 
@@ -237,14 +216,11 @@
                                     <div class="col-4">
                                         Timestamp
                                     </div>
-                                    <div class="col-4">
-                                        Severity
-                                    </div>
-                                    <div class="col-4">
+                                    <div class="col-8">
                                         Description
                                     </div>
                                 </div>
-                                <div class="row row_log" id="row_logs">
+                                <div class="row_log" id="row_logs">
 
                                 </div>
                             </div>
@@ -271,6 +247,11 @@
                                 Blog
                             </a>
                         </li>
+                        <li class="nav-item">
+                            <a href="./terms.html" class="nav-link">
+                                Terms and Conditions
+                            </a>
+                        </li>
                     </ul>
                     <div class="copyright">
                         &copy; <span id="footer-year"></span>
@@ -280,20 +261,70 @@
             </footer>
         </div>
     </div>
+    <div class="modal fade" id="send_hash_link_modal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal-dialog" role="document">
+          <div class="modal-content">
+            <div class="modal-header">
+              <h5 class="modal-title" id="exampleModalLabel">We need your email</h5>
+              <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+              </button>
+            </div>
+            <div class="modal-body">
+              <form>
+                <div class="form-group">
+                  <label for="recipient-name" class="col-form-label">Name:</label>
+                  <input type="text" class="form-control" id="recipient-name">
+                </div>
+                <div class="form-group">
+                  <label for="recipient-email" class="col-form-label">Email:</label>
+                  <input type="text" class="form-control" id="recipient-email">
+                </div>
+              </form>
+            </div>
+            <div class="modal-footer">
+              <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+              <button type="button" id="send_hash_link_btn" class="btn btn-primary" v-on:click="sendLink">Save Mission</button>
+            </div>
+          </div>
+        </div>
+    </div>
+    <div class="modal fade" id="reset_mission_link_modal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal-dialog" role="document">
+          <div class="modal-content">
+            <div class="modal-header">
+              <h5 class="modal-title" id="exampleModalLabel">Reset Mission?</h5>
+              <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+              </button>
+            </div>
+            <div class="modal-body">
+              <h2 class="black-text">Are you sure?</h2>
+            </div>
+            <div class="modal-footer">
+              <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+              <button type="button" id="send_hash_link_btn" class="btn btn-primary" v-on:click="resetLink">Reset Mission</button>
+            </div>
+          </div>
+        </div>
+    </div>
+    <img id="satelite_icon" ref="satelite_icon" alt="satelite icon" src="/assets/img/satellite-icon.png" style="display: none;">
     <!--   Core JS Files   -->
-    <script src="assets/js/core/jquery.min.js"></script>
-    <script src="assets/js/core/popper.min.js"></script>
-    <script src="assets/js/core/bootstrap.min.js"></script>
-    <script src="assets/js/plugins/perfect-scrollbar.jquery.min.js"></script>
+    <script type="text/javascript" src="assets/js/core/jquery.min.js"></script>
+    <script type="text/javascript" src="assets/js/core/popper.min.js"></script>
+    <script type="text/javascript" src="assets/js/core/bootstrap.min.js"></script>
+    <script type="text/javascript" src="assets/js/plugins/perfect-scrollbar.jquery.min.js"></script>
     <!-- Chart JS -->
-    <script src="assets/js/plugins/chartjs.min.js"></script>
-    <!--  Notifications Plugin    -->
-    <script src="assets/js/plugins/bootstrap-notify.js"></script>
-    <script src="assets/js/black-dashboard.min.js?v=1.0.0"></script>
+    <script type="text/javascript" src="assets/js/plugins/chartjs.min.js"></script>
+    <script type="text/javascript" src="assets/js/plugins/bootstrap-notify.js"></script>
+    <script type="text/javascript" src="assets/js/black-dashboard.min.js?v=1.0.0"></script>
     <script type="text/javascript" src="node_modules/vue/dist/vue.min.js"></script>
+    <script type="text/javascript" src="node_modules/vue-router/dist/vue-router.min.js"></script>
     <script type="text/javascript" src="node_modules/axios/dist/axios.min.js"></script>
-    <script src="assets/exodus/init.js"></script>
-    <script src="assets/exodus/dashboard.js"></script>
+    <script type="text/javascript" src="node_modules/leaflet/dist/leaflet.js"></script>
+    <script type="text/javascript" src="assets/exodus/general.js"></script>
+    <script type="text/javascript" src="assets/exodus/init.js"></script>
+    <script type="text/javascript" src="assets/exodus/dashboard.js"></script>
 </body>
 
 </html>

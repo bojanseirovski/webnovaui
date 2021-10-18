@@ -1,13 +1,12 @@
 <!DOCTYPE html>
 <html lang="en">
-
     <head>
         <meta charset="utf-8" />
-        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
         <link rel="apple-touch-icon" sizes="76x76" href="assets/img/apple-icon.png">
         <link rel="icon" type="image/png" href="assets/img/favicon.png">
         <title>
-            Mission
+            Ground Station
         </title>
         <!--     Fonts and icons     -->
         <link href="https://fonts.googleapis.com/css?family=Poppins:200,300,400,600,700,800" rel="stylesheet" />
@@ -17,7 +16,6 @@
         <!-- CSS Files -->
         <link href="assets/css/black-dashboard.css?v=1.0.0" rel="stylesheet" />
         <link href="assets/exodus/exodus.css" rel="stylesheet" />
-        <link href="assets/js/LinedTextDiv/linedTextEditor-jquery.css" rel="stylesheet"/>
     </head>
 
     <body class="">
@@ -66,46 +64,48 @@
                                     <span class="navbar-toggler-bar bar3"></span>
                                 </button>
                             </div>
-                            <a class="navbar-brand" href="javascript:void(0)">Mission Settings</a>
+                            <a class="navbar-brand" href="javascript:void(0)">Mission Summary</a>
                         </div>
                     </div>
                 </nav>
                 <!-- End Navbar -->
-                <div class="content" id="mission_app">
+                <div class="content">
                     <div class="row">
-                        <div class="col-md-12">
-                            <div class="card">
+                        <div class="col-lg-6 col-md-6">
+                            <div class="card card-tasks">
                                 <div class="card-header">
-                                    <h5 class="title">Mission</h5>
+                                    <h6 class="title d-inline"> Map View</h6>
                                 </div>
                                 <div class="card-body">
-                                    <h3>Please select a mission!</h3>
-                                    <div class="row">
-                                        <div class="col-md-12">
-                                            <select id="sel_mission_type" class="form-control">
-                                                <option value="0">Mission Type</option>
-                                            </select>
-                                            <div id="custom_mission" class="mission_type">
-                                                <div class="row">
-                                                    <div class="col-md-12">
-                                                        <h4>Mission details</h4>
-                                                        <div class="row missionDetails">
-                                                            <div class="col-md-12" id="mission_detail_text"></div>
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div class="row"></div>
-                                </div>
-                                <div class="card-footer">
-                                    <a class="btn btn-fill btn-primary continueMission" href="dashboard.html?mission_id={{ mid }}">Continue&nbsp;&nbsp;<i class="fa fa-arrow-right"></i></a>
+
                                 </div>
                             </div>
                         </div>
-                        <div class="col-md-4">
+                        <div class="col-lg-6 col-md-6">
+                            <div class="card card-tasks">
+                                <div class="card-header">
+                                    <h6 class="title d-inline"> Downlink</h6>
+                                </div>
+                                <div class="card-body">
 
+                                </div>
+                                <div class="card-tasks">
+                                    <div class="row">
+                                        <div class="col-md-6">Download List</div>
+                                        <div class="col-md-6">Download Item</div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-lg-12 col-md-12">
+                            <div class="card card-tasks">
+                                <div class="card-header">
+                                    <h6 class="title d-inline"> Uplink</h6>
+                                </div>
+                                <div class="card-body">
+
+                                </div>
+                            </div>
                         </div>
                     </div>
                 </div>
@@ -149,14 +149,10 @@
         <!-- Chart JS -->
         <script type="text/javascript" src="assets/js/plugins/chartjs.min.js"></script>
         <script type="text/javascript" src="assets/js/plugins/bootstrap-notify.js"></script>
-        <script type="text/javascript" src="assets/js/black-dashboard.min.js?v=1.0.0"></script>
         <script type="text/javascript" src="node_modules/vue/dist/vue.min.js"></script>
         <script type="text/javascript" src="node_modules/vue-router/dist/vue-router.min.js"></script>
-        <script type="text/javascript" src="node_modules/axios/dist/axios.min.js"></script>
+        <script type="text/javascript" src="assets/js/black-dashboard.min.js?v=1.0.0"></script>
         <script type="text/javascript" src="assets/exodus/general.js"></script>
         <script type="text/javascript" src="assets/exodus/init.js"></script>
-        <script type="text/javascript" src="assets/js/LinedTextDiv/linedTextEditor-jquery.js"></script>
-        <script type="text/javascript" src="assets/exodus/missionsettings.js"></script>
     </body>
-
 </html>
