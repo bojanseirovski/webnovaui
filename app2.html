@@ -37,9 +37,24 @@
                                 </div>
                             </div>
                             <!-- DASHBOARD -->
+                            <div class="row app_icons mb-3">
+                                <div class="col-lg-6 col-sm-6">
+                                    <select id="locations" class="form-control">
+                                        <option value="0">Select a location</option>
+                                        <option value="1">Toronto</option>
+                                        <option value="2">New York</option>
+                                        <option value="3">Paris</option>
+                                        <option value="4">Berlin</option>
+                                    </select>
+                                </div>
+                                <div class="col-lg-6 col-sm-6">
+                                    
+                                </div>
+                            </div>
                             <div class="row app_icons">
                                 <div class="col-lg-6 col-sm-6">
-                                    <img src="assets/img/world.jpg">
+                                    <!--<img id="worldMap" src="assets/img/world.jpg">-->
+                                    <canvas id="mapW"></canvas>
                                 </div>
                                 <div class="col-lg-6 col-sm-6">
                                     <canvas id="chartmulti"></canvas>
@@ -47,7 +62,7 @@
                             </div>
                             <!-- row -->
                             <div class="row mt-4 app_icons">
-                                <div class="col-6 text-center">
+                                <div class="col-6 text-center" id="satView">
                                     <img src="assets/img/Multispectral-Wetlands-Health.jpg">
                                 </div>
                                 <div class="col-3 text-center text-white h5">
@@ -134,6 +149,7 @@
         <script type="text/javascript" src="assets/js/black-dashboard.min.js?v=1.0.0"></script>
         <script type="text/javascript" src="assets/exodus/general.js"></script>
         <script type="text/javascript" src="assets/exodus/init.js"></script>
+        <script type="text/javascript" src="assets/exodus/chart_datasets.js"></script>
         <script type="text/javascript" src="assets/exodus/charts.js"></script>
     </body>
 </html>
