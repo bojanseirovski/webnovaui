@@ -101,3 +101,15 @@ function addMapPin(lat, lon) {
     };
     img.src = "assets/img/satellite-icon.png";
 }
+
+$(document).ready(function(){
+    let todays = new Date();
+    $('.form-control.date').val(todays.getMonth()+1+"/"+todays.getDay()+"/"+todays.getFullYear());
+    $('.form-control.date').datepicker({
+        todayBtn: "linked",
+        autoclose: true
+    });
+    $("button.schedule").click(function(){
+        $('#sched_imaging_modal').modal('show');
+    });
+});
