@@ -76,16 +76,22 @@ function switchChart(locId) {
             lon = -79.3832;
             break;
     }
-    $("#satView img").attr("src", "assets/img/"+srcImg);
-    chartMulti = new Chart(ctx5, {
-        type: 'line',
-        data: {
-            labels: chartLables,
-            datasets: freshDataset
-        },
-        options: chartMultiOptions
-    });
-    addMapPin(lat, lon);
+    if (locId>0) {
+        $(".app_icons.stats").show();
+        $("#satView img").show();
+        $('.form-control.date').show();
+        $("#satView img").attr("src", "assets/img/"+srcImg);
+        chartMulti = new Chart(ctx5, {
+            type: 'line',
+            data: {
+                labels: chartLables,
+                datasets: freshDataset
+            },
+            options: chartMultiOptions
+        });
+        addMapPin(lat, lon);
+        
+    }
 }
 
 function addMapPin(lat, lon) {
@@ -103,6 +109,9 @@ function addMapPin(lat, lon) {
 }
 
 $(document).ready(function(){
+    $("#satView img").hide();
+    $(".app_icons.stats").hide();
+    $('.form-control.date').hide();
     let todays = new Date();
     $('.form-control.date').val(todays.getMonth()+1+"/"+todays.getDay()+"/"+todays.getFullYear());
     $('.form-control.date').datepicker({
@@ -110,6 +119,6 @@ $(document).ready(function(){
         autoclose: true
     });
     $("button.schedule").click(function(){
-        $('#sched_imaging_modal').modal('show');
+        window.location = $("#satView img").attr("src");
     });
 });
