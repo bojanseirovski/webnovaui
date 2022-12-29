@@ -1,114 +1,300 @@
 <!DOCTYPE html>
 <html lang="en">
-    <head>
-      <meta charset="utf-8" />
-      <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-      <title>WebNOVA Mission Dashboard</title>
-      <!--     Fonts and icons     -->
-      <link href="https://fonts.googleapis.com/css?family=Poppins:200,300,400,600,700,800" rel="stylesheet" />
-      <link href="https://use.fontawesome.com/releases/v5.0.6/css/all.css" rel="stylesheet">
-      <!-- CSS Files -->
-      <link href="assets/css/black-dashboard.css?v=1.0.0" rel="stylesheet" />
-      <link href="assets/exodus/app_dash.css" rel="stylesheet" />
-    </head>
-    <body>
-      <div class="content">
-          <div class="row mt-4">
-              <div class="col-12 text-center">
-                  <a href="apps.html">
-                      <img class="logo" src="assets/img/logo.svg">
-                  </a>
-              </div>
-          </div>
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+  <title>WebNOVA Mission Dashboard</title>
+  <!--     Fonts and icons     -->
+  <link href="https://fonts.googleapis.com/css?family=Poppins:200,300,400,600,700,800" rel="stylesheet" />
+  <link href="https://use.fontawesome.com/releases/v5.0.6/css/all.css" rel="stylesheet">
+  <!-- CSS Files -->
+  <link href="assets/css/black-dashboard.css?v=1.0.0" rel="stylesheet" />
+  <link href="assets/exodus/app_dash.css" rel="stylesheet" />
+</head>
+<body>
+  <div class="content">
+    <div class="row mt-4">
+      <div class="col-12 text-center">
+        <a href="apps.html">
+          <img class="logo" src="assets/img/logo.svg">
+        </a>
       </div>
-      <div class="wrapper mt-5 mr-4 ml-4">
-          <div class="main-panel">
-              <div class="content">
-                  <div class="row">
-                      <div class="col-12">
-                          <div class="row">
-                              <div class="col-lg-12 col-sm-12">
-                                  <div class="h2 text-white text-center">Dashboard - RGB Imaging</div>
-                              </div>
-                          </div>
-                          <!-- DASHBOARD -->
-                          <div class="row">
-                              <div class="col-lg-6 col-sm-6">
-                                <!--instrument icons -->
-                                <h3>Select the instrument</h3>
-                                <div class="row">
-                                <div class="col-3 text-center">
-                                    <a class="dash_icon" >
-                                        <img src="design_assets/basic_icons/camera.png">
-                                    </a>
-                                    <input type="radio" id="rgb_camera" name="instrument">
-                                    <p><label for="instrument_id">RGB Imager</label></p>
-                                  </div>
-                                <div class="col-3 text-center">
-                                    <a class="dash_icon" href="">
-                                        <img src="design_assets/basic_icons/multispectral_c.png">
-                                    </a>
-                                    <input type="radio" id="multispectral" name="instrument">
-                                    <p><label for="instrument_id">Multispectral Imager</label></p>
-                                </div>
-                                <div class="col-3 text-center">
-                                    <a class="dash_icon" href="">
-                                        <img src="design_assets/basic_icons/hyperspectral_c.png">
-                                    </a>
-                                    <input type="radio" id="hyperspectral" name="instrument">
-                                    <p><label for="instrument_id">Hyperspectral Imager</label></p>
-                                </div>
-                              </div>
-                              </div>
-                              <div class="col-lg-6 col-sm-6">
-                                <h3>Select the satellite</h3><select id="satellites">
-                                  <option value="OPSSAT">44878</option>
-                                  <option value="ISS">25544</option>
-                                </select>
-                                <!--satellite map -->
-                                  <img src="assets/img/world.jpg">
-                              </div>
-                          </div>
-                          <!-- row -->
-                          <div class="row">
-                              <div class="col-6 col-sm-6">
-                                <h3>Select location </h3>
-                                  <img src="assets/img/gmap.png"/>
-                              </div>
-                              <div class="col-lg-6 col-sm-6">
-                                <h3>Select available date & time </h3>
-                                <table class="table">
-                                  <tr><td><input type="checkbox"></td><td>2022-12-24 12:45:20.499</input></td></tr>
-                                  <tr><td><input type="checkbox"></td><td>2022-12-25 23:33:14.189</input></td></tr>
-                                  <tr><td><input type="checkbox"></td><td>2022-12-27 17:55:11.203</input></td></tr>
-                                  <tr><td><input type="checkbox"></td><td>2022-12-29 10:18:24.875</input></td></tr>
-                                  <tr><td><input type="checkbox"></td><td>2022-12-31 08:29:30.402</input></td></tr>
-                                  <tr><td><input type="checkbox"></td><td>2022-01-02 01:23:55.123</input></td></tr>
-                                  <tr><td><input type="checkbox"></td><td>2022-03-04 14:27:45.861</input></td></tr>
-                                </table>
-                              </div>
-                              </div>
-                              <div class="row">
-                                <div class="col-4 col-sm-4"></div>
-                                <div class="col-4 col-sm-4">
-                                  <a class="btn btn-info btn-lg button" id="login" href="assets/files/mission_profile.json" download>Get Mission Config</a>
-                                </div>
-                                <div class="col-4 col-sm-4"></div>
-                          </div>
-                      </div>
-                  </div>
+    </div>
+  </div>
+  <div class="wrapper mt-5 mr-4 ml-4">
+    <ul class="nav nav-tabs" id="myTab" role="tablist">
+  <li class="nav-item">
+    <a class="nav-link active" id="home-tab" data-toggle="tab" href="#config" role="tab" aria-controls="home" aria-selected="true">Config</a>
+  </li>
+  <li class="nav-item">
+    <a class="nav-link" id="profile-tab" data-toggle="tab" href="#test" role="tab" aria-controls="profile" aria-selected="false">Test</a>
+  </li>
+  <li class="nav-item">
+    <a class="nav-link" id="contact-tab" data-toggle="tab" href="#deploy" role="tab" aria-controls="contact" aria-selected="false">Deploy</a>
+  </li>
+  <li class="nav-item">
+    <a class="nav-link" id="contact-tab" data-toggle="tab" href="#operate" role="tab" aria-controls="contact" aria-selected="false">Operate</a>
+  </li>
+</ul>
+<div class="tab-content" id="myTabContent">
+  <div class="tab-pane fade show active" id="config" role="tabpanel" aria-labelledby="home-tab">
+    <div class="row">
+      <div class="col-12">
+        <!-- DASHBOARD -->
+        <div class="row">
+          <br/>
+
+          <div class="col-lg-6 col-sm-6">
+            <h3>Select the instrument</h3>
+          </div>
+          <div class="col-lg-3 col-sm-3">
+            <h3>Select the satellite</h3>
+          </div>
+          <div class="col-lg-3 col-sm-3">
+            <select id="satellites" class="form-control">
+              <option value="44878">OPS-SAT</option>
+              <option value="25544">International Space Station</option>
+            </select>
+          </div>
+        </div>
+        <div class="row">
+          <div class="col-lg-6 col-sm-6">
+            <!--instrument icons -->
+            <div class="row">
+              <div class="col-3 text-center">
+                <a class="dash_icon" >
+                  <img src="design_assets/basic_icons/camera.png">
+                </a>
+                <input type="radio" id="rgb_camera" name="instrument">
+                <p><label for="instrument_id">RGB Imager</label></p>
               </div>
-      <!--   Core JS Files   -->
-      <script type="text/javascript" src="assets/js/core/jquery.min.js"></script>
-      <script type="text/javascript" src="assets/js/core/popper.min.js"></script>
-      <script type="text/javascript" src="assets/js/core/bootstrap.min.js"></script>
-      <script type="text/javascript" src="assets/js/plugins/chartjs.min.js"></script>
-      <script type="text/javascript" src="assets/js/plugins/perfect-scrollbar.jquery.min.js"></script>
-      <script type="text/javascript" src="assets/js/plugins/bootstrap-notify.js"></script>
-      <script type="text/javascript" src="node_modules/vue/dist/vue.min.js"></script>
-      <script type="text/javascript" src="node_modules/vue-router/dist/vue-router.min.js"></script>
-      <script type="text/javascript" src="assets/js/black-dashboard.min.js?v=1.0.0"></script>
-      <script type="text/javascript" src="assets/exodus/general.js"></script>
-      <script type="text/javascript" src="assets/exodus/init.js"></script>
-    </body>
+              <div class="col-3 text-center">
+                <a class="dash_icon" href="">
+                  <img src="design_assets/basic_icons/multispectral_c.png">
+                </a>
+                <input type="radio" id="multispectral" name="instrument">
+                <p><label for="instrument_id">Multispectral Imager</label></p>
+              </div>
+              <div class="col-3 text-center">
+                <a class="dash_icon" href="">
+                  <img src="design_assets/basic_icons/hyperspectral_c.png">
+                </a>
+                <input type="radio" id="hyperspectral" name="instrument">
+                <p><label for="instrument_id">Hyperspectral Imager</label></p>
+              </div>
+              <div class="col-3 text-center">
+                <a class="dash_icon" href="">
+                  <img src="design_assets/basic_icons/sound.png">
+                </a>
+                <input type="radio" id="hyperspectral" name="instrument">
+                <p><label for="instrument_id">Software-Defined Radio</label></p>
+              </div>
+            </div>
+          </div>
+          <div class="col-lg-6 col-sm-6">
+            <!--satellite map -->
+            <img src="assets/img/world.jpg">
+          </div>
+        </div>
+        <!-- row -->
+        <div class="row">
+          <div class="col-1 col-sm-1">
+            <h3>LAT</h3>
+          </div>
+          <div class="col-1 col-sm-1">
+            <input type="number" value=0.0 class="form-control" width="100%"/>
+          </div>
+          <div class="col-1 col-sm-1">
+            <h3>LON</h3>
+          </div>
+          <div class="col-1 col-sm-1">
+            <input type="number"  value=0.0 class="form-control" width="100%"/>
+          </div>
+          <div class="col-2 col-sm-2">
+            <button class="btn btn-info btn-sm button">Select Location</button>
+          </div>
+          <div class="col-lg-6 col-sm-6">
+            <h3>Select available date & time </h3>
+          </div>
+        </div>
+        <div class="row">
+          <div class="col-lg-6 col-sm-6">
+            <img src="assets/img/gmap.png"/>
+          </div>
+          <div class="col-lg-6 col-sm-6">
+            <table class="table">
+              <tr><td><input type="checkbox"></td><td>2022-12-24 12:45:20.499</input></td></tr>
+              <tr><td><input type="checkbox"></td><td>2022-12-25 23:33:14.189</input></td></tr>
+              <tr><td><input type="checkbox"></td><td>2022-12-27 17:55:11.203</input></td></tr>
+              <tr><td><input type="checkbox"></td><td>2022-12-29 10:18:24.875</input></td></tr>
+              <tr><td><input type="checkbox"></td><td>2022-12-31 08:29:30.402</input></td></tr>
+              <tr><td><input type="checkbox"></td><td>2022-01-02 01:23:55.123</input></td></tr>
+              <tr><td><input type="checkbox"></td><td>2022-03-04 14:27:45.861</input></td></tr>
+            </table>
+          </div>
+        </div>
+        <div class="row">
+          <div class="col-4 col-sm-4"></div>
+          <div class="col-4 col-sm-4">
+            <a class="btn btn-info btn-lg button" id="login" href="assets/files/mission_profile.json" download>Get Mission Config</a>
+          </div>
+          <div class="col-4 col-sm-4"></div>
+        </div>
+      </div>
+    </div>
+
+  </div>
+  <div class="tab-pane fade" id="test" role="tabpanel" aria-labelledby="profile-tab">
+    <!--upload package -->
+    <a class="btn btn-info btn-lg button" id="login" href="#">Upload Application Package</a>
+    <div class="row">
+      <div class="col-lg-3 col-sm-3">
+        <h3>APP PACKAGE</h3>
+      </div>
+      <div class="col-lg-3 col-sm-3">
+        <h3>TIMESTAMP</h3>
+      </div>
+      <div class="col-lg-3 col-sm-3">
+        <h3>STATUS</h3>
+      </div>
+      <div class="col-lg-3 col-sm-3">
+        <h3>RESULTS</h3>
+      </div>
+    </div>
+    <div class="row">
+      <div class="col-lg-3 col-sm-3">
+        <p>TEST APP 1</p>
+      </div>
+      <div class="col-lg-3 col-sm-3">
+        <p>2023-01-12 16:12:33</p>
+      </div>
+      <div class="col-lg-3 col-sm-3">
+        <p>Queued</p>
+      </div>
+      <div class="col-lg-3 col-sm-3">
+        <p>Waiting...</p>
+      </div>
+    </div>
+    <div class="row">
+      <div class="col-lg-3 col-sm-3">
+        <p>TEST APP 2</p>
+      </div>
+      <div class="col-lg-3 col-sm-3">
+        <p>2023-01-13 15:45:19</p>
+      </div>
+      <div class="col-lg-3 col-sm-3">
+        <p>Testing</p>
+      </div>
+      <div class="col-lg-3 col-sm-3">
+        <p>Waiting...</p>
+      </div>
+    </div>
+    <div class="row">
+      <div class="col-lg-3 col-sm-3">
+        <p>TEST APP 3</p>
+      </div>
+      <div class="col-lg-3 col-sm-3">
+        <p>2023-01-14 08:25:38</p>
+      </div>
+      <div class="col-lg-3 col-sm-3">
+        <p>Completed</p>
+      </div>
+      <div class="col-lg-3 col-sm-3">
+        <u><a class="link" href="test_log.zip">Test Log</a></u>
+      </div>
+    </div>
+  </div>
+
+  <div class="tab-pane fade" id="deploy" role="tabpanel" aria-labelledby="contact-tab">
+    <br/>
+    <div class="row">
+      <div class="col-lg-3 col-sm-3">
+        <h3>Select Satellite Pipeline</h3>
+      </div>
+      <div class="col-lg-3 col-sm-3">
+      <select id="satellites" class="form-control">
+        <option value="44878">OPS-SAT</option>
+        <option value="25544">International Space Station</option>
+      </select>
+    </div>
+    <div class="col-lg-4 col-sm-4">
+      <a class="btn btn-info btn-lg button" id="login" href="#">Upload Signed Application Package</a>
+    </div>
+    </div>
+    <div class="row">
+      <div class="col-lg-3 col-sm-3">
+        <h3>APP NAME</h3>
+      </div>
+      <div class="col-lg-3 col-sm-3">
+        <h3>TIMESTAMP</h3>
+      </div>
+      <div class="col-lg-3 col-sm-3">
+        <h3>SATELLITE</h3>
+      </div>
+      <div class="col-lg-3 col-sm-3">
+        <h3>STATUS</h3>
+      </div>
+    </div>
+    <div class="row">
+      <div class="col-lg-3 col-sm-3">
+        <p>REAL APP 1</p>
+      </div>
+      <div class="col-lg-3 col-sm-3">
+        <p>2023-01-15 18:37:19</p>
+      </div>
+      <div class="col-lg-3 col-sm-3">
+        <p>OPS-SAT</p>
+      </div>
+      <div class="col-lg-3 col-sm-3">
+        <p>Queued for uplink</p>
+      </div>
+    </div>
+    <div class="row">
+      <div class="col-lg-3 col-sm-3">
+        <p>REAL APP 2</p>
+      </div>
+      <div class="col-lg-3 col-sm-3">
+        <p>2023-01-16 09:20:55</p>
+      </div>
+      <div class="col-lg-3 col-sm-3">
+        <p>OPS-SAT</p>
+      </div>
+      <div class="col-lg-3 col-sm-3">
+        <p>Queued for uplink</p>
+      </div>
+    </div>
+    <div class="row">
+      <div class="col-lg-3 col-sm-3">
+        <p>REAL APP 3</p>
+      </div>
+      <div class="col-lg-3 col-sm-3">
+        <p>2023-01-17 11:22:12</p>
+      </div>
+      <div class="col-lg-3 col-sm-3">
+        <p>ISS</p>
+      </div>
+      <div class="col-lg-3 col-sm-3">
+        <p>Deployed</p>
+      </div>
+    </div>
+  </div>
+  <div class="tab-pane fade" id="operate" role="tabpanel" aria-labelledby="contact-tab">...</div>
+
+</div>
+</div>
+
+
+<!--   Core JS Files   -->
+<script type="text/javascript" src="assets/js/core/jquery.min.js"></script>
+<script type="text/javascript" src="assets/js/core/popper.min.js"></script>
+<script type="text/javascript" src="assets/js/core/bootstrap.min.js"></script>
+<script type="text/javascript" src="assets/js/plugins/chartjs.min.js"></script>
+<script type="text/javascript" src="assets/js/plugins/perfect-scrollbar.jquery.min.js"></script>
+<script type="text/javascript" src="assets/js/plugins/bootstrap-notify.js"></script>
+<script type="text/javascript" src="node_modules/vue/dist/vue.min.js"></script>
+<script type="text/javascript" src="node_modules/vue-router/dist/vue-router.min.js"></script>
+<script type="text/javascript" src="assets/js/black-dashboard.min.js?v=1.0.0"></script>
+<script type="text/javascript" src="assets/exodus/general.js"></script>
+<script type="text/javascript" src="assets/exodus/init.js"></script>
+</body>
 </html>
