@@ -218,7 +218,7 @@
       </select>
     </div>
     <div class="col-lg-4 col-sm-4">
-      <a class="btn btn-info btn-lg button" id="login" href="#">Upload Signed Application Package</a>
+      <a class="btn btn-info btn-lg button" id="login" href="#">Upload Application Package</a>
     </div>
     </div>
     <div class="row">
@@ -278,7 +278,114 @@
       </div>
     </div>
   </div>
-  <div class="tab-pane fade" id="operate" role="tabpanel" aria-labelledby="contact-tab">...</div>
+  <div class="tab-pane fade" id="operate" role="tabpanel" aria-labelledby="contact-tab">
+    <br/>
+    <div class="row">
+      <div class="col-lg-4 col-sm-3">
+        <h3>Select satellite</h3>
+        <h3>Select application</h3>
+        <h3>Uplink Queue</h3>
+        <table class="table">
+          <tr>
+            <td><h4>Application</h4></td>
+            <td><h4>Package</h4></td>
+            <td><h4>Timestamp</h4></td>
+            <td><h4>Status</h4></td>
+          </tr>
+          <tr>
+            <td><p>App 1</p></td>
+            <td><p>Package 1</p></td>
+            <td><p>2022-02-14 23:34:18</p></td>
+            <td><p>Executed</p></td>
+          </tr>
+          <tr>
+            <td><p>App 2</p></td>
+            <td><p>Package 2</p></td>
+            <td><p>2022-12-31 23:34:18</p></td>
+            <td><p>Queued</p></td>
+          </tr>
+        </table>
+      </div>
+      <div class="col-lg-2 col-sm-2">
+        <select id="satellites" class="form-control">
+          <option value="44878">OPS-SAT</option>
+          <option value="25544">International Space Station</option>
+        </select>
+        <br/>
+        <select id="satellites" class="form-control">
+          <option value="1">APP 1</option>
+          <option value="2">APP 2</option>
+        </select>
+        <br/>
+        <a class="btn btn-info btn-lg button" id="login" href="#">Sent Uplink</a>
+
+      </div>
+      <div class="col-lg-6 col-sm-6">
+        <!--satellite map -->
+        <img src="assets/img/world.jpg">
+      </div>
+    </div>
+    <br/>
+    <div class="row">
+      <div class="col-lg-6 col-sm-6">
+          <h3>Downlink</h3>
+        </div>
+        <div class="col-lg-6 col-sm-6">
+          <h3>Telemetry Log</h3>
+      </div>
+    </div>
+    <div class="row">
+      <div class="col-lg-2 col-sm-2">
+        <h4>Package Name</h4>
+      </div>
+      <div class="col-lg-2 col-sm-2">
+        <h4>Timestamp</h4>
+      </div>
+      <div class="col-lg-2 col-sm-2">
+        <h4>Status</h4>
+      </div>
+      <div class="col-lg-2 col-sm-2">
+        <h4>Event Type</h4>
+      </div>
+      <div class="col-lg-2 col-sm-2">
+        <h4>Timestamp</h4>
+      </div>
+      <div class="col-lg-2 col-sm-2">
+        <h4>Message</h4>
+      </div>
+    </div>
+    <div class="row">
+      <div class="col-lg-2 col-sm-2">
+        <p>Data Package 1</p>
+      </div>
+      <div class="col-lg-2 col-sm-2">
+        <p>2022-02-15 19:22:47</p>
+      </div>
+      <div class="col-lg-2 col-sm-2">
+        <u><a class="link" href="test_data.zip">Download Link</a></u>
+      </div>
+      <div class="col-lg-2 col-sm-2">
+        <p>Information</p>
+      </div>
+      <div class="col-lg-2 col-sm-2">
+        <p>2022-02-15 19:22:47</p>
+      </div>
+      <div class="col-lg-2 col-sm-2">
+        <p>Imaging activity...</p>
+      </div>
+    </div>
+    <div class="row">
+      <div class="col-lg-2 col-sm-2">
+        <p>Data Package 2</p>
+      </div>
+      <div class="col-lg-2 col-sm-2">
+        <p>2023-01-15 19:22:47</p>
+      </div>
+      <div class="col-lg-2 col-sm-2">
+        <p>Queued for downlink</p>
+      </div>
+    </div>
+  </div>
 
 </div>
 </div>
