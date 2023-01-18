@@ -24,7 +24,7 @@
   <div class="wrapper mt-5 mr-4 ml-4">
     <ul class="nav nav-tabs" id="myTab" role="tablist">
   <li class="nav-item">
-    <a class="nav-link active" id="home-tab" data-toggle="tab" href="#config" role="tab" aria-controls="home" aria-selected="true">Config</a>
+    <a class="nav-link active" id="home-tab" data-toggle="tab" href="#config" role="tab" aria-controls="home" aria-selected="true">Create</a>
   </li>
   <li class="nav-item">
     <a class="nav-link" id="profile-tab" data-toggle="tab" href="#test" role="tab" aria-controls="profile" aria-selected="false">Test</a>
@@ -41,105 +41,112 @@
     <div class="row">
       <div class="col-12">
         <!-- DASHBOARD -->
+        <br/>
         <div class="row">
-          <br/>
-
-          <div class="col-lg-6 col-sm-6">
-            <h3>Select the instrument</h3>
-          </div>
-          <div class="col-lg-3 col-sm-3">
-            <h3>Select the satellite</h3>
-          </div>
-          <div class="col-lg-3 col-sm-3">
-            <select id="satellites" class="form-control">
-              <option value="44878">OPS-SAT</option>
-              <option value="25544">International Space Station</option>
-            </select>
-          </div>
-        </div>
-        <div class="row">
-          <div class="col-lg-6 col-sm-6">
-            <!--instrument icons -->
-            <div class="row">
-              <div class="col-3 text-center">
-                <a class="dash_icon" >
-                  <img src="design_assets/basic_icons/camera.png">
-                </a>
-                <input type="radio" id="rgb_camera" name="instrument">
-                <p><label for="instrument_id">RGB Imager</label></p>
-              </div>
-              <div class="col-3 text-center">
-                <a class="dash_icon" href="">
-                  <img src="design_assets/basic_icons/multispectral_c.png">
-                </a>
-                <input type="radio" id="multispectral" name="instrument">
-                <p><label for="instrument_id">Multispectral Imager</label></p>
-              </div>
-              <div class="col-3 text-center">
-                <a class="dash_icon" href="">
-                  <img src="design_assets/basic_icons/hyperspectral_c.png">
-                </a>
-                <input type="radio" id="hyperspectral" name="instrument">
-                <p><label for="instrument_id">Hyperspectral Imager</label></p>
-              </div>
-              <div class="col-3 text-center">
-                <a class="dash_icon" href="">
-                  <img src="design_assets/basic_icons/sound.png">
-                </a>
-                <input type="radio" id="hyperspectral" name="instrument">
-                <p><label for="instrument_id">Software-Defined Radio</label></p>
-              </div>
+          <div class="col-1 text-center">
+              <a class="dash_icon" href="/app1.html">
+                <img src="design_assets/basic_icons/camera.png" title="RGB Imager">
+              </a>
+              <p><label for="instrument_id">RGB Imaging</label></p>
+              <input type="radio" id="rgb_camera" name="instrument">
             </div>
+            <div class="col-1 text-center">
+              <a class="dash_icon" href="">
+                <img src="design_assets/basic_icons/multispectral_c.png" title="Multispectral Imager">
+              </a>
+              <p><label for="instrument_id">Multispectral Imaging</label></p>
+              <input type="radio" id="multispectral" name="instrument">
+            </div>
+            <div class="col-1 text-center">
+              <a class="dash_icon" href="">
+                <img src="design_assets/basic_icons/hyperspectral_c.png">
+              </a>
+              <p><label for="instrument_id">Hyperspectral Imaging</label></p>
+              <input type="radio" id="hyperspectral" name="instrument">
+            </div>
+            <div class="col-1 text-center">
+              <a class="dash_icon" href="">
+                <img src="design_assets/basic_icons/adsb_airplane.png">
+              </a>
+              <p><label for="instrument_id">ADS-B monitoring</label></p>
+              <input type="radio" id="adsb" name="instrument">
           </div>
-          <div class="col-lg-6 col-sm-6">
-            <!--satellite map -->
-            <img src="assets/img/world.jpg">
+          <div class="col-1 text-center">
+            <a class="dash_icon" href="">
+              <img src="design_assets/basic_icons/ais_ship.png">
+            </a>
+            <p><label for="instrument_id">AIS monitoring</label></p>
+            <input type="radio" id="ais" name="instrument">
           </div>
+          <div class="col-1 text-center">
+            <a class="dash_icon" href="">
+              <img src="design_assets/icons_advanced/wildfire.png">
+            </a>
+            <p><label for="instrument_id">Wildfire Detection</label></p>
+            <input type="radio" id="wildfire" name="instrument">
+          </div>
+              <div class="col-1 text-center">
+                <a class="dash_icon" href="">
+                  <img src="design_assets/icons_advanced/pollution.png">
+                </a>
+                <p><label for="instrument_id">Pollution Monitoring</label></p>
+                <input type="radio" id="polution" name="instrument">
+              </div>
+              <div class="col-1 text-center">
+                <a class="dash_icon" href="">
+                  <img src="design_assets/icons_advanced/object_detection.png">
+                </a>
+                <p><label for="instrument_id">Object Detection</label></p>
+                <input type="radio" id="objects" name="instrument">
+              </div>
+              <div class="col-1 text-center">
+                <a class="dash_icon" href="">
+                  <img src="design_assets/icons_advanced/change_detection.png">
+                </a>
+                <p><label for="instrument_id">Change Detection</label></p>
+                <input type="radio" id="change" name="instrument">
+              </div>
+              <div class="col-1 text-center">
+                <a class="dash_icon" href="">
+                  <img src="design_assets/icons_advanced/traffic_analysis.png">
+                </a>
+                <p><label for="instrument_id">Custom App</label></p>
+                <input type="radio" id="custom" name="instrument">
+              </div>
         </div>
-        <!-- row -->
         <div class="row">
-          <div class="col-1 col-sm-1">
-            <h3>LAT</h3>
-          </div>
-          <div class="col-1 col-sm-1">
-            <input type="number" value=0.0 class="form-control" width="100%"/>
-          </div>
-          <div class="col-1 col-sm-1">
-            <h3>LON</h3>
-          </div>
-          <div class="col-1 col-sm-1">
-            <input type="number"  value=0.0 class="form-control" width="100%"/>
-          </div>
-          <div class="col-2 col-sm-2">
-            <button class="btn btn-info btn-sm button">Select Location</button>
-          </div>
-          <div class="col-lg-6 col-sm-6">
-            <h3>Select available date & time </h3>
-          </div>
+          <div class="col-lg-10 col-lg-10">
+            <iframe width="100%" height="800" style="border:0" loading="lazy" allowfullscreen
+            referrerpolicy="no-referrer-when-downgrade" src="https://www.google.com/maps/embed/v1/place?key=AIzaSyDhHE4gJ7D1s5chTxY_VA74SOh7dAjHAO0&q=Toronto">
+          </iframe>
         </div>
-        <div class="row">
-          <div class="col-lg-6 col-sm-6">
-            <img src="assets/img/gmap.png"/>
-          </div>
-          <div class="col-lg-6 col-sm-6">
-            <table class="table">
-              <tr><td><input type="checkbox"></td><td>2022-12-24 12:45:20.499</input></td></tr>
-              <tr><td><input type="checkbox"></td><td>2022-12-25 23:33:14.189</input></td></tr>
-              <tr><td><input type="checkbox"></td><td>2022-12-27 17:55:11.203</input></td></tr>
-              <tr><td><input type="checkbox"></td><td>2022-12-29 10:18:24.875</input></td></tr>
-              <tr><td><input type="checkbox"></td><td>2022-12-31 08:29:30.402</input></td></tr>
-              <tr><td><input type="checkbox"></td><td>2022-01-02 01:23:55.123</input></td></tr>
-              <tr><td><input type="checkbox"></td><td>2022-03-04 14:27:45.861</input></td></tr>
-            </table>
-          </div>
+      </div>
+      <div class="row">
+        <div class="col-4 col-sm-4"></div>
+        <div class="col-4 col-sm-4">
+          <a class="btn btn-info btn-lg button" id="login" href="assets/files/mission_profile.json" download>Create Mission</a>
         </div>
-        <div class="row">
-          <div class="col-4 col-sm-4"></div>
+        <div class="col-4 col-sm-4"></div>
+      </div>
+        <!--div class="col-lg-2 col-sm-2">
+          <h4>TOP/LEFT</h4>
+          <input type="number" value=0.0 class="form-control" width="100%"/>
+          <input type="number"  value=0.0 class="form-control" width="100%"/>
+        </div>
+      </div-->
+
+
+        <!--div class="row">
+
           <div class="col-4 col-sm-4">
-            <a class="btn btn-info btn-lg button" id="login" href="assets/files/mission_profile.json" download>Get Mission Config</a>
-          </div>
-          <div class="col-4 col-sm-4"></div>
+          <h3>Select the satellite</h3>
+          <select id="satellites" class="form-control">
+            <option value="44878">OPS-SAT</option>
+            <option value="25544">International Space Station</option>
+          </select>
         </div>
+
+        </div-->
       </div>
     </div>
 
