@@ -1,0 +1,373 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+  <title>WebNOVA Mission Dashboard</title>
+  <!--     Fonts and icons     -->
+  <link href="https://fonts.googleapis.com/css?family=Poppins:200,300,400,600,700,800" rel="stylesheet" />
+  <link href="https://use.fontawesome.com/releases/v5.0.6/css/all.css" rel="stylesheet">
+  <!-- CSS Files -->
+  <link href="assets/css/black-dashboard.css?v=1.0.0" rel="stylesheet" />
+  <link href="assets/exodus/app_dash.css" rel="stylesheet" />
+  <link rel="stylesheet" href="https://code.jquery.com/ui/1.13.2/themes/base/jquery-ui.css">
+  <script type="text/javascript" src="node_modules/vue/dist/vue.min.js"></script>
+  <script type="text/javascript" src="node_modules/vue-router/dist/vue-router.min.js"></script>
+  <script type="text/javascript" src="assets/js/core/jquery.min.js"></script>
+  <script type="text/javascript" src="https://code.jquery.com/ui/1.13.2/jquery-ui.js"></script>
+  <script>
+  $(document).ready(function() {
+    $("#dialog_text").hide();
+  });
+
+  function showMissionDialog(){
+    $("#dialog").dialog();
+    $("#dialog_text").show();
+  }
+    </script>
+</head>
+<body>
+  <div class="content">
+    <div class="row mt-4">
+      <div class="col-12 text-center">
+        <a href="apps.html">
+          <img class="logo" src="assets/img/logo.svg">
+        </a>
+      </div>
+    </div>
+  </div>
+  <div class="wrapper mt-5 mr-4 ml-4">
+    <ul class="nav nav-tabs" id="myTab" role="tablist">
+  <li class="nav-item">
+    <a class="nav-link active" id="home-tab" data-toggle="tab" href="#config" role="tab" aria-controls="home" aria-selected="true">Create</a>
+  </li>
+  <li class="nav-item">
+    <a class="nav-link" id="profile-tab" data-toggle="tab" href="#test" role="tab" aria-controls="profile" aria-selected="false">Test</a>
+  </li>
+  <li class="nav-item">
+    <a class="nav-link" id="contact-tab" data-toggle="tab" href="#deploy" role="tab" aria-controls="contact" aria-selected="false">Deploy</a>
+  </li>
+  <li class="nav-item">
+    <a class="nav-link" id="contact-tab" data-toggle="tab" href="#operate" role="tab" aria-controls="contact" aria-selected="false">Operate</a>
+  </li>
+</ul>
+<div class="tab-content" id="myTabContent">
+  <div class="tab-pane fade show active" id="config" role="tabpanel" aria-labelledby="home-tab">
+    <div class="row">
+      <div class="col-12">
+        <!-- DASHBOARD -->
+        <br/>
+        <div class="row">
+          <div class="col-lg-9 col-sm-9">
+            <iframe width="100%" height="600" style="border:0" loading="lazy" allowfullscreen
+            referrerpolicy="no-referrer-when-downgrade" src="https://www.google.com/maps/embed/v1/place?key=AIzaSyDhHE4gJ7D1s5chTxY_VA74SOh7dAjHAO0&q=Toronto">
+          </iframe>
+        </div>
+        <div class="col-lg-3 col-sm-3">
+        <h3>Select the satellite</h3>
+        <select id="satellites" class="form-control">
+          <option value="44878">OPS-SAT</option>
+          <option value="25544">International Space Station</option>
+        </select>
+        <h4>Available Passes</h4>
+        <p><input type="checkbox"/>&nbsp;2023-01-16 09:20:55</p>
+        <p><input type="checkbox"/>&nbsp;2023-01-18 10:25:11</p>
+        <p><input type="checkbox"/>&nbsp;2023-01-20 14:42:27</p>
+        <p><input type="checkbox"/>&nbsp;2023-01-21 18:51:38</p>
+        <p><input type="checkbox"/>&nbsp;2023-01-23 23:12:29</p>
+        <p><input type="checkbox"/>&nbsp;2023-01-25 04:31:46</p>
+        <button class="btn btn-info btn-lg button" onclick="showMissionDialog()" id="mission_button">Create Mission</button>
+
+      </div>
+      </div>
+    
+        <!--div class="col-lg-2 col-sm-2">
+          <h4>TOP/LEFT</h4>
+          <input type="number" value=0.0 class="form-control" width="100%"/>
+          <input type="number"  value=0.0 class="form-control" width="100%"/>
+          href="assets/files/mission_profile.json"
+        </div>
+      </div-->
+
+
+        <!--div class="row">
+
+          <div class="col-4 col-sm-4">
+          <h3>Select the satellite</h3>
+          <select id="satellites" class="form-control">
+            <option value="44878">OPS-SAT</option>
+            <option value="25544">International Space Station</option>
+          </select>
+        </div>
+
+        </div-->
+      </div>
+    </div>
+
+  </div>
+  <div class="tab-pane fade" id="test" role="tabpanel" aria-labelledby="profile-tab">
+    <!--upload package -->
+    <a class="btn btn-info btn-lg button" id="login" href="#">Upload Application Package</a>
+    <div class="row">
+      <div class="col-lg-3 col-sm-3">
+        <h3>APP PACKAGE</h3>
+      </div>
+      <div class="col-lg-3 col-sm-3">
+        <h3>TIMESTAMP</h3>
+      </div>
+      <div class="col-lg-3 col-sm-3">
+        <h3>STATUS</h3>
+      </div>
+      <div class="col-lg-3 col-sm-3">
+        <h3>RESULTS</h3>
+      </div>
+    </div>
+    <div class="row">
+      <div class="col-lg-3 col-sm-3">
+        <p>TEST APP 1</p>
+      </div>
+      <div class="col-lg-3 col-sm-3">
+        <p>2023-01-12 16:12:33</p>
+      </div>
+      <div class="col-lg-3 col-sm-3">
+        <p>Queued</p>
+      </div>
+      <div class="col-lg-3 col-sm-3">
+        <p>Waiting...</p>
+      </div>
+    </div>
+    <div class="row">
+      <div class="col-lg-3 col-sm-3">
+        <p>TEST APP 2</p>
+      </div>
+      <div class="col-lg-3 col-sm-3">
+        <p>2023-01-13 15:45:19</p>
+      </div>
+      <div class="col-lg-3 col-sm-3">
+        <p>Testing</p>
+      </div>
+      <div class="col-lg-3 col-sm-3">
+        <p>Waiting...</p>
+      </div>
+    </div>
+    <div class="row">
+      <div class="col-lg-3 col-sm-3">
+        <p>TEST APP 3</p>
+      </div>
+      <div class="col-lg-3 col-sm-3">
+        <p>2023-01-14 08:25:38</p>
+      </div>
+      <div class="col-lg-3 col-sm-3">
+        <p>Completed</p>
+      </div>
+      <div class="col-lg-3 col-sm-3">
+        <u><a class="link" href="test_log.zip">Test Log</a></u>
+      </div>
+    </div>
+  </div>
+
+  <div class="tab-pane fade" id="deploy" role="tabpanel" aria-labelledby="contact-tab">
+    <br/>
+    <div class="row">
+      <div class="col-lg-3 col-sm-3">
+        <h3>Select Satellite Pipeline</h3>
+      </div>
+      <div class="col-lg-3 col-sm-3">
+      <select id="satellites" class="form-control">
+        <option value="44878">OPS-SAT</option>
+        <option value="25544">International Space Station</option>
+      </select>
+    </div>
+    <div class="col-lg-4 col-sm-4">
+      <a class="btn btn-info btn-lg button" id="login" href="#">Upload Application Package</a>
+    </div>
+    </div>
+    <div class="row">
+      <div class="col-lg-3 col-sm-3">
+        <h3>APP NAME</h3>
+      </div>
+      <div class="col-lg-3 col-sm-3">
+        <h3>TIMESTAMP</h3>
+      </div>
+      <div class="col-lg-3 col-sm-3">
+        <h3>SATELLITE</h3>
+      </div>
+      <div class="col-lg-3 col-sm-3">
+        <h3>STATUS</h3>
+      </div>
+    </div>
+    <div class="row">
+      <div class="col-lg-3 col-sm-3">
+        <p>REAL APP 1</p>
+      </div>
+      <div class="col-lg-3 col-sm-3">
+        <p>2023-01-15 18:37:19</p>
+      </div>
+      <div class="col-lg-3 col-sm-3">
+        <p>OPS-SAT</p>
+      </div>
+      <div class="col-lg-3 col-sm-3">
+        <p>Queued for uplink</p>
+      </div>
+    </div>
+    <div class="row">
+      <div class="col-lg-3 col-sm-3">
+        <p>REAL APP 2</p>
+      </div>
+      <div class="col-lg-3 col-sm-3">
+        <p>2023-01-16 09:20:55</p>
+      </div>
+      <div class="col-lg-3 col-sm-3">
+        <p>OPS-SAT</p>
+      </div>
+      <div class="col-lg-3 col-sm-3">
+        <p>Queued for uplink</p>
+      </div>
+    </div>
+    <div class="row">
+      <div class="col-lg-3 col-sm-3">
+        <p>REAL APP 3</p>
+      </div>
+      <div class="col-lg-3 col-sm-3">
+        <p>2023-01-17 11:22:12</p>
+      </div>
+      <div class="col-lg-3 col-sm-3">
+        <p>ISS</p>
+      </div>
+      <div class="col-lg-3 col-sm-3">
+        <p>Deployed</p>
+      </div>
+    </div>
+  </div>
+  <div class="tab-pane fade" id="operate" role="tabpanel" aria-labelledby="contact-tab">
+    <br/>
+    <div class="row">
+      <div class="col-lg-4 col-sm-3">
+        <h3>Select satellite</h3>
+        <h3>Select application</h3>
+        <h3>Uplink Queue</h3>
+        <table class="table">
+          <tr>
+            <td><h4>Application</h4></td>
+            <td><h4>Package</h4></td>
+            <td><h4>Timestamp</h4></td>
+            <td><h4>Status</h4></td>
+          </tr>
+          <tr>
+            <td><p>App 1</p></td>
+            <td><p>Package 1</p></td>
+            <td><p>2022-02-14 23:34:18</p></td>
+            <td><p>Executed</p></td>
+          </tr>
+          <tr>
+            <td><p>App 2</p></td>
+            <td><p>Package 2</p></td>
+            <td><p>2022-12-31 23:34:18</p></td>
+            <td><p>Queued</p></td>
+          </tr>
+        </table>
+      </div>
+      <div class="col-lg-2 col-sm-2">
+        <select id="satellites" class="form-control">
+          <option value="44878">OPS-SAT</option>
+          <option value="25544">International Space Station</option>
+        </select>
+        <br/>
+        <select id="satellites" class="form-control">
+          <option value="1">APP 1</option>
+          <option value="2">APP 2</option>
+        </select>
+        <br/>
+        <a class="btn btn-info btn-lg button" id="login" href="#">Sent Uplink</a>
+
+      </div>
+      <div class="col-lg-6 col-sm-6">
+        <!--satellite map -->
+        <img src="assets/img/world.jpg">
+      </div>
+    </div>
+    <br/>
+    <div class="row">
+      <div class="col-lg-6 col-sm-6">
+          <h3>Downlink</h3>
+        </div>
+        <div class="col-lg-6 col-sm-6">
+          <h3>Telemetry Log</h3>
+      </div>
+    </div>
+    <div class="row">
+      <div class="col-lg-2 col-sm-2">
+        <h4>Package Name</h4>
+      </div>
+      <div class="col-lg-2 col-sm-2">
+        <h4>Timestamp</h4>
+      </div>
+      <div class="col-lg-2 col-sm-2">
+        <h4>Status</h4>
+      </div>
+      <div class="col-lg-2 col-sm-2">
+        <h4>Event Type</h4>
+      </div>
+      <div class="col-lg-2 col-sm-2">
+        <h4>Timestamp</h4>
+      </div>
+      <div class="col-lg-2 col-sm-2">
+        <h4>Message</h4>
+      </div>
+    </div>
+    <div class="row">
+      <div class="col-lg-2 col-sm-2">
+        <p>Data Package 1</p>
+      </div>
+      <div class="col-lg-2 col-sm-2">
+        <p>2022-02-15 19:22:47</p>
+      </div>
+      <div class="col-lg-2 col-sm-2">
+        <u><a class="link" href="test_data.zip">Download Link</a></u>
+      </div>
+      <div class="col-lg-2 col-sm-2">
+        <p>Information</p>
+      </div>
+      <div class="col-lg-2 col-sm-2">
+        <p>2022-02-15 19:22:47</p>
+      </div>
+      <div class="col-lg-2 col-sm-2">
+        <p>Imaging activity...</p>
+      </div>
+    </div>
+    <div class="row">
+      <div class="col-lg-2 col-sm-2">
+        <p>Data Package 2</p>
+      </div>
+      <div class="col-lg-2 col-sm-2">
+        <p>2023-01-15 19:22:47</p>
+      </div>
+      <div class="col-lg-2 col-sm-2">
+        <p>Queued for downlink</p>
+      </div>
+    </div>
+  </div>
+
+</div>
+<div id="dialog" title="Create Mission">
+  <p style="color:black" id="dialog_text">
+  Location</br>
+  Time and date</br>
+  Instrument Paramaters</br>
+  Script, if any</p>
+</div>
+</div>
+
+
+<!--   Core JS Files   -->
+<script type="text/javascript" src="assets/js/core/popper.min.js"></script>
+<script type="text/javascript" src="assets/js/core/bootstrap.min.js"></script>
+<script type="text/javascript" src="assets/js/plugins/chartjs.min.js"></script>
+<script type="text/javascript" src="assets/js/plugins/perfect-scrollbar.jquery.min.js"></script>
+<script type="text/javascript" src="assets/js/plugins/bootstrap-notify.js"></script>
+
+<script type="text/javascript" src="assets/js/black-dashboard.min.js?v=1.0.0"></script>
+<script type="text/javascript" src="assets/exodus/general.js"></script>
+<script type="text/javascript" src="assets/exodus/init.js"></script>
+</body>
+</html>
