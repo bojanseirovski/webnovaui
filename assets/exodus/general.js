@@ -15,7 +15,7 @@ var mapHeight = 213.5;
  * Pause between AJAX calls
  */
 var loopBreak = 5000;
-var baseUrl = "http://api.nova.test:8000"
+var baseUrl = "http://webnova-dev.exodusorbitals.com:8000"
 
 /**
  * Initial camera view coordinates
