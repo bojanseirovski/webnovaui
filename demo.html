@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
@@ -10,180 +11,218 @@
   <!-- CSS Files -->
   <link href="assets/css/black-dashboard.css?v=1.0.0" rel="stylesheet" />
   <link href="assets/exodus/app_dash.css" rel="stylesheet" />
+  <link href="assets/exodus/demo.css" rel="stylesheet" />
   <link rel="stylesheet" href="https://code.jquery.com/ui/1.13.2/themes/base/jquery-ui.css">
-  <script type="text/javascript" src="node_modules/vue/dist/vue.min.js"></script>
-  <script type="text/javascript" src="node_modules/vue-router/dist/vue-router.min.js"></script>
+  <!-- <script type="text/javascript" src="node_modules/vue/dist/vue.min.js"></script> -->
+  <!-- <script type="text/javascript" src="node_modules/vue-router/dist/vue-router.min.js"></script> -->
   <script type="text/javascript" src="assets/js/core/jquery.min.js"></script>
   <script type="text/javascript" src="https://code.jquery.com/ui/1.13.2/jquery-ui.js"></script>
   <script>
-  $(document).ready(function() {
-    $("#dialog_text").hide();
-  });
+    $(document).ready(function () {
+      $("#dialog_text").hide();
+    });
 
-  function showMissionDialog(){
-    $("#dialog").dialog();
-    $("#dialog_text").show();
-  }
-    </script>
+    function showMissionDialog() {
+      $("#dialog").dialog();
+      $("#dialog_text").show();
+    }
+  </script>
 </head>
+
 <body>
-  <div class="content">
-    <div class="row mt-4">
-      <div class="col-12 text-center">
+  <div class="content header-lane">
+    <div class="row pl-5">
+      <div class="col-12 text-left ml-1 logo-col-row pl-5">
         <a href="apps.html">
-          <img class="logo" src="assets/img/logo.svg">
+          <img class="logo" src="assets/img/logo-white.png">
+          <h2>Apps in space</h2>
         </a>
       </div>
     </div>
   </div>
-  <div class="wrapper mt-5 mr-4 ml-4">
+
+  <div class="wrapper mt-5 mr-1 ml-1 apps-wrapper">
     <ul class="nav nav-tabs" id="myTab" role="tablist">
-  <li class="nav-item">
-    <a class="nav-link active" id="home-tab" data-toggle="tab" href="#config" role="tab" aria-controls="home" aria-selected="true">Select</a>
-  </li>
-  <li class="nav-item">
-    <a class="nav-link" id="profile-tab" data-toggle="tab" href="#test" role="tab" aria-controls="profile" aria-selected="false">Your Missions</a>
-  </li>
-  <li class="nav-item">
-    <a class="nav-link" id="profile-tab" data-toggle="tab" href="#test" role="tab" aria-controls="profile" aria-selected="false">Your Data</a>
-  </li>
-</ul>
-<div class="tab-content" id="myTabContent">
-  <div class="tab-pane fade show active" id="config" role="tabpanel" aria-labelledby="home-tab">
-    <div class="row">
-      <div class="col-12">
-        <!-- DASHBOARD -->
-        <br/>
+      <li class="nav-item">
+        <a class="nav-link active" id="home-tab" data-toggle="tab" href="#config" role="tab" aria-controls="home"
+          aria-selected="true">Apps</a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link" id="mission-tab" data-toggle="tab" href="#test" role="tab" aria-controls="mission"
+          aria-selected="false">Missions</a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link" id="data-tab" data-toggle="tab" href="#test" role="tab" aria-controls="data"
+          aria-selected="false">Your Data</a>
+      </li>
+    </ul>
+
+    <div class="tab-content" id="myTabContent">
+      <div class="search-pane">
         <div class="row">
-          <div class="col-lg-3">
-          <div class="card" style="width: 14rem;">
-            <div class="centre"><img class="card-img" src="design_assets/basic_icons/camera.png" style="width:50%; margin:10px" alt="RGB Imaging"></div>
-            <div class="card-body">
-              <!--p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p-->
-              <a href="rgb_app.html" class="btn btn-primary">RGB <br/>Imager</a>
+          <div class="col-lg-5">
+            <input type="search" class="form-control" placeholder="Search Apps" aria-label="Search Apps" aria-describedby="basic-addon2">
+          </div>
+        </div>
+      </div>
+      <div class="tab-pane fade show active" id="config" role="tabpanel" aria-labelledby="home-tab">
+        <div class="row dash-row">
+          <div class="col-12 app-dashboard text-center">
+            <!-- DASHBOARD -->
+            <div class="row">
+              <div class="col-lg-3">
+                <div class="card" style="width: 14rem;">
+                  <div class="centre"><img class="card-img" src="design_assets/basic_icons/camera.png" style="width:50%; margin:10px" alt="RGB Imaging"></div>
+                  <div class="card-body">
+                    <!--p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p-->
+                    <a href="rgb_app.html" class="btn btn-primary">RGB <br />Imager</a>
+                  </div>
+                </div>
+              </div>
+              <div class="col-lg-3">
+                <div class="card" style="width: 14rem;">
+                  <div class="centre"><img class="card-img" src="design_assets/basic_icons/multispectral_c.png" style="width:50%; margin:10px" alt="Multispectral Imaging"></div>
+                  <div class="card-body">
+                    <!--p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p-->
+                    <a href="#" class="btn btn-primary">Multispectral Imager</a>
+                  </div>
+                </div>
+              </div>
+              <div class="col-lg-3">
+                <div class="card" style="width: 14rem;">
+                  <div class="centre"><img class="card-img" src="design_assets/basic_icons/hyperspectral_c.png" style="width:50%; margin:10px" alt="Multispectral Imaging"></div>
+                  <div class="card-body">
+                    <!--p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p-->
+                    <a href="#" class="btn btn-primary">Hyperspectral Imager</a>
+                  </div>
+                </div>
+              </div>
+              <div class="col-lg-3">
+                <div class="card" style="width: 14rem;">
+                  <div class="centre"><img class="card-img" src="design_assets/basic_icons/adsb_airplane.png" style="width:50%; margin:10px" alt="Multispectral Imaging"></div>
+                  <div class="card-body">
+                    <!--p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p-->
+                    <a href="#" class="btn btn-primary">ADS-B monitoring</a>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="row">
+              <div class="col-lg-3">
+                <div class="card" style="width: 14rem;">
+                  <div class="centre"><img class="card-img" src="design_assets/basic_icons/ais_ship.png" style="width:50%; margin:10px" alt="RGB Imaging"></div>
+                  <div class="card-body">
+                    <!--p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p-->
+                    <a href="#" class="btn btn-primary">AIS <br />Monitoring</a>
+                  </div>
+                </div>
+              </div>
+              <div class="col-lg-3">
+                <div class="card" style="width: 14rem;">
+                  <div class="centre"><img class="card-img" src="design_assets/icons_advanced/wildfire.png" style="width:50%; margin:10px" alt="Multispectral Imaging"></div>
+                  <div class="card-body">
+                    <!--p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p-->
+                    <a href="#" class="btn btn-primary">Wildfire Detection</a>
+                  </div>
+                </div>
+              </div>
+              <div class="col-lg-3">
+                <div class="card" style="width: 14rem;">
+                  <div class="centre"><img class="card-img" src="design_assets/icons_advanced/pollution.png" style="width:50%; margin:10px" alt="Multispectral Imaging"></div>
+                  <div class="card-body">
+                    <!--p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p-->
+                    <a href="#" class="btn btn-primary">Pollution Monitoring</a>
+                  </div>
+                </div>
+              </div>
+              <div class="col-lg-3">
+                <div class="card" style="width: 14rem;">
+                  <div class="centre"><img class="card-img" src="design_assets/icons_advanced/object_detection.png" style="width:50%; margin:10px" alt="Multispectral Imaging"></div>
+                  <div class="card-body">
+                    <!--p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p-->
+                    <a href="#" class="btn btn-primary">Object Detection</a>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="row">
+              <div class="col-lg-3">
+                <div class="card" style="width: 14rem;">
+                  <div class="centre"><img class="card-img" src="design_assets/icons_advanced/change_detection.png" style="width:50%; margin:10px" alt="RGB Imaging"></div>
+                  <div class="card-body">
+                    <!--p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p-->
+                    <a href="#" class="btn btn-primary">Change Detection</a>
+                  </div>
+                </div>
+              </div>
+              <div class="col-lg-3">
+                <div class="card" style="width: 14rem;">
+                  <div class="centre"><img class="card-img" src="design_assets/icons_advanced/traffic_analysis.png" style="width:50%; margin:10px" alt="Multispectral Imaging"></div>
+                  <div class="card-body">
+                    <!--p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p-->
+                    <a href="#" class="btn btn-primary">Traffic <br />Analysis</a>
+                  </div>
+                </div>
+              </div>
+              <div class="col-lg-3">
+                <div class="card" style="width: 14rem;">
+                  <div class="centre"><img class="card-img" src="design_assets/basic_icons/sound.png" style="width:50%; margin:10px" alt="Multispectral Imaging"></div>
+                  <div class="card-body">
+                    <!--p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p-->
+                    <a href="#" class="btn btn-primary">Custom <br />Application</a>
+                  </div>
+                </div>
+              </div>
             </div>
           </div>
         </div>
-        <div class="col-lg-3">
-          <div class="card" style="width: 14rem;">
-            <div class="centre"><img class="card-img" src="design_assets/basic_icons/multispectral_c.png" style="width:50%; margin:10px" alt="Multispectral Imaging"></div>
-            <div class="card-body">
-              <!--p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p-->
-              <a href="#" class="btn btn-primary">Multispectral Imager</a>
-            </div>
+        <div class="row mission-row">
+          <div class="col-12 app-mission text-center">
+
           </div>
         </div>
-        <div class="col-lg-3">
-          <div class="card" style="width: 14rem;">
-            <div class="centre"><img class="card-img" src="design_assets/basic_icons/hyperspectral_c.png" style="width:50%; margin:10px" alt="Multispectral Imaging"></div>
-            <div class="card-body">
-              <!--p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p-->
-              <a href="#" class="btn btn-primary">Hyperspectral Imager</a>
-            </div>
+        <div class="row data-row">
+          <div class="col-12 app-data text-center">
+
           </div>
         </div>
-        <div class="col-lg-3">
-          <div class="card" style="width: 14rem;">
-            <div class="centre"><img class="card-img" src="design_assets/basic_icons/adsb_airplane.png" style="width:50%; margin:10px" alt="Multispectral Imaging"></div>
-            <div class="card-body">
-              <!--p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p-->
-              <a href="#" class="btn btn-primary">ADS-B monitoring</a>
-            </div>
+      </div>
+      <div class="tab-pane fade show" id="config" role="tabpanel" aria-labelledby="mission-tab">
+        <div class="row mission-row">
+          <div class="col-12 app-mission text-center">
+            
           </div>
         </div>
-        </div>
-        <div class="row">
-          <div class="col-lg-3">
-          <div class="card" style="width: 14rem;">
-            <div class="centre"><img class="card-img" src="design_assets/basic_icons/ais_ship.png" style="width:50%; margin:10px" alt="RGB Imaging"></div>
-            <div class="card-body">
-              <!--p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p-->
-              <a href="#" class="btn btn-primary">AIS <br/>Monitoring</a>
-            </div>
+      </div>
+      <div class="tab-pane fade show" id="config" role="tabpanel" aria-labelledby="data-tab">
+        <div class="row data-row">
+          <div class="col-12 app-data text-center">
+
           </div>
-        </div>
-        <div class="col-lg-3">
-          <div class="card" style="width: 14rem;">
-            <div class="centre"><img class="card-img" src="design_assets/icons_advanced/wildfire.png" style="width:50%; margin:10px" alt="Multispectral Imaging"></div>
-            <div class="card-body">
-              <!--p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p-->
-              <a href="#" class="btn btn-primary">Wildfire Detection</a>
-            </div>
-          </div>
-        </div>
-        <div class="col-lg-3">
-          <div class="card" style="width: 14rem;">
-            <div class="centre"><img class="card-img" src="design_assets/icons_advanced/pollution.png" style="width:50%; margin:10px" alt="Multispectral Imaging"></div>
-            <div class="card-body">
-              <!--p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p-->
-              <a href="#" class="btn btn-primary">Pollution Monitoring</a>
-            </div>
-          </div>
-        </div>
-        <div class="col-lg-3">
-          <div class="card" style="width: 14rem;">
-            <div class="centre"><img class="card-img" src="design_assets/icons_advanced/object_detection.png" style="width:50%; margin:10px" alt="Multispectral Imaging"></div>
-            <div class="card-body">
-              <!--p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p-->
-              <a href="#" class="btn btn-primary">Object Detection</a>
-            </div>
-          </div>
-        </div>
-        </div>
-        <div class="row">
-          <div class="col-lg-3">
-          <div class="card" style="width: 14rem;">
-            <div class="centre"><img class="card-img" src="design_assets/icons_advanced/change_detection.png" style="width:50%; margin:10px" alt="RGB Imaging"></div>
-            <div class="card-body">
-              <!--p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p-->
-              <a href="#" class="btn btn-primary">Change Detection</a>
-            </div>
-          </div>
-        </div>
-        <div class="col-lg-3">
-          <div class="card" style="width: 14rem;">
-            <div class="centre"><img class="card-img" src="design_assets/icons_advanced/traffic_analysis.png" style="width:50%; margin:10px" alt="Multispectral Imaging"></div>
-            <div class="card-body">
-              <!--p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p-->
-              <a href="#" class="btn btn-primary">Traffic <br/>Analysis</a>
-            </div>
-          </div>
-        </div>
-        <div class="col-lg-3">
-          <div class="card" style="width: 14rem;">
-            <div class="centre"><img class="card-img" src="design_assets/basic_icons/sound.png" style="width:50%; margin:10px" alt="Multispectral Imaging"></div>
-            <div class="card-body">
-              <!--p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p-->
-              <a href="#" class="btn btn-primary">Custom <br/>Application</a>
-            </div>
-          </div>
-        </div>
         </div>
       </div>
     </div>
-
+    <div id="dialog" title="Create Mission">
+      <p style="color:black" id="dialog_text">
+        Location</br>
+        Time and date</br>
+        Instrument Paramaters</br>
+        Script, if any</p>
+    </div>
   </div>
 
-</div>
-<div id="dialog" title="Create Mission">
-  <p style="color:black" id="dialog_text">
-  Location</br>
-  Time and date</br>
-  Instrument Paramaters</br>
-  Script, if any</p>
-</div>
-</div>
 
+  <!--   Core JS Files   -->
+  <script type="text/javascript" src="assets/js/core/popper.min.js"></script>
+  <script type="text/javascript" src="assets/js/core/bootstrap.min.js"></script>
+  <script type="text/javascript" src="assets/js/plugins/chartjs.min.js"></script>
+  <script type="text/javascript" src="assets/js/plugins/perfect-scrollbar.jquery.min.js"></script>
+  <script type="text/javascript" src="assets/js/plugins/bootstrap-notify.js"></script>
 
-<!--   Core JS Files   -->
-<script type="text/javascript" src="assets/js/core/popper.min.js"></script>
-<script type="text/javascript" src="assets/js/core/bootstrap.min.js"></script>
-<script type="text/javascript" src="assets/js/plugins/chartjs.min.js"></script>
-<script type="text/javascript" src="assets/js/plugins/perfect-scrollbar.jquery.min.js"></script>
-<script type="text/javascript" src="assets/js/plugins/bootstrap-notify.js"></script>
-
-<script type="text/javascript" src="assets/js/black-dashboard.min.js?v=1.0.0"></script>
-<script type="text/javascript" src="assets/exodus/general.js"></script>
-<script type="text/javascript" src="assets/exodus/init.js"></script>
+  <script type="text/javascript" src="assets/js/black-dashboard.min.js?v=1.0.0"></script>
+  <script type="text/javascript" src="assets/exodus/general.js"></script>
+  <script type="text/javascript" src="assets/exodus/init.js"></script>
+  <script type="text/javascript" src="assets/exodus/demo.js"></script>
 </body>
+
 </html>
