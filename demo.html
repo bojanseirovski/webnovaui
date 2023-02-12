@@ -19,13 +19,8 @@
   <script type="text/javascript" src="https://code.jquery.com/ui/1.13.2/jquery-ui.js"></script>
   <script>
     $(document).ready(function () {
-      $("#dialog_text").hide();
-    });
 
-    function showMissionDialog() {
-      $("#dialog").dialog();
-      $("#dialog_text").show();
-    }
+    });
   </script>
 </head>
 
@@ -48,11 +43,11 @@
           aria-selected="true">Apps</a>
       </li>
       <li class="nav-item">
-        <a class="nav-link" id="mission-tab" data-toggle="tab" href="#test" role="tab" aria-controls="mission"
+        <a class="nav-link" id="mission-tab" data-toggle="tab" href="#missions" role="tab" aria-controls="mission"
           aria-selected="false">Missions</a>
       </li>
       <li class="nav-item">
-        <a class="nav-link" id="data-tab" data-toggle="tab" href="#test" role="tab" aria-controls="data"
+        <a class="nav-link" id="data-tab" data-toggle="tab" href="#datum" role="tab" aria-controls="data"
           aria-selected="false">Your Data</a>
       </li>
     </ul>
@@ -74,7 +69,6 @@
                 <div class="card" style="width: 14rem;">
                   <div class="centre"><img class="card-img" src="design_assets/basic_icons/camera.png" style="width:50%; margin:10px" alt="RGB Imaging"></div>
                   <div class="card-body">
-                    <!--p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p-->
                     <a href="rgb_app.html" class="btn btn-primary">RGB <br />Imager</a>
                   </div>
                 </div>
@@ -83,7 +77,6 @@
                 <div class="card" style="width: 14rem;">
                   <div class="centre"><img class="card-img" src="design_assets/basic_icons/multispectral_c.png" style="width:50%; margin:10px" alt="Multispectral Imaging"></div>
                   <div class="card-body">
-                    <!--p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p-->
                     <a href="#" class="btn btn-primary">Multispectral Imager</a>
                   </div>
                 </div>
@@ -92,7 +85,6 @@
                 <div class="card" style="width: 14rem;">
                   <div class="centre"><img class="card-img" src="design_assets/basic_icons/hyperspectral_c.png" style="width:50%; margin:10px" alt="Multispectral Imaging"></div>
                   <div class="card-body">
-                    <!--p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p-->
                     <a href="#" class="btn btn-primary">Hyperspectral Imager</a>
                   </div>
                 </div>
@@ -176,38 +168,70 @@
             </div>
           </div>
         </div>
-        <div class="row mission-row">
+      </div>
+      <div class="tab-pane fade show" id="missions" role="tabpanel" aria-labelledby="mission-tab">
+        <div class="row">
           <div class="col-12 app-mission text-center">
-
+            <table class="table">
+              <thead>
+              <tr>
+                <th>ID</th>
+                <th>Type</th>
+                <th>Status</th>
+                <th>Date Created</th>
+                <th>Data Available</th>
+              </tr>
+            </thead>
+              <tr>
+                <td>001</td>
+                <td>RGB</td>
+                <td>Pending</td>
+                <td>2013-02-11 13:55:56.271</td>
+                <td>2013-02-13 10:00:01.128</td>
+              </tr>
+              <tr>
+                <td>002</td>
+                <td>Multispectral</td>
+                <td>Completed</td>
+                <td>2013-02-13 14:16:12.333</td>
+                <td>2013-02-15 08:43:25.178</td>
+              </tr>
+            </table>
           </div>
         </div>
-        <div class="row data-row">
+      </div>
+      <div class="tab-pane fade show" id="datum" role="tabpanel" aria-labelledby="data-tab">
+        <div class="row">
           <div class="col-12 app-data text-center">
+            <table class="table">
+              <thead>
+              <tr>
+                <th>ID</th>
+                <th>Type</th>
+                <th>Status</th>
+                <th>Date Created</th>
+                <th>Download Link</th>
+              </tr>
+            </thead>
+              <tr>
+                <td>001</td>
+                <td>RGB</td>
+                <td>Pending</td>
+                <td>2013-02-11 13:55:56.271</td>
+                <td>Not available yet</td>
+              </tr>
+              <tr>
+                <td>002</td>
+                <td>Multispectral</td>
+                <td>Completed</td>
+                <td>2013-02-13 14:16:12.333</td>
+                <td><button class="btn">Download</td>
 
+              </tr>
+            </table>
           </div>
         </div>
       </div>
-      <div class="tab-pane fade show" id="config" role="tabpanel" aria-labelledby="mission-tab">
-        <div class="row mission-row">
-          <div class="col-12 app-mission text-center">
-
-          </div>
-        </div>
-      </div>
-      <div class="tab-pane fade show" id="config" role="tabpanel" aria-labelledby="data-tab">
-        <div class="row data-row">
-          <div class="col-12 app-data text-center">
-
-          </div>
-        </div>
-      </div>
-    </div>
-    <div id="dialog" title="Create Mission">
-      <p style="color:black" id="dialog_text">
-        Location</br>
-        Time and date</br>
-        Instrument Paramaters</br>
-        Script, if any</p>
     </div>
   </div>
 
@@ -222,7 +246,6 @@
   <script type="text/javascript" src="assets/js/black-dashboard.min.js?v=1.0.0"></script>
   <script type="text/javascript" src="assets/exodus/general.js"></script>
   <script type="text/javascript" src="assets/exodus/init.js"></script>
-  <script type="text/javascript" src="assets/exodus/demo.js"></script>
 </body>
 
 </html>
