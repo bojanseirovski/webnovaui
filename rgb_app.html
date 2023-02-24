@@ -35,11 +35,34 @@
         [46.175, 30.32],
         [46.205, 30.32]
       ]).addTo(map);
+      $("#datepicker_start").datepicker();
+      $("#datepicker_end").datepicker();
     });
 
     function showMissionDialog() {
+      request_pass_list();
       $("#dialog").dialog();
       $("#dialog_text").show();
+    }
+
+    function request_pass_list()
+    {
+      var mission_data = {
+        satellite: "None",
+        instrument: "None",
+        loc_lat: 11.214,
+        loc_lon: 233.222,
+        start_time: '2013-12-12 22:12:32.211',
+        end_time: '2016-12-12 22:12:32.211'
+      }
+      $("#contents_mission").text(data);
+    }
+
+    function create_mission()
+    {  
+      $.get( "http://localhost:8000/webnova/v1/instruments/", function( data ) {
+        //alert("launched");
+      });
     }
   </script>
 </head>
@@ -80,42 +103,69 @@
 
               </div>
               <div class="col-lg-3 col-sm-3">
-                <h3>Select the satellite</h3>
+                <h4>Select the satellite</h4>
                 <select id="satellites" class="form-control">
                   <option value="44878">TEST-SAT</option>
                 </select><br/>
+                <h4>Select instrument</h4>
+
                 <select id="instruments" class="form-control">
                   <option value="1">RGB_IMAGER</option>
                 </select><br/>
-                <button class="btn btn-info btn-lg button" id="show_pass_button">Step 1: Pick A Pass </button><br/>
+                <h4>Schedule Pass </h4>
                 <table class="table">
                   <tr>
-                    <td><input type="checkbox" />&nbsp;2023-01-16 09:20:55</td>
+                    <td>Start Date: <input type="text" id="datepicker_start"></p></td>
                   </tr>
                   <tr>
-                    <td><input type="checkbox" />&nbsp;2023-01-16 09:20:55</td>
-                  </tr>
-                  <tr>
-                    <td><input type="checkbox" />&nbsp;2023-01-16 09:20:55</td>
-                  </tr>
-                  <tr>
-                    <td><input type="checkbox" />&nbsp;2023-01-16 09:20:55</td>
+                    <td>End Date:&nbsp;&nbsp; <input type="text" id="datepicker_end"></p></td>
                   </tr>
                 </table>
-                <button class="btn btn-info btn-lg button" onclick="showMissionDialog()" id="mission_button">
-                Step 2: Create Mission</button>
+                <!--button class="btn btn-info btn-lg button" onclick="showMissionDialog()" id="mission_button">Create Mission</button-->
+                <button type="button" class="btn btn-info btn-lg button" data-toggle="modal" data-target="#myModal" onclick="request_pass_list()">Create Mission</button>
               </div>
             </div>
           </div>
         </div>
 
     </div>
-    <div id="dialog" title="Create Mission">
-      <p style="color:black" id="dialog_text">
-        Location</br>
-        Time and date</br>
-        Instrument Paramaters</br>
-        Script, if any</p>
+    <!-- Modal -->
+    <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+      <div class="modal-dialog" role="document">
+        <div class="modal-content">
+          <div class="modal-header">
+            <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+            <h4 class="modal-title" id="myModalLabel">Launch mission</h4>
+          </div>
+          <div class="modal-body">
+              <table class="table table-dark">
+                <tr>
+                  <td id="satellite_selecte">Satellite</td><td>TEST-SAT</td>
+                </tr>
+                <tr>
+                  <td id="instrument_selected">Instrument</td><td>RGB-IMAGER</td>
+                </tr>
+                <tr>
+                  <td id="target_lat">Latitude</td><td>46.205</td>
+                </tr>
+                <tr>
+                  <td id="target_lon">Longitude</td><td>30.32</td>
+                </tr>
+                <tr>
+                  <td id="date_start">Start Date</td><td>2022-12-31 12:44:33</td>
+                </tr>
+                <tr>
+                  <td id="date_end">End Date</td><td>2023-01-11 15:25:17</td>
+                </tr>
+              </table>
+              <p id="contents_mission"></p>
+          </div>
+          <div class="modal-footer">
+            <button type="button" class="btn btn-default" data-dismiss="modal">Abort</button>
+            <button type="button" class="btn btn-primary" data-dismiss="modal" onclick="create_mission()">Launch!</button>
+          </div>
+        </div>
+      </div>
     </div>
   </div>
 
