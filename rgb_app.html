@@ -22,9 +22,10 @@
 
 
   <script>
+    var map;
     $(document).ready(function () {
       $("#dialog_text").hide();
-      var map = L.map('map').setView([46.19, 30.35], 12);
+      map = L.map('map').setView([46.19, 30.35], 12);
       L.tileLayer('https://tile.openstreetmap.org/{z}/{x}/{y}.png', {
         maxZoom: 19,
         attribution: '&copy; <a href="http://www.openstreetmap.org/copyright">OpenStreetMap</a>'
@@ -39,30 +40,39 @@
       $("#datepicker_end").datepicker();
     });
 
-    function showMissionDialog() {
-      request_pass_list();
-      $("#dialog").dialog();
-      $("#dialog_text").show();
-    }
-
     function request_pass_list()
     {
+      var start_date_value = $("#datepicker_start").datepicker('getDate');
+      var end_date_value = $("#datepicker_end").datepicker('getDate');
+      var position = map.getCenter();
+
       var mission_data = {
         satellite: "None",
         instrument: "None",
         loc_lat: 11.214,
         loc_lon: 233.222,
-        start_time: '2013-12-12 22:12:32.211',
-        end_time: '2016-12-12 22:12:32.211'
+        start_time: start_date_value,
+        end_time: end_date_value
       }
-      $("#contents_mission").text(data);
+      var api_str = "http://localhost:8000/webnova/v1/times_on_target/?norad_id=44878&net=2020,01,21,0,0,0&nlt=2022,02,14,1,1,1&lat=45.55&lng=30.5";
+      $.get(api_str, function( data ) {
+        var passes = JSON.parse(data)["target_passes"];
+        for (var i=0;i<passes.length;i++)
+        {
+          $("#available_pass_list").append("<tr><td>"+passes[i][0]+"</td><td>"+passes[i][1]+'</td><td><input type="checkbox"/></td></tr>');
+        }
+        ///alert(data);
+      });
+
+      //$("#date_start").text(start_date_value.toLocaleDateString('en-US'));
+      //$("#date_end").text(end_date_value.toLocaleDateString('en-US'));
+      $("#target_lat").text(position.lat);
+      $("#target_lon").text(position.lng);
     }
 
-    function create_mission()
-    {  
-      $.get( "http://localhost:8000/webnova/v1/instruments/", function( data ) {
-        //alert("launched");
-      });
+    function launch_mission()
+    {
+        //create a mission pass list
     }
   </script>
 </head>
@@ -121,7 +131,6 @@
                     <td>End Date:&nbsp;&nbsp; <input type="text" id="datepicker_end"></p></td>
                   </tr>
                 </table>
-                <!--button class="btn btn-info btn-lg button" onclick="showMissionDialog()" id="mission_button">Create Mission</button-->
                 <button type="button" class="btn btn-info btn-lg button" data-toggle="modal" data-target="#myModal" onclick="request_pass_list()">Create Mission</button>
               </div>
             </div>
@@ -140,29 +149,31 @@
           <div class="modal-body">
               <table class="table table-dark">
                 <tr>
-                  <td id="satellite_selecte">Satellite</td><td>TEST-SAT</td>
+                  <td>Target Latitude</td><td><span id="target_lat">0.00</span></td>
                 </tr>
                 <tr>
-                  <td id="instrument_selected">Instrument</td><td>RGB-IMAGER</td>
+                  <td>Target Longitude</td><td><span id="target_lon">0.00</span></td>
+                </tr>
+                <!--tr>
+                  <td>Start Date</td><td><span id="date_start"></span></td>
                 </tr>
                 <tr>
-                  <td id="target_lat">Latitude</td><td>46.205</td>
+                  <td>End Date</td><td><span id="date_end"></td>
+                </tr-->
+              </table>
+              <h4 class="text-dark">Select available passes</h4>
+              <table class="table table-dark" id="available_pass_list">
+                <tr>
+                  <th class="text-white">Start Time</th><th class="text-white">End Time</th><th></th>
                 </tr>
                 <tr>
-                  <td id="target_lon">Longitude</td><td>30.32</td>
-                </tr>
-                <tr>
-                  <td id="date_start">Start Date</td><td>2022-12-31 12:44:33</td>
-                </tr>
-                <tr>
-                  <td id="date_end">End Date</td><td>2023-01-11 15:25:17</td>
+                  <td>2022-11-02 22:43:23</td><td>2022-11-03 03:41:13</td><td><input type="checkbox"/></td>
                 </tr>
               </table>
-              <p id="contents_mission"></p>
           </div>
           <div class="modal-footer">
             <button type="button" class="btn btn-default" data-dismiss="modal">Abort</button>
-            <button type="button" class="btn btn-primary" data-dismiss="modal" onclick="create_mission()">Launch!</button>
+            <button type="button" class="btn btn-primary" data-dismiss="modal">Launch!</button>
           </div>
         </div>
       </div>
