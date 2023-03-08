@@ -46,7 +46,7 @@
       var end_date_value = $("#datepicker_end").datepicker('getDate');
       var position = map.getCenter();
 
-      var api_str = "http://localhost:8000/webnova/v1/times_on_target/?norad_id=44878&net=2020,01,21,0,0,0&nlt=2022,02,14,1,1,1&lat=45.55&lng=30.5";
+      var api_str = "http://webnova-dev.exodusorbitals.com/webnova/v1/times_on_target/?norad_id=44878&net=2020,01,21,0,0,0&nlt=2022,02,14,1,1,1&lat=45.55&lng=30.5";
       $.get(api_str, function( data ) {
         var passes = JSON.parse(data)["target_passes"];
         for (var i=0;i<passes.length;i++)
