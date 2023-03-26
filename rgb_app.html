@@ -149,6 +149,8 @@
       });
       return passes;
     }
+
+
     function launch_mission()
     {
       //create a mission object
@@ -161,9 +163,18 @@
         loc_lon: position.lng,
         passes: get_selected_passes(),
       }
+      var user = "demo_user";
+      var email = "demo@email.com";
       console.log(mission_data);
       // Here be api call to server with new mission
-      alert("Launched!");
+      var api_str_post = api_server +"webnova/v1/create_mission/";
+      $.post(api_str_post, {
+          "mission_instance":JSON.stringify(mission_data),
+          "user":user,
+          "email":email
+        }).done( function(data) {
+        alert(data);
+      });
    }
 
   </script>
