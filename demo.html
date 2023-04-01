@@ -17,15 +17,35 @@
   <!-- <script type="text/javascript" src="node_modules/vue-router/dist/vue-router.min.js"></script> -->
   <script type="text/javascript" src="assets/js/core/jquery.min.js"></script>
   <script type="text/javascript" src="https://code.jquery.com/ui/1.13.2/jquery-ui.js"></script>
-  <script>
+  <script type="text/javascript">
+    var api_server = "http://localhost:8000/";
+
+    function load_missions()
+      {
+        var api_missions_url = api_server +"webnova/v1/mission_list/";
+        $.get(api_missions_url, function(data){
+          var mission_list = JSON.parse(data);
+          $('#mission_list_table tbody').empty();
+          var tableBody = $('#mission_list_table tbody');
+          // Iterate over each object in the data list
+          $.each(mission_list, function(index, object) {
+            // Create a new row element
+            var row = $('<tr>');
+            // Add a cell for each property of the object
+            $('<td>').html(object.id).appendTo(row);
+            $('<td>').html(object.type).appendTo(row);
+            $('<td>').html(object.status).appendTo(row);
+            $('<td>').html(object.start_date).appendTo(row);
+            $('<td>').html(object.date_available).appendTo(row);
+            $('<td>').html(object.download_link).appendTo(row);
+            // Append the row to the table body
+            row.appendTo(tableBody);
+          })
+        });
+      }
+
     $(document).ready(function () {
       //load mission list
-      function load_missions()
-      {
-        alert("loading missions...");
-
-      }
-      load_missions();
     });
   </script>
 </head>
@@ -50,7 +70,7 @@
       </li>
       <li class="nav-item">
         <a class="nav-link" id="data-tab" data-toggle="tab" href="#datum" role="tab" aria-controls="data"
-          aria-selected="false">Your Missions</a>
+          aria-selected="false" onclick="load_missions()">Your Missions</a>
       </li>
     </ul>
 
@@ -93,6 +113,17 @@
               </div>
               <div class="col-lg-3">
                 <div class="card" style="width: 14rem;">
+                  <div class="centre"><img class="card-img" src="design_assets/basic_icons/radar.png" style="width:50%; margin:10px" alt="Multispectral Imaging"></div>
+                  <div class="card-body">
+                    <!--p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p-->
+                    <a href="#" class="btn btn-primary">Synthetic Aperture Radar</a>
+                  </div>
+                </div>
+              </div>
+            </div>
+          <div class="row">
+              <div class="col-lg-3">
+                <div class="card" style="width: 14rem;">
                   <div class="centre"><img class="card-img" src="design_assets/basic_icons/adsb_airplane.png" style="width:50%; margin:10px" alt="Multispectral Imaging"></div>
                   <div class="card-body">
                     <!--p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p-->
@@ -100,8 +131,6 @@
                   </div>
                 </div>
               </div>
-            </div>
-            <div class="row">
               <div class="col-lg-3">
                 <div class="card" style="width: 14rem;">
                   <div class="centre"><img class="card-img" src="design_assets/basic_icons/ais_ship.png" style="width:50%; margin:10px" alt="RGB Imaging"></div>
@@ -129,6 +158,8 @@
                   </div>
                 </div>
               </div>
+            </div>
+            <div class="row">
               <div class="col-lg-3">
                 <div class="card" style="width: 14rem;">
                   <div class="centre"><img class="card-img" src="design_assets/icons_advanced/object_detection.png" style="width:50%; margin:10px" alt="Multispectral Imaging"></div>
@@ -138,8 +169,6 @@
                   </div>
                 </div>
               </div>
-            </div>
-            <div class="row">
               <div class="col-lg-3">
                 <div class="card" style="width: 14rem;">
                   <div class="centre"><img class="card-img" src="design_assets/icons_advanced/change_detection.png" style="width:50%; margin:10px" alt="RGB Imaging"></div>
@@ -174,7 +203,7 @@
       <div class="tab-pane fade show" id="datum" role="tabpanel" aria-labelledby="data-tab">
         <div class="row">
           <div class="col-12 app-data text-center">
-            <table class="table">
+            <table class="table" id="mission_list_table">
               <thead>
               <tr>
                 <th>ID</th>
@@ -185,22 +214,8 @@
                 <th>Download Link</th>
               </tr>
             </thead>
-              <tr>
-                <td>001</td>
-                <td>RGB</td>
-                <td>Pending</td>
-                <td>2013-02-11 13:55:56.271</td>
-                <td>2013-03-16 13:55:56.271</td>
-                <td>Not available yet</td>
-              </tr>
-              <tr>
-                <td>002</td>
-                <td>Multispectral</td>
-                <td>Completed</td>
-                <td>2013-02-13 14:16:12.333</td>
-                <td>2013-02-16 13:55:56.271</td>
-                <td><button class="btn">Download</td>
-              </tr>
+            <tbody>
+            </tbody>
             </table>
           </div>
         </div>

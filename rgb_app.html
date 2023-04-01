@@ -126,6 +126,7 @@
       var api_str = api_server +"webnova/v1/times_on_target/?norad_id=44878&net=2020,01,21,0,0,0&nlt=2022,02,14,1,1,1&lat=45.55&lng=30.5";
       $.get(api_str, function( data ) {
         var passes = JSON.parse(data)["target_passes"];
+        $("#available_pass_list").empty();
         for (var i=0;i<passes.length;i++)
         {
           $("#available_pass_list").append('<tr class="pass_data_row"><td class="pass_start">'+passes[i][0]+'</td><td class="pass_end">'+passes[i][1]+'</td><td><input type="checkbox" class="selected_pass"/></td></tr>');
@@ -161,11 +162,12 @@
         instrument: $("#instruments").val(),
         loc_lat: position.lat,
         loc_lon: position.lng,
+        start_date: $("#datepicker_start").datepicker('getDate'),
+        mission_type: "RGB",
         passes: get_selected_passes(),
       }
       var user = "demo_user";
       var email = "demo@email.com";
-      console.log(mission_data);
       // Here be api call to server with new mission
       var api_str_post = api_server +"webnova/v1/create_mission/";
       $.post(api_str_post, {
@@ -173,7 +175,6 @@
           "user":user,
           "email":email
         }).done( function(data) {
-        alert(data);
       });
    }
 
@@ -255,9 +256,11 @@
                 </tr>
               </table>
               <h4 class="text-dark">Select available passes</h4>
-              <table class="table table-dark" id="available_pass_list">
+              <table class="table table-dark" >
                 <tr>
                   <th class="text-white">Start Time</th><th class="text-white">End Time</th><th></th>
+                <tbody id="available_pass_list">
+                </tbody>
                 </tr>
               </table>
           </div>
