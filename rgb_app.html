@@ -116,14 +116,29 @@
 
     });
 
+  function formatDate(date) {
+    const year = date.getFullYear();
+    const month = String(date.getMonth() + 1).padStart(2, '0');
+    const day = String(date.getDate()).padStart(1, '0');
+    const hours = String(date.getHours()).padStart(1, '0');
+    const minutes = String(date.getMinutes()).padStart(1, '0');
+    const seconds = String(date.getSeconds()).padStart(1, '0');
+    return `${year},${month},${day},${hours},${minutes},${seconds}`;
+  }
+
 
     function request_pass_list()
     {
       var start_date_value = $("#datepicker_start").datepicker('getDate');
       var end_date_value = $("#datepicker_end").datepicker('getDate');
       var position = map.getCenter();
-
-      var api_str = api_server +"webnova/v1/times_on_target/?norad_id=44878&net=2020,01,21,0,0,0&nlt=2022,02,14,1,1,1&lat=45.55&lng=30.5";
+      var lon = position.lng;
+      var lat = position.lat;
+      //# change to the correct times, satellite and geographic coordinates
+      var net = formatDate(start_date_value);
+      var nlt = formatDate(end_date_value);
+      var api_str = "webnova/v1/times_on_target/?norad_id=44878&net="+net+"&nlt="+nlt+"&lat="+lat+"&lng="+lon;
+      var api_str = api_server + api_str; 
       $.get(api_str, function( data ) {
         var passes = JSON.parse(data)["target_passes"];
         $("#available_pass_list").empty();
