@@ -18,7 +18,8 @@
   <script type="text/javascript" src="assets/js/core/jquery.min.js"></script>
   <script type="text/javascript" src="https://code.jquery.com/ui/1.13.2/jquery-ui.js"></script>
   <script type="text/javascript">
-    var api_server = "http://127.0.0.1:8000/";
+    let hostname = location.hostname;
+    var api_server = "http://"+hostname+"/";
 
     function load_missions()
       {
