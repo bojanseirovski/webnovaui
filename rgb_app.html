@@ -21,10 +21,12 @@
 
   <script>
     var map;
-    var api_server = "http://127.0.0.1:8000/";
+    let hostname = location.hostname;
+    var api_server = "http://"+hostname+":8000/";
     var fov_polygons = [];
     var local_cache = {};
 
+    console.log(hostname);
     function set_map()
     {
       var input_str = $("#search_bar").val();
