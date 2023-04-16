@@ -22,11 +22,13 @@
   <script>
     var map;
     let hostname = location.hostname;
-    var api_server = "http://"+hostname+"/";
+    var api_server = "http://"+hostname;
     var fov_polygons = [];
     var local_cache = {};
 
-    console.log(hostname);
+    if (hostname = 'localhost') api_server = api_server + ':8000/';
+    else api_server = api_server + '/';
+
     function set_map()
     {
       var input_str = $("#search_bar").val();

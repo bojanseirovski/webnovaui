@@ -19,8 +19,11 @@
   <script type="text/javascript" src="https://code.jquery.com/ui/1.13.2/jquery-ui.js"></script>
   <script type="text/javascript">
     let hostname = location.hostname;
-    var api_server = "http://"+hostname+"/";
-
+    var api_server = "http://"+hostname;
+    console.log(hostname);
+    //I am dumb here
+    if (hostname = 'localhost') api_server = api_server + ':8000/';
+    else api_server = api_server + '/';
     function load_missions()
       {
         var api_missions_url = api_server +"webnova/v1/mission_list/";
