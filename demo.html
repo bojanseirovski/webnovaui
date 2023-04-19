@@ -24,6 +24,7 @@
     //I am dumb here
     if (hostname = 'localhost') api_server = api_server + ':8000/';
     else api_server = api_server + '/';
+    
     function load_missions()
       {
         var api_missions_url = api_server +"webnova/v1/mission_list/";
@@ -65,7 +66,7 @@
   <div class="content header-lane">
     <div class="row pl-5">
       <div class="col-12 text-left ml-1 logo-col-row pl-5">
-        <a href="apps.html">
+        <a href="demo.html">
           <img class="logo" src="assets/img/logo-white.png">
           <h2>Apps in space</h2>
         </a>

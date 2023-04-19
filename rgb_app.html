@@ -106,6 +106,8 @@
       redraw_fov_polygon();
       
       $("#datepicker_start").datepicker();
+      $("#datepicker_start").datepicker('setDate', 'today');
+
       $("#datepicker_end").datepicker();
 
       var search_bar = document.getElementById("search_bar");
