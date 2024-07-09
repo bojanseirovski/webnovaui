@@ -55,7 +55,7 @@ const RegisterForm = ({ layout }: { layout: 'simple' | 'card' | 'split' }) => {
 
   const validateEmail = (email: string) => {
     return email.
-    match(/^(([^<>()[\]\\.,;:\s@\"]+(\.[^<>()[\]\\.,;:\s@\"]+)*)|(\".+\"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/);
+    match(/^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/);
   };
 
   const handleRegister = (username: string, email: string, password: string, password2: string) => {
@@ -97,7 +97,7 @@ const RegisterForm = ({ layout }: { layout: 'simple' | 'card' | 'split' }) => {
           <Col sm={layout === 'card' ? 12 : 6} lg={6}>
             <Form.Group>
               <Form.Label htmlFor="password">Password</Form.Label>
-              <Form.Control id="password" type="text" placeholder="Password" ref={passRef} />
+              <Form.Control id="password" type="password" placeholder="Password" ref={passRef} />
               {togglePasswordErr ? <ErrorMessage type={"password"} message={"Invalid password."} /> : null}
             </Form.Group>
           </Col>
@@ -108,7 +108,7 @@ const RegisterForm = ({ layout }: { layout: 'simple' | 'card' | 'split' }) => {
               </Form.Label>
               <Form.Control
                 id="confirmPassword"
-                type="text"
+                type="password"
                 placeholder="Confirm Password"
                 ref={passRef2}
               />
@@ -132,7 +132,7 @@ const RegisterForm = ({ layout }: { layout: 'simple' | 'card' | 'split' }) => {
         </Button>
         <div className="text-center">
           <Link
-            to={`/pages/authentication/${layout}/login`}
+            to={`/`}
             className="fs-9 fw-bold"
           >
             Sign in to an existing account

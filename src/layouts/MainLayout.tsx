@@ -14,7 +14,7 @@ import { Container } from 'react-bootstrap';
 import { Outlet, useNavigate, Navigate } from 'react-router-dom';
 import ExodusEarthBanner from 'components/banners/ExodusEarthBanner';
 import { useLocation } from 'react-router-dom';
-// import { bg } from '@fullcalendar/core/internal-common';
+import { bg } from '@fullcalendar/core/internal-common';
 
 const MainLayout = () => {
   const {
@@ -28,7 +28,7 @@ const MainLayout = () => {
   
   let marginTopContain = "-2vh";
   let containerStyle = {marginTop: marginTopContain};
-  if (pathname == "/") {
+  if (pathname == "/" || pathname== '/register') {
     marginTopContain = "-10vh";
   }
   containerStyle = {marginTop: marginTopContain};
@@ -43,11 +43,11 @@ const MainLayout = () => {
     <>
     <ExodusEarthBanner/>
     <Container fluid className="px-0">
-      {(navbarPosition === 'vertical' || navbarPosition === 'combo') && (pathname != "/") && (
+      {(navbarPosition === 'vertical' || navbarPosition === 'combo') && (pathname != "/"  && pathname!= '/register') && (
         <NavbarVertical />
       )}
       {navbarPosition === 'vertical' && (pathname == "/") && <ExodusNavbarTopDefault />}
-      {(navbarPosition === 'horizontal' || navbarPosition === 'combo') && (pathname != "/") &&  (
+      {(navbarPosition === 'horizontal' || navbarPosition === 'combo') && (pathname != "/" && pathname!= '/register') &&  (
         <ExodusNavbarTopHorizontal />
       )}
       {navbarPosition === 'dual' && <NavbarDual />}

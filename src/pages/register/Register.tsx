@@ -1,11 +1,13 @@
-import RegisterForm from 'components/modules/auth/RegisterForm';
-import AuthSimpleLayout from 'layouts/AuthSimpleLayout';
+// import RegisterForm from 'components/modules/auth/RegisterForm';
+import ExodusRegisterForm from 'components/modules/auth/ExodusRegisterForm';
+// import AuthSimpleLayout from 'layouts/AuthSimpleLayout';
+import ExodusAuthSimpleLayout from 'layouts/ExodusAuthSimpleLayout';
 
 const Register = () => {
     return (
-        <AuthSimpleLayout>
-            <RegisterForm layout="simple" />
-        </AuthSimpleLayout>
+        <ExodusAuthSimpleLayout>
+            <ExodusRegisterForm layout="simple" />
+        </ExodusAuthSimpleLayout>
     );
 };
 

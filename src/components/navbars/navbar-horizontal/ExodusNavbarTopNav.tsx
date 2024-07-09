@@ -3,18 +3,18 @@ import { Nav } from 'react-bootstrap';
 import { topButtons, TopButtonItems } from 'exodussitemap';
 import { Link, useLocation } from 'react-router-dom';
 import { Frame3880} from '../../webnova/Wrapper/Frame3880/Frame3880';
-// import { Frame3881 } from 'components/webnova/Wrapper/Frame3881/Frame3881';
+import { Frame3881 } from 'components/webnova/Wrapper/Frame3881/Frame3881';
 const ExodusNavbarTopNav = () => {
   const { pathname } = useLocation();
   
   let style = {};
-  if (pathname == "/") {
+  if (pathname == "/" || pathname== '/register') {
     style = {display: "none"};
   }
   return (
     <Nav className="navbar-nav-top pb-4 pb-lg-0 scrollbar">
       <Frame3880 label={topButtons[0].key} url={topButtons[0].route} style={style}/>
-      {/* <Frame3881 label={topButtons[1].key} url={topButtons[1].route} style={style}/> */}
+      <Frame3881 label={topButtons[1].key} url={topButtons[1].route} style={style}/>
       {/* {topButtons.map(route => (
         <ExodusNavbarTopNavItem route={route} key={route.key}/>
       ))} */}
@@ -27,7 +27,7 @@ const ExodusNavbarTopNavItem = ({ route }: { route: TopButtonItems }) => {
   const { pathname } = useLocation();
   
   let style = {};
-  if (pathname == "/") {
+  if (pathname == "/" || pathname== '/register') {
     style = {display: "none"};
   }
 

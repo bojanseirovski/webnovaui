@@ -112,7 +112,7 @@ const ExodusLoginForm = ({ layout }: { layout: 'simple' | 'card' | 'split' }) =>
       <PhoenixButtonsDark_TypeDashing className="w-100 mb-3" text={{ label: "Sign In" }} onClick={validateAndLogin}/>
       <div className="text-center">
         <Link
-          to={`/pages/authentication/${layout}/register`}
+          to={`/register`}
           className="fs-9 fw-bold"
         >
           Create an account

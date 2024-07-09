@@ -213,6 +213,10 @@ const routes: RouteObject[] = [
             element: <Login />
           },
           {
+            path: '/register',
+            element: <Register />
+          },
+          {
             path: '/dashboard',
             children: [
               {

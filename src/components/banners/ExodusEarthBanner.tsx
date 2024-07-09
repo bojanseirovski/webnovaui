@@ -9,7 +9,7 @@ const ExodusEarthBanner = () => {
     const { hash, pathname, search } = location;
     let heightTopBanner = "30vh";
     let bgImage = earth;
-    if (pathname == "/") {
+    if (pathname == "/" || pathname== '/register') {
         heightTopBanner = "114vh";
         bgImage = earthLogin;
     }
