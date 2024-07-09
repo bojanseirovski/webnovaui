@@ -37,7 +37,11 @@ const MainLayout = () => {
     marginTopContain = "-10vh";
     containerStyle = {marginTop: marginTopContain};
   }
-
+  
+  let sessionKey = window.localStorage.getItem("session_key");
+  if (!sessionKey && ! (pathname == "/" || pathname== '/register')) {
+    window.location.href = "/";
+  }
   
   return (
     <>
