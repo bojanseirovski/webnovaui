@@ -17,6 +17,7 @@ export const login = (username: string, password: string, done: any, err:any) =>
         const session_key = response.data.session_key;
 
         window.localStorage.setItem("session_key", session_key);
+        window.localStorage.setItem("email", username);
         if (done) {
             done();
         }
@@ -38,6 +39,24 @@ export const register = (username: string, email:string, password: string, passw
         const session_key = response.data.session_key;
 
         window.localStorage.setItem("session_key", session_key);
+
+        if (done) {
+            done();
+        }
+    })
+    .catch(error => {
+        if (err) {
+            err();
+        }
+    });
+}
+
+export const logout = (email:string, done:any, err:any) => {
+    api.post("/user/logout/", {
+        email: email
+    })
+    .then(response => {
+        window.localStorage.removeItem("session_key");
 
         if (done) {
             done();

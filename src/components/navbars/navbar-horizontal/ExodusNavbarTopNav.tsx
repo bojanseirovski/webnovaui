@@ -14,7 +14,7 @@ const ExodusNavbarTopNav = () => {
   return (
     <Nav className="navbar-nav-top pb-4 pb-lg-0 scrollbar">
       <Frame3880 label={topButtons[0].key} url={topButtons[0].route} style={style}/>
-      <Frame3881 label={topButtons[1].key} url={topButtons[1].route} style={style}/>
+      {/* <Frame3881 label={topButtons[1].key} url={topButtons[1].route} style={style}/> */}
       {/* {topButtons.map(route => (
         <ExodusNavbarTopNavItem route={route} key={route.key}/>
       ))} */}

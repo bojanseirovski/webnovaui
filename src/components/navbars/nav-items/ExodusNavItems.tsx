@@ -1,16 +1,17 @@
-// import Avatar from 'components/base/Avatar';
-import { Modal } from 'react-bootstrap';
-// import avatar57 from 'assets/img/team/40x40/57.webp';
-// import ProfileDropdownMenu from './ProfileDropdownMenu';
-// import NineDotMenu from './NineDotMenu';
+import ExodusAvatar from 'components/base/ExodusAvatar';
+import { Dropdown, Modal, Nav } from 'react-bootstrap';
+import avatar57 from 'assets/img/team/40x40/57.webp';
+import avatarPlaceHolder from 'assets/img/team/avatar-placeholder.webp';
+import ExodusProfileDropdownMenu from './ExodusProfileDropdownMenu';
+import NineDotMenu from './NineDotMenu';
 import { useAppContext } from 'providers/AppProvider';
 // import FeatherIcon from 'feather-icons-react';
-// import { Link } from 'react-router-dom';
+import { Link } from 'react-router-dom';
 // import ThemeToggler from 'components/common/ThemeToggler';
 import { useState } from 'react';
 import DropdownSearchBox from 'components/common/DropdownSearchBox';
 import SearchResult from 'components/common/SearchResult';
-// import classNames from 'classnames';
+import classNames from 'classnames';
 
 const ExodusNavItems = () => {
   const {
@@ -59,7 +60,7 @@ const ExodusNavItems = () => {
           <NineDotMenu />
         </Dropdown>
       </Nav.Item> */}
-      {/* <Nav.Item>
+      <Nav.Item>
         <Dropdown autoClose="outside" className="h-100">
           <Dropdown.Toggle
             as={Link}
@@ -67,11 +68,11 @@ const ExodusNavItems = () => {
             className="dropdown-caret-none nav-link pe-0 py-0 lh-1 h-100 d-flex align-items-center"
             variant=""
           >
-            <Avatar src={avatar57} size="l" />
+            <ExodusAvatar src={avatarPlaceHolder} size="l" />
           </Dropdown.Toggle>
-          <ProfileDropdownMenu />
+          <ExodusProfileDropdownMenu />
         </Dropdown>
-      </Nav.Item> */}
+      </Nav.Item>
 
       <Modal
         show={openSearchModal}
