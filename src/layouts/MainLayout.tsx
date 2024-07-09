@@ -30,8 +30,6 @@ const MainLayout = () => {
   let containerStyle = {marginTop: marginTopContain};
   if (pathname == "/") {
     marginTopContain = "-10vh";
-    //  skip login
-    // return <Navigate replace to="/pages/challenges" />;
   }
   containerStyle = {marginTop: marginTopContain};
 

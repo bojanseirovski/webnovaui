@@ -1,13 +1,53 @@
 // import { faKey, faUser } from '@fortawesome/free-solid-svg-icons';
 // import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 // import Button from 'components/base/Button';
+import { useRef, useState } from 'react';
 import { PhoenixButtonsDark_TypeDashing } from 'components/webnova/Wrapper/PhoenixButtonsDark_TypeDashing/PhoenixButtonsDark_TypeDashing';
 // import AuthSocialButtons from 'components/common/AuthSocialButtons';
 import { Col, Form, Row } from 'react-bootstrap';
-// import { Link } from 'react-router-dom';
-import  InputDark_StateDefaultCaptionIcSS from 'components/webnova/Wrapper/InputDark_StateDefaultCaptionI/InputDark_StateDefaultCaptionI.module.css';
+import { Link } from 'react-router-dom';
+import InputDark_StateDefaultCaptionIcSS from 'components/webnova/Wrapper/InputDark_StateDefaultCaptionI/InputDark_StateDefaultCaptionI.module.css';
+import { login } from 'helpers/api';
+import ErrorMessage from 'helpers/ErrorMessage';
 
 const ExodusLoginForm = ({ layout }: { layout: 'simple' | 'card' | 'split' }) => {
+  const emailRef = useRef(null);
+  const passRef = useRef(null);
+  const [toggleEmailErr, setToggleE] = useState(false);
+  const [togglePasswordErr, setToggleP] = useState(false);
+  let emailError = false;
+  let passwordError = false;
+
+  const validateAndLogin = () => {
+    const username = emailRef.current.value;
+    const password = passRef.current.value;
+
+    emailError = false;
+    passwordError = false;
+    if (username.length < 3) {
+      emailError = true;
+    }
+    if (password < 3) {
+      passwordError = true;
+    }
+
+    setToggleE(emailError);
+    setToggleP(passwordError);
+    if (!emailError && !passwordError) {
+      handlelogin(username, password);
+    }
+  }
+
+  const handlelogin = (username: string, password: string) => {
+    login(username, password, () => {
+      window.location.href = "/pages/challenges";
+    },
+      () => {
+        setToggleE(true);
+      });
+  };
+
+
   return (
     <>
       <div className="text-center mb-7">
@@ -25,9 +65,11 @@ const ExodusLoginForm = ({ layout }: { layout: 'simple' | 'card' | 'split' }) =>
           <Form.Control
             id="email"
             type="email"
+            ref={emailRef}
             className={`${InputDark_StateDefaultCaptionIcSS.root}`}
             placeholder="ENTER YOUR EMAIL"
           />
+          {toggleEmailErr ? <ErrorMessage type={"email"} message={"invalid email"} /> : null}
         </div>
       </Form.Group>
       <Form.Group className="mb-3 text-start">
@@ -36,9 +78,11 @@ const ExodusLoginForm = ({ layout }: { layout: 'simple' | 'card' | 'split' }) =>
           <Form.Control
             id="password"
             type="password"
+            ref={passRef}
             className={`${InputDark_StateDefaultCaptionIcSS.root}`}
             placeholder="PASSWORD"
           />
+          {togglePasswordErr ? <ErrorMessage type={"password"} message={"invalid password"} /> : null}
         </div>
       </Form.Group>
       {/* <Row className="flex-between-center mb-7">
@@ -65,15 +109,15 @@ const ExodusLoginForm = ({ layout }: { layout: 'simple' | 'card' | 'split' }) =>
         </Col>
       </Row> */}
       {/* <Button variant="primary" className="w-100 mb-3">Sign In</Button> */}
-      <PhoenixButtonsDark_TypeDashing className="w-100 mb-3" text={{label: "Sign In"}}/>
-      {/* <div className="text-center">
+      <PhoenixButtonsDark_TypeDashing className="w-100 mb-3" text={{ label: "Sign In" }} onClick={validateAndLogin}/>
+      <div className="text-center">
         <Link
           to={`/pages/authentication/${layout}/register`}
           className="fs-9 fw-bold"
         >
           Create an account
         </Link>
-      </div> */}
+      </div>
     </>
   );
 };
