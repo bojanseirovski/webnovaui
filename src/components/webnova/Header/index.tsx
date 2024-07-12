@@ -24,7 +24,7 @@ export default function Header({ ...props }: Props) {
                 leftIcon={<Img src="images/img_ticket.svg" alt="ticket" className="h-[13px] w-[13px]" />}
                 className="w-full gap-2 font-semibold sm:pr-5"
               >
-                Challenges
+                Missions
               </Button>
               <div className="flex items-center gap-2 py-1.5 pl-1.5">
                 <Img src="images/img_airplane.svg" alt="airplane_one" className="h-[13px] w-[13px]" />

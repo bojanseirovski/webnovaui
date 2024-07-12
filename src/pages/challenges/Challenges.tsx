@@ -11,8 +11,8 @@ const Challenges = () => {
                 <Row className="g-4">
                     <Col xs={12} xxl={6} className="mb-8">
                         <div className="mb-6">
-                            <h2 className="mb-2 challengesTitle">Challenges</h2>
-                            <h5 className={`text-700 fw-semi-bold ${challengesStyle.challengeSub}`}>Start your space exploration by selecting a challenge</h5>
+                            <h2 className="mb-2 challengesTitle">Missions</h2>
+                            <h5 className={`text-700 fw-semi-bold ${challengesStyle.challengeSub}`}>Start your space exploration by selecting a mission</h5>
                         </div>
                     </Col>
                 </Row>

@@ -97,20 +97,20 @@ const Mission = () => {
     }
 
     const fetchSats = async () => {
-        const satData = await fetch(process.env.REACT_APP_API_URL + 'satellites');
+        const satData = await fetch(process.env.REACT_APP_API_GROUNDSIM_URL + '/satellites');
         const satDataJson = await satData.json();
-        setSatelliteList(satDataJson);
+        setSatelliteList(satDataJson.satellites);
     }
 
     const fetchInstruments = async (noradId: number) => {
-        const satData = await fetch(process.env.REACT_APP_API_URL + 'instruments?norad_id=' + noradId);
+        const satData = await fetch(process.env.REACT_APP_API_GROUNDSIM_URL + '/instruments?norad_id=' + noradId);
         const satDataJson = await satData.json();
         setInstrumentList(satDataJson[0].instruments);
     }
 
     const fetchTimesOnTarget = async () => {
-        fetch(process.env.REACT_APP_API_URL +
-            'times_on_target?norad_id=' + noradId.current +
+        fetch(process.env.REACT_APP_API_GROUNDSIM_URL +
+            '/times_on_target?norad_id=' + noradId.current +
             '&instrument_id=' + instrumentId.current +
             '&net=' + startDateSelected.current + ' ' + startHour + ":00" +
             '&nlt=' + endDateSelected.current + ' ' + endHour + ":00" +

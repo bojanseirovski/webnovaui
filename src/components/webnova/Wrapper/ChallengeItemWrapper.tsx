@@ -50,7 +50,7 @@ export const ChallengeItemWrapper: FC<Props> = memo(function Wrapper(props = {})
                 <PhoenixButtonsDark_TypeDashing
                   className={classes.phoenixButtonsDark}
                   text={{
-                    label: <div className={classes.label}>Start challenge</div>,
+                    label: <div className={classes.label}>Start mission</div>,
                   }}
                   onClick={handleClick}
                 />

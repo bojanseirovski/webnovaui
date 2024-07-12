@@ -451,7 +451,7 @@ export interface TopButtonItems {
 }
 export const topButtons = [
   {
-    key: 'Challenges',
+    key: 'Missions',
     route: '/pages/challenges'
   },
   {
