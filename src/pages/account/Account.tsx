@@ -1,50 +1,128 @@
 import React from "react";
-import { Helmet } from "react-helmet";
-import { Button, Heading } from "../../components/webnova";
-import AccountSettingsInputdark from "../../components/webnova/AccountSettingsInputdark";
-import Footer from "../../components/webnova/Footer";
-import Header from "../../components/webnova/Header";
+import { useState, useEffect, useRef } from 'react';
+import { useLocation } from "react-router-dom";
+import { Col, Row, Form, Table, Button, Dropdown } from 'react-bootstrap';
+import { validateEmail } from 'helpers/utils';
+import ErrorMessage from 'helpers/ErrorMessage';
+import accountStyle from "./Account.module.css";
 
-export default function Account() {
+
+const Account = ({ layout }: { layout: 'simple' | 'card' | 'split' }) => {
+    const usernameRef = useRef(null);
+    const emailRef = useRef(null);
+    const passRef = useRef(null);
+    const passRef2 = useRef(null);
+    const initialized = useRef(false);
+
+    const [toggleEmailErr, setToggleE] = useState(false);
+    const [togglePasswordErr, setToggleP] = useState(false);
+    const [toggleUsernameErr, setToggleU] = useState(false);
+    const [togglePassword2Err, setToggleP2] = useState(false);
+
+    let emailError = false;
+    let usernameError = false
+    let passwordError = false;
+    let password2Error = false;
+
+    useEffect(() => {
+        if (!initialized.current) {
+            initialized.current = true;
+            window.localStorage.getItem("session_key");
+            usernameRef.current.value = window.localStorage.getItem("username");
+            emailRef.current.value = window.localStorage.getItem("email");
+        }
+    }, []);
+    const validateAndRegister = () => {
+        const username = usernameRef.current.value;
+        const email = emailRef.current.value;
+        const password = passRef.current.value;
+        const password2 = passRef2.current.value;
+
+        usernameError = false
+        passwordError = false;
+        password2Error = false;
+
+        if (username.length < 3) {
+            usernameError = true;
+        }
+        if (password < 3) {
+            passwordError = true;
+        }
+        if (password2 < 3) {
+            password2Error = true;
+        }
+
+        setToggleE(emailError);
+        setToggleP(passwordError);
+        setToggleP2(password2Error);
+        setToggleU(usernameError)
+        if (!emailError && !passwordError && !password2Error && !usernameError) {
+            // save account data
+        }
+    }
+
     return (
         <>
-            <Helmet>
-                <title>WebNOVA II - Space App Hackathon1</title>
-                <meta name="description" content="Web site created using create-react-app" />
-            </Helmet>
-            <div className="w-full bg-black-900">
-                <Header className="flex items-center justify-center border-b border-solid border-blue_gray-900 bg-gray-900 p-2" />
-                <div className="flex flex-col items-start">
-                    <div className="flex h-[308px] items-start self-stretch bg-black-900 bg-[url(/public/images/img_image.png)] bg-cover bg-no-repeat py-[58px] pl-[58px] pr-14 md:h-auto md:p-5">
-                        <div className="mb-[105px] ml-[21px] flex md:ml-0">
-                            <div className="flex flex-col items-start">
-                                <Heading size="xl" as="h1" className="!text-[48.89px] !text-white-A700">
-                                    Account settings
-                                </Heading>
-                                <Heading size="lg" as="h2">
-                                    Exodus Orbitals Hackaton
-                                </Heading>
+            <div className={`pb-5 pt-5 ${accountStyle.accounData} darkBg`}>
+                <div className="container darkBg">
+                    <Row className="flex-center min-vh-100 py-5 darkBg">
+                        <Col sm={10} md={8} lg={6}>
+                            <div className="text-center mb-7">
+                                <h3 className="text-1000">Account Settings</h3>
                             </div>
-                        </div>
-                    </div>
-                    <div className="relative ml-10 mt-[-99px] flex w-[48%] flex-col gap-8 rounded-md border-t border-solid border-blue_gray-900 bg-gray-900 p-[39px] md:ml-0 md:w-full sm:p-5">
-                        <div className="flex flex-col gap-[7px]">
-                            <AccountSettingsInputdark className="flex flex-col items-start gap-1" />
-                            <AccountSettingsInputdark caption="Email" className="flex flex-col items-start gap-1" />
-                            <AccountSettingsInputdark caption="Password" className="flex flex-col items-start gap-1" />
-                        </div>
-                        <div className="flex gap-4">
-                            <Button color="white_A700" size="md" variant="outline" shape="round" className="w-full font-bold sm:px-5">
-                                Cancel
-                            </Button>
-                            <Button size="md" shape="round" className="w-full font-bold sm:px-5">
-                                Save changes
-                            </Button>
-                        </div>
-                    </div>
+                            <Form className="darkBg">
+                                <Form.Group className="mb-3 text-start">
+                                    <Form.Label htmlFor="name">Name</Form.Label>
+                                    <Form.Control id="name" type="text" placeholder="Name" ref={usernameRef} disabled />
+                                    {toggleUsernameErr ? <ErrorMessage type={"username"} message={"Invalid username, only letters are allowed."} /> : null}
+                                </Form.Group>
+                                <Form.Group className="mb-3 text-start">
+                                    <Form.Label htmlFor="email">Email address</Form.Label>
+                                    <Form.Control
+                                        id="email"
+                                        type="email"
+                                        placeholder="name@example.com"
+                                        ref={emailRef}
+                                        disabled
+                                    />
+                                </Form.Group>
+                                <Row className="mb-5 mt-4">
+                                    <Col>
+                                        <h4 className="text-1000">Change Your Password</h4>
+                                    </Col>
+                                </Row>
+                                <Form.Group>
+                                    <Form.Label htmlFor="password">Password</Form.Label>
+                                    <Form.Control id="password" type="password" placeholder="Password" ref={passRef} />
+                                    {togglePasswordErr ? <ErrorMessage type={"password"} message={"Invalid password."} /> : null}
+                                </Form.Group>
+                                <Form.Group>
+                                    <Form.Label htmlFor="confirmPassword">
+                                        Confirm Password
+                                    </Form.Label>
+                                    <Form.Control
+                                        id="confirmPassword"
+                                        type="password"
+                                        placeholder="Confirm Password"
+                                        ref={passRef2}
+                                    />
+                                    {togglePassword2Err ? <ErrorMessage type={"password"} message={"Invalid password."} /> : null}
+                                </Form.Group>
+                                <Row>
+                                    <Col className="mb-5">
+
+                                    </Col>
+                                </Row>
+                                <Button variant="primary" className="w-100 mb-3" onClick={validateAndRegister}>
+                                    Save
+                                </Button>
+                            </Form>
+                        </Col>
+                    </Row>
                 </div>
-                <Footer className="mt-[104px] flex items-center justify-center p-5" />
             </div>
         </>
     );
 }
+
+export default Account;

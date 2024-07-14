@@ -19,28 +19,14 @@ const ExodusProfileDropdownMenu = ({ className }: { className?: string }) => {
 
   const [navItems] = useState([
     {
-      label: 'Profile',
+      label: 'Account',
+      link: "/pages/account",
       icon: 'user'
     },
     {
-      label: 'Dashboard',
+      label: 'Missions',
+      link: "/pages/challenges",
       icon: 'pie-chart'
-    },
-    {
-      label: 'Posts & Activity',
-      icon: 'lock'
-    },
-    {
-      label: 'Settings & Privacy ',
-      icon: 'settings'
-    },
-    {
-      label: 'Help Center',
-      icon: 'help-circle'
-    },
-    {
-      label: 'Language',
-      icon: 'globe'
     }
   ]);
   return (
@@ -53,23 +39,23 @@ const ExodusProfileDropdownMenu = ({ className }: { className?: string }) => {
     >
       <Card className="position-relative border-0">
         <Card.Body className="p-0">
-          {/* <div className="d-flex flex-column align-items-center justify-content-center gap-2 pt-4 pb-3">
-            <Avatar src={avatar} size="xl" />
-            <h6 className="text-black"></h6>
+          <div className="d-flex flex-column align-items-center justify-content-center gap-2 pt-4 pb-3">
+            {/* <Avatar src={avatar} size="xl" /> */}
+            <h6 className="text-black">{window.localStorage.getItem('username')}</h6>
           </div>
           <div className="mb-3 mx-3">
-            <Form.Control
+            {/* <Form.Control
               type="text"
               placeholder="Update your status"
               size="sm"
-            />
+            /> */}
           </div>
           <div style={{ height: '10rem' }}>
             <Scrollbar>
               <Nav className="nav flex-column mb-2 pb-1">
                 {navItems.map(item => (
                   <Nav.Item key={item.label}>
-                    <Nav.Link href="#!" className="px-3">
+                    <Nav.Link href={item.link} className="px-3">
                       <FeatherIcon
                         icon={item.icon}
                         size={16}
@@ -81,7 +67,7 @@ const ExodusProfileDropdownMenu = ({ className }: { className?: string }) => {
                 ))}
               </Nav>
             </Scrollbar>
-          </div> */}
+          </div>
         </Card.Body>
         <Card.Footer className="p-0 border-top">
           {/* <Nav className="nav flex-column my-3">

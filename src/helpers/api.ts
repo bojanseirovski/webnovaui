@@ -14,10 +14,14 @@ export const login = (username: string, password: string, done: any, err:any) =>
         username: username,
         password: password
     }).then(response => {
-        const session_key = response.data.session_key;
+        let session_key = response.data.account.session_key;
+        let the_username = response.data.account.username;
+        let the_email = response.data.account.email;
 
         window.localStorage.setItem("session_key", session_key);
-        window.localStorage.setItem("email", username);
+        window.localStorage.setItem("username", the_username);
+        window.localStorage.setItem("email", the_email);
+
         if (done) {
             done();
         }

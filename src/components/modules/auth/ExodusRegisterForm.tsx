@@ -5,6 +5,7 @@ import { Col, Form, Row } from 'react-bootstrap';
 import { Link } from 'react-router-dom';
 import { register } from 'helpers/api';
 import ErrorMessage from 'helpers/ErrorMessage';
+import {validateEmail} from 'helpers/utils';
 
 const ExodusRegisterForm = ({ layout }: { layout: 'simple' | 'card' | 'split' }) => {
     const usernameRef = useRef(null);
@@ -52,11 +53,6 @@ const ExodusRegisterForm = ({ layout }: { layout: 'simple' | 'card' | 'split' })
             handleRegister(username, email, password, password2);
         }
     }
-
-    const validateEmail = (email: string) => {
-        return email.
-            match(/^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/);
-    };
 
     const handleRegister = (username: string, email: string, password: string, password2: string) => {
         register(username, email, password, password2, () => {

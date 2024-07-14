@@ -182,7 +182,7 @@ import ChallengeLayout from 'pages/pages/layouts/ChallengeLayout';
 import AppstoreLayout from 'pages/pages/layouts/AppstoreLayout';
 import DeploymentLayout from 'pages/pages/layouts/DeploymentLayout';
 import MissionLayout from 'pages/pages/layouts/MissionLayout';
-
+import Account from 'pages/account/Account';
 
 const FontAwesomeExample = lazy(
   () => import('pages/modules/components/FontAwesomeExample')
@@ -481,6 +481,10 @@ const routes: RouteObject[] = [
               {
                 path: 'mission/:id',
                 element: <MissionLayout/>
+              },
+              {
+                path: 'account',
+                element: <Account/>
               },
               {
                 path: 'demo',
