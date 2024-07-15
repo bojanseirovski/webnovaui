@@ -1,25 +1,25 @@
 import { Col, Row } from 'react-bootstrap';
 import { ChallengeItems, challenges } from 'data/challenges';
-import { ChallengeItemWrapper } from 'components/webnova/Wrapper/ChallengeItemWrapper';
-import challengesStyle from "./Challenges.module.css";
+import { MissionItemWrapper } from 'components/webnova/Wrapper/MissionItemWrapper';
+import challengesStyle from "./Missions.module.css";
 
 
-const Challenges = () => {
+const Missions = () => {
     return (
         <>
             <div className={`pb-5 ${challengesStyle.challengesList}`}>
                 <Row className="g-4">
                     <Col xs={12} xxl={6} className="mb-8">
                         <div className="mb-6">
-                            <h2 className="mb-2 challengesTitle">Challenges</h2>
-                            <h5 className={`text-700 fw-semi-bold ${challengesStyle.challengeSub}`}>Start your space exploration by selecting a challenge</h5>
+                            <h2 className="mb-2 challengesTitle">Missions</h2>
+                            <h5 className={`text-700 fw-semi-bold ${challengesStyle.challengeSub}`}>Start your space exploration by selecting a mission</h5>
                         </div>
                     </Col>
                 </Row>
                 <Row className="g-4">
                     <Col xs={8} xxl={4} className="pr-1">
                         {challenges.map((item) => {
-                            return <ChallengeItemWrapper 
+                            return <MissionItemWrapper 
                                         name={item.name} 
                                         key={item.name} 
                                         icon={item.icon} 
@@ -35,4 +35,4 @@ const Challenges = () => {
     );
 };
 
-export default Challenges;
+export default Missions;

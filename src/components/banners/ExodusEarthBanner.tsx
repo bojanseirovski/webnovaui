@@ -21,7 +21,7 @@ const ExodusEarthBanner = () => {
         backgroundSize: 'cover',
         display: "flex"
     };
-    if (pathname.startsWith("/pages/mission")) {
+    if (pathname == "/pages/mission") {
         banerStyle.display = "none";
     }
 

@@ -40,7 +40,7 @@ const ExodusLoginForm = ({ layout }: { layout: 'simple' | 'card' | 'split' }) =>
 
   const handlelogin = (username: string, password: string) => {
     login(username, password, () => {
-      window.location.href = "/pages/challenges";
+      window.location.href = ""+process.env.REACT_APP_FIRST_PAGE_AFTER_LOGIN;
     },
       () => {
         setToggleE(true);

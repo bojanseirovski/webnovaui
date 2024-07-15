@@ -179,6 +179,7 @@ import ComingSoon from 'pages/ComingSoon';
 import Login from 'pages/signin/Login';
 import Register from 'pages/register/Register';
 import ChallengeLayout from 'pages/pages/layouts/ChallengeLayout';
+import MainMissionsLayout from 'pages/pages/layouts/MainMissionsLayout';
 import AppstoreLayout from 'pages/pages/layouts/AppstoreLayout';
 import DeploymentLayout from 'pages/pages/layouts/DeploymentLayout';
 import MissionLayout from 'pages/pages/layouts/MissionLayout';
@@ -470,7 +471,10 @@ const routes: RouteObject[] = [
                 element: <ChallengeLayout/>
               },
               {
-                index: true,
+                path: 'missions',
+                element: <MainMissionsLayout/>
+              },
+              {
                 path: 'appstore',
                 element: <AppstoreLayout/>
               },

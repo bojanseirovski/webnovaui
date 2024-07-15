@@ -17,7 +17,7 @@ interface Props {
 }
 
 /* @figmaId 17248:26834 */
-export const ChallengeItemWrapper: FC<Props> = memo(function Wrapper(props = {}) {
+export const MissionItemWrapper: FC<Props> = memo(function Wrapper(props = {}) {
   const handleClick = () => {
 
     let cid = (props.challengeId) ? props.challengeId -1 : 0;
@@ -50,7 +50,7 @@ export const ChallengeItemWrapper: FC<Props> = memo(function Wrapper(props = {})
                 <PhoenixButtonsDark_TypeDashing
                   className={classes.phoenixButtonsDark}
                   text={{
-                    label: <div className={classes.label}>Start challenge</div>,
+                    label: <div className={classes.label}>Start mission</div>,
                   }}
                   onClick={handleClick}
                 />

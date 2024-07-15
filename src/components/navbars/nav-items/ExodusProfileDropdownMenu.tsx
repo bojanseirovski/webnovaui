@@ -24,8 +24,13 @@ const ExodusProfileDropdownMenu = ({ className }: { className?: string }) => {
       icon: 'user'
     },
     {
+      label: 'Apps',
+      link: "/pages/appstore",
+      icon: 'globe'
+    },
+    {
       label: 'Missions',
-      link: "/pages/challenges",
+      link: "/pages/missions",
       icon: 'pie-chart'
     }
   ]);

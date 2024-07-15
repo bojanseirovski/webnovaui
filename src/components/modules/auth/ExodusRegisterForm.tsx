@@ -56,7 +56,7 @@ const ExodusRegisterForm = ({ layout }: { layout: 'simple' | 'card' | 'split' })
 
     const handleRegister = (username: string, email: string, password: string, password2: string) => {
         register(username, email, password, password2, () => {
-            window.location.href = "/pages/challenges";
+            window.location.href = ""+process.env.REACT_APP_FIRST_PAGE_AFTER_LOGIN;
         },
             () => {
                 setToggleE(true);

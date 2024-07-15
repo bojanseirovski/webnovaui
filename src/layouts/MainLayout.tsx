@@ -25,42 +25,45 @@ const MainLayout = () => {
   const { hash, pathname, search } = location;
   const { contentClass, footerClass } = useMainLayoutContext();
 
-  
-  let marginTopContain = "-2vh";
-  let containerStyle = {marginTop: marginTopContain};
-  if (pathname == "/" || pathname== '/register') {
-    marginTopContain = "-10vh";
-  }
-  containerStyle = {marginTop: marginTopContain};
 
-  if (pathname.startsWith("/pages/mission")) {
+  let marginTopContain = "-2vh";
+  let containerStyle = { marginTop: marginTopContain };
+  if (pathname == "/" || pathname == '/register') {
     marginTopContain = "-10vh";
-    containerStyle = {marginTop: marginTopContain};
   }
-  
+  containerStyle = { marginTop: marginTopContain };
+
+  if (pathname == "/pages/mission") {
+    marginTopContain = "-10vh";
+    containerStyle = { marginTop: marginTopContain };
+  }
+
   let sessionKey = window.localStorage.getItem("session_key");
-  if (!sessionKey && ! (pathname == "/" || pathname== '/register')) {
+  if (!sessionKey && !(pathname == "/" || pathname == '/register')) {
     window.location.href = "/";
   }
-  
+  if (sessionKey && (pathname == "/" || pathname == '/register')) {
+    window.location.href = "" + process.env.REACT_APP_FIRST_PAGE_AFTER_LOGIN;
+  }
+
   return (
     <>
-    <ExodusEarthBanner/>
-    <Container fluid className="px-0">
-      {(navbarPosition === 'vertical' || navbarPosition === 'combo') && (pathname != "/"  && pathname!= '/register') && (
-        <NavbarVertical />
-      )}
-      {navbarPosition === 'vertical' && (pathname == "/") && <ExodusNavbarTopDefault />}
-      {(navbarPosition === 'horizontal' || navbarPosition === 'combo') && (pathname != "/" && pathname!= '/register') &&  (
-        <ExodusNavbarTopHorizontal />
-      )}
-      {navbarPosition === 'dual' && <NavbarDual />}
+      <ExodusEarthBanner />
+      <Container fluid className="px-0">
+        {(navbarPosition === 'vertical' || navbarPosition === 'combo') && (pathname != "/" && pathname != '/register') && (
+          <NavbarVertical />
+        )}
+        {navbarPosition === 'vertical' && (pathname == "/") && <ExodusNavbarTopDefault />}
+        {(navbarPosition === 'horizontal' || navbarPosition === 'combo') && (pathname != "/" && pathname != '/register') && (
+          <ExodusNavbarTopHorizontal />
+        )}
+        {navbarPosition === 'dual' && <NavbarDual />}
 
-      <div className={classNames(contentClass, 'content')} style={containerStyle}>
-        <Outlet />
-        <ExodusFooter className={classNames(footerClass, 'position-absolute')} />
-      </div>
-    </Container>
+        <div className={classNames(contentClass, 'content')} style={containerStyle}>
+          <Outlet />
+          <ExodusFooter className={classNames(footerClass, 'position-absolute')} />
+        </div>
+      </Container>
     </>
   );
 };
