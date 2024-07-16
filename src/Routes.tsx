@@ -179,6 +179,7 @@ import ComingSoon from 'pages/ComingSoon';
 import Login from 'pages/signin/Login';
 import Register from 'pages/register/Register';
 import ChallengeLayout from 'pages/pages/layouts/ChallengeLayout';
+import ChallengeSingleLayout from 'pages/pages/layouts/ChallengeSingleLayout';
 import MainMissionsLayout from 'pages/pages/layouts/MainMissionsLayout';
 import AppstoreLayout from 'pages/pages/layouts/AppstoreLayout';
 import DeploymentLayout from 'pages/pages/layouts/DeploymentLayout';
@@ -485,6 +486,10 @@ const routes: RouteObject[] = [
               {
                 path: 'mission/:id',
                 element: <MissionLayout/>
+              },
+              {
+                path: 'challenge/:id',
+                element: <ChallengeSingleLayout/>
               },
               {
                 path: 'account',

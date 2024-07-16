@@ -6,7 +6,7 @@ import { saveAs } from 'file-saver';
 import { ExodusMap } from './ExodusMap';
 import { challenges } from 'data/challenges';
 import { hours } from 'data/hours';
-import missionStyles from './MissionScreen.module.css';
+import missionStyles from './ChallengeScreen.module.css';
 import { ConfigureMission } from 'types/ConfigureMission';
 import { AsyncTypeahead, Menu, MenuItem } from 'react-bootstrap-typeahead';
 import 'react-bootstrap-typeahead/css/Typeahead.css';
@@ -17,7 +17,7 @@ interface Item {
     address: string;
 }
 
-const Mission = () => {
+const Challenge = () => {
 
     const location = useLocation();
     const { pathname } = location;
@@ -194,19 +194,6 @@ const Mission = () => {
         saveAs(blob, "configureMission.json");
     }
 
-    const createMission = () => {
-        let configureMissionData: ConfigureMission = {
-            satellite: noradId.current,
-            instrument: instrumentId.current.toString(),
-            loc_lat: latSelected.current,
-            loc_lon: lngSelected.current.toString(),
-            start_date: startDateSelected.current,
-            mission_type: "RGB",
-            description: challenge.name,
-            passes: timesTarget
-        };
-    }
-
     return (
         <>
             <div className="pb-1 missionContainer" style={{ marginLeft: "-2vw" }}>
@@ -352,10 +339,10 @@ const Mission = () => {
                                 </Table>
                                 <Row style={{ paddingBottom: "3vh" }}>
                                     <Col xs={3} xxl={3}>
-                                        <Button size="lg" className={`${missionStyles.configureMissionButton}`} onClick={createMission}>Create Mission</Button>
+                                        <Button size="lg" className={`${missionStyles.configureMissionButton}`} onClick={configureMission}>Configure Mission</Button>
                                     </Col>
                                     <Col xs={9} xxl={9}>
-                                        Then wait to be notified for the results.
+                                        Then, add your code to the template, and publish your solution via Docker. The last active deployment is your final solution.
                                     </Col>
                                 </Row>
                             </Col>
@@ -367,4 +354,4 @@ const Mission = () => {
     );
 };
 
-export default Mission;
+export default Challenge;

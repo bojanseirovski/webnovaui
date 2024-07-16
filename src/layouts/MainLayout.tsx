@@ -33,7 +33,7 @@ const MainLayout = () => {
   }
   containerStyle = { marginTop: marginTopContain };
 
-  if (pathname == "/pages/mission") {
+  if (pathname == "/pages/mission" || pathname == "/pages/challenge") {
     marginTopContain = "-10vh";
     containerStyle = { marginTop: marginTopContain };
   }
