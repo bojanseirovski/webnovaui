@@ -185,6 +185,7 @@ import AppstoreLayout from 'pages/pages/layouts/AppstoreLayout';
 import DeploymentLayout from 'pages/pages/layouts/DeploymentLayout';
 import MissionLayout from 'pages/pages/layouts/MissionLayout';
 import Account from 'pages/account/Account';
+import MissionList from 'pages/missionsList/MissionList';
 
 const FontAwesomeExample = lazy(
   () => import('pages/modules/components/FontAwesomeExample')
@@ -474,6 +475,10 @@ const routes: RouteObject[] = [
               {
                 path: 'missions',
                 element: <MainMissionsLayout/>
+              },
+              {
+                path: 'missions/list',
+                element: <MissionList/>
               },
               {
                 path: 'appstore',

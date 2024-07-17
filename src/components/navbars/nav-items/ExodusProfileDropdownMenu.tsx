@@ -29,7 +29,12 @@ const ExodusProfileDropdownMenu = ({ className }: { className?: string }) => {
       icon: 'globe'
     },
     {
-      label: 'Missions',
+      label: 'My Missions',
+      link: "/pages/missions/list",
+      icon: 'bar-chart'
+    },
+    {
+      label: 'Start a new mission',
       link: "/pages/missions",
       icon: 'pie-chart'
     }
