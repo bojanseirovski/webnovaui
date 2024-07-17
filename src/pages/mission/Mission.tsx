@@ -8,6 +8,7 @@ import { challenges } from 'data/challenges';
 import { hours } from 'data/hours';
 import missionStyles from './MissionScreen.module.css';
 import { ConfigureMission } from 'types/ConfigureMission';
+import { createMission } from 'helpers/api';
 import { AsyncTypeahead, Menu, MenuItem } from 'react-bootstrap-typeahead';
 import 'react-bootstrap-typeahead/css/Typeahead.css';
 
@@ -179,32 +180,30 @@ const Mission = () => {
         fetchTimesOnTarget();
     }
 
-    const configureMission = () => {
+    const createMissionClick = () => {
+        let email = window.localStorage.getItem("email")??"";
+        let api_key = window.localStorage.getItem("api_key")??"";
         let configureMissionData: ConfigureMission = {
-            satellite: noradId.current,
-            instrument: instrumentId.current.toString(),
-            loc_lat: latSelected.current,
-            loc_lon: lngSelected.current.toString(),
+            user: email,
+            api_key: api_key,
+            norad_id: noradId.current,
+            instrument_id: instrumentId.current,
+            lat: latSelected.current,
+            lon: lngSelected.current,
             start_date: startDateSelected.current,
             mission_type: "RGB",
             description: challenge.name,
-            passes: timesTarget
+            passes: timesTarget,
+            net:startDateSelected.current + ' ' + startHour + ":00",
+            nlt:  endDateSelected.current + ' ' + endHour + ":00"
         };
-        const blob = new Blob([JSON.stringify(configureMissionData)], { type: "text/plain;charset=utf-8" });
-        saveAs(blob, "configureMission.json");
-    }
 
-    const createMission = () => {
-        let configureMissionData: ConfigureMission = {
-            satellite: noradId.current,
-            instrument: instrumentId.current.toString(),
-            loc_lat: latSelected.current,
-            loc_lon: lngSelected.current.toString(),
-            start_date: startDateSelected.current,
-            mission_type: "RGB",
-            description: challenge.name,
-            passes: timesTarget
-        };
+        createMission(configureMissionData, 
+            () => {
+                alert('mission created');
+            }, 
+            ()=>{}
+        );
     }
 
     return (
@@ -352,7 +351,7 @@ const Mission = () => {
                                 </Table>
                                 <Row style={{ paddingBottom: "3vh" }}>
                                     <Col xs={3} xxl={3}>
-                                        <Button size="lg" className={`${missionStyles.configureMissionButton}`} onClick={createMission}>Create Mission</Button>
+                                        <Button size="lg" className={`${missionStyles.configureMissionButton}`} onClick={createMissionClick}>Create Mission</Button>
                                     </Col>
                                     <Col xs={9} xxl={9}>
                                         Then wait to be notified for the results.
