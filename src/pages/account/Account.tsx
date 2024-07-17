@@ -14,6 +14,7 @@ const Account = ({ layout }: { layout: 'simple' | 'card' | 'split' }) => {
     const emailRef = useRef(null);
     const passRef = useRef(null);
     const passRef2 = useRef(null);
+    const apiKey = useRef(null);
     const initialized = useRef(false);
 
     const [toggleEmailErr, setToggleE] = useState(false);
@@ -29,9 +30,9 @@ const Account = ({ layout }: { layout: 'simple' | 'card' | 'split' }) => {
     useEffect(() => {
         if (!initialized.current) {
             initialized.current = true;
-            window.localStorage.getItem("session_key");
             usernameRef.current.value = window.localStorage.getItem("username");
             emailRef.current.value = window.localStorage.getItem("email");
+            apiKey.current.value = window.localStorage.getItem("api_key");
         }
     }, []);
     const validateAndSaveAccount = () => {
@@ -58,7 +59,7 @@ const Account = ({ layout }: { layout: 'simple' | 'card' | 'split' }) => {
         setToggleP(passwordError);
         setToggleP2(password2Error);
         setToggleU(usernameError)
-        if (!emailError && !passwordError && !password2Error && !usernameError) {
+        if (!(passwordError && password2Error)) {
             // save account data
         }
     }
@@ -92,6 +93,17 @@ const Account = ({ layout }: { layout: 'simple' | 'card' | 'split' }) => {
                                         type="email"
                                         placeholder="name@example.com"
                                         ref={emailRef}
+                                        className={`${InputDark_StateDefaultCaptionIcSS.root}`}
+                                        disabled
+                                    />
+                                </Form.Group>
+                                <Form.Group className="mb-3 text-start">
+                                    <Form.Label htmlFor="email">API key</Form.Label>
+                                    <Form.Control
+                                        id="apiKey"
+                                        type="text"
+                                        placeholder="API key"
+                                        ref={apiKey}
                                         className={`${InputDark_StateDefaultCaptionIcSS.root}`}
                                         disabled
                                     />
@@ -130,7 +142,11 @@ const Account = ({ layout }: { layout: 'simple' | 'card' | 'split' }) => {
 
                                     </Col>
                                 </Row>
-                                <PhoenixButtonsDark_TypeDashing className="w-100 mb-3" text={{ label: "Save" }} onClick={validateAndSaveAccount} />
+                                <PhoenixButtonsDark_TypeDashing 
+                                    className="w-100 mb-3" 
+                                    text={{ label: "Save" }} 
+                                    onClick={validateAndSaveAccount}
+                                />
                             </Form>
                         </Col>
                     </Row>
