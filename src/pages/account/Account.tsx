@@ -4,6 +4,8 @@ import { useLocation } from "react-router-dom";
 import { Col, Row, Form, Table, Button, Dropdown } from 'react-bootstrap';
 import { validateEmail } from 'helpers/utils';
 import ErrorMessage from 'helpers/ErrorMessage';
+import { PhoenixButtonsDark_TypeDashing } from 'components/webnova/Wrapper/PhoenixButtonsDark_TypeDashing/PhoenixButtonsDark_TypeDashing';
+import InputDark_StateDefaultCaptionIcSS from 'components/webnova/Wrapper/InputDark_StateDefaultCaptionI/InputDark_StateDefaultCaptionI.module.css';
 import accountStyle from "./Account.module.css";
 
 
@@ -32,7 +34,7 @@ const Account = ({ layout }: { layout: 'simple' | 'card' | 'split' }) => {
             emailRef.current.value = window.localStorage.getItem("email");
         }
     }, []);
-    const validateAndRegister = () => {
+    const validateAndSaveAccount = () => {
         const username = usernameRef.current.value;
         const email = emailRef.current.value;
         const password = passRef.current.value;
@@ -73,7 +75,14 @@ const Account = ({ layout }: { layout: 'simple' | 'card' | 'split' }) => {
                             <Form className="darkBg">
                                 <Form.Group className="mb-3 text-start">
                                     <Form.Label htmlFor="name">Name</Form.Label>
-                                    <Form.Control id="name" type="text" placeholder="Name" ref={usernameRef} disabled />
+                                    <Form.Control 
+                                        id="name" 
+                                        type="text" 
+                                        placeholder="Name" 
+                                        ref={usernameRef} 
+                                        className={`${InputDark_StateDefaultCaptionIcSS.root}`}
+                                        disabled
+                                    />
                                     {toggleUsernameErr ? <ErrorMessage type={"username"} message={"Invalid username, only letters are allowed."} /> : null}
                                 </Form.Group>
                                 <Form.Group className="mb-3 text-start">
@@ -83,6 +92,7 @@ const Account = ({ layout }: { layout: 'simple' | 'card' | 'split' }) => {
                                         type="email"
                                         placeholder="name@example.com"
                                         ref={emailRef}
+                                        className={`${InputDark_StateDefaultCaptionIcSS.root}`}
                                         disabled
                                     />
                                 </Form.Group>
@@ -93,7 +103,13 @@ const Account = ({ layout }: { layout: 'simple' | 'card' | 'split' }) => {
                                 </Row>
                                 <Form.Group>
                                     <Form.Label htmlFor="password">Password</Form.Label>
-                                    <Form.Control id="password" type="password" placeholder="Password" ref={passRef} />
+                                    <Form.Control 
+                                        id="password" 
+                                        type="password" 
+                                        placeholder="Password" 
+                                        ref={passRef} 
+                                        className={`${InputDark_StateDefaultCaptionIcSS.root}`}
+                                    />
                                     {togglePasswordErr ? <ErrorMessage type={"password"} message={"Invalid password."} /> : null}
                                 </Form.Group>
                                 <Form.Group>
@@ -105,6 +121,7 @@ const Account = ({ layout }: { layout: 'simple' | 'card' | 'split' }) => {
                                         type="password"
                                         placeholder="Confirm Password"
                                         ref={passRef2}
+                                        className={`${InputDark_StateDefaultCaptionIcSS.root}`}
                                     />
                                     {togglePassword2Err ? <ErrorMessage type={"password"} message={"Invalid password."} /> : null}
                                 </Form.Group>
@@ -113,9 +130,7 @@ const Account = ({ layout }: { layout: 'simple' | 'card' | 'split' }) => {
 
                                     </Col>
                                 </Row>
-                                <Button variant="primary" className="w-100 mb-3" onClick={validateAndRegister}>
-                                    Save
-                                </Button>
+                                <PhoenixButtonsDark_TypeDashing className="w-100 mb-3" text={{ label: "Save" }} onClick={validateAndSaveAccount} />
                             </Form>
                         </Col>
                     </Row>
