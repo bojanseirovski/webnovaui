@@ -76,6 +76,37 @@ export const logout = (email:string, done:any, err:any) => {
     });
 }
 
+export const updatePassword = (email: string, password1: string, password2: string, apiKey: string, done: any, err:any) => {
+    api.post('/user/password/update/', {
+        email: email,
+        password1: password1,
+        password2: password2,
+        api_key: apiKey
+    }).then(response => {
+        if (done) {
+            done();
+        }
+    }).catch(error => {
+        if (err) {
+            err();
+        }
+    });
+}
+
+export const resetPassword = (email: string, done: any, err:any) => {
+    api.post('/user/password/reset/', {
+        email: email
+    }).then(response => {
+        if (done) {
+            done();
+        }
+    }).catch(error => {
+        if (err) {
+            err();
+        }
+    });
+}
+
 export const createMission = (mission:ConfigureMission, done:any, err:any) => {
     api.post("/mission/create/", JSON.stringify(mission))
     .then(response => {

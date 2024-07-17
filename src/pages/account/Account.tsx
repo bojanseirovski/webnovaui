@@ -3,6 +3,7 @@ import { useState, useEffect, useRef } from 'react';
 import { useLocation } from "react-router-dom";
 import { Col, Row, Form, Table, Button, Dropdown } from 'react-bootstrap';
 import { validateEmail } from 'helpers/utils';
+import { updatePassword } from "helpers/api";
 import ErrorMessage from 'helpers/ErrorMessage';
 import { PhoenixButtonsDark_TypeDashing } from 'components/webnova/Wrapper/PhoenixButtonsDark_TypeDashing/PhoenixButtonsDark_TypeDashing';
 import InputDark_StateDefaultCaptionIcSS from 'components/webnova/Wrapper/InputDark_StateDefaultCaptionI/InputDark_StateDefaultCaptionI.module.css';
@@ -35,19 +36,18 @@ const Account = ({ layout }: { layout: 'simple' | 'card' | 'split' }) => {
             apiKey.current.value = window.localStorage.getItem("api_key");
         }
     }, []);
+
     const validateAndSaveAccount = () => {
         const username = usernameRef.current.value;
         const email = emailRef.current.value;
         const password = passRef.current.value;
         const password2 = passRef2.current.value;
+        const apiSecret = apiKey.current.value;
 
         usernameError = false
         passwordError = false;
         password2Error = false;
 
-        if (username.length < 3) {
-            usernameError = true;
-        }
         if (password < 3) {
             passwordError = true;
         }
@@ -60,8 +60,23 @@ const Account = ({ layout }: { layout: 'simple' | 'card' | 'split' }) => {
         setToggleP2(password2Error);
         setToggleU(usernameError)
         if (!(passwordError && password2Error)) {
-            // save account data
+            updatePassword(
+                email,
+                password,
+                password2, 
+                apiSecret,
+                () =>{
+                    alert('Password updated');
+                    passRef.current.value = "";
+                    passRef2.current.value = "";
+                },
+                ()=>{}
+            );
         }
+    }
+
+    const preventSubmit = (event:any) => {
+        event.preventDefault();
     }
 
     return (
@@ -73,7 +88,7 @@ const Account = ({ layout }: { layout: 'simple' | 'card' | 'split' }) => {
                             <div className="text-center mb-7">
                                 <h3 className="text-1000">Account Settings</h3>
                             </div>
-                            <Form className="darkBg">
+                            <Form className="darkBg" onSubmit={preventSubmit}>
                                 <Form.Group className="mb-3 text-start">
                                     <Form.Label htmlFor="name">Name</Form.Label>
                                     <Form.Control 
