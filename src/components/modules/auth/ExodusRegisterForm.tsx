@@ -1,11 +1,13 @@
 import Button from 'components/base/Button';
 import { useRef, useState } from 'react';
 // import AuthSocialButtons from 'components/common/AuthSocialButtons';
+import { PhoenixButtonsDark_TypeDashing } from 'components/webnova/Wrapper/PhoenixButtonsDark_TypeDashing/PhoenixButtonsDark_TypeDashing';
 import { Col, Form, Row } from 'react-bootstrap';
 import { Link } from 'react-router-dom';
 import { register } from 'helpers/api';
 import ErrorMessage from 'helpers/ErrorMessage';
-import {validateEmail} from 'helpers/utils';
+import { validateEmail } from 'helpers/utils';
+import InputDark_StateDefaultCaptionIcSS from 'components/webnova/Wrapper/InputDark_StateDefaultCaptionI/InputDark_StateDefaultCaptionI.module.css';
 
 const ExodusRegisterForm = ({ layout }: { layout: 'simple' | 'card' | 'split' }) => {
     const usernameRef = useRef(null);
@@ -56,12 +58,19 @@ const ExodusRegisterForm = ({ layout }: { layout: 'simple' | 'card' | 'split' })
 
     const handleRegister = (username: string, email: string, password: string, password2: string) => {
         register(username, email, password, password2, () => {
-            window.location.href = ""+process.env.REACT_APP_FIRST_PAGE_AFTER_LOGIN;
+            window.location.href = "" + process.env.REACT_APP_FIRST_PAGE_AFTER_LOGIN;
         },
             () => {
                 setToggleE(true);
             });
     };
+
+    const formHandleKeyDown = (event: any) => {
+        if (event.keyCode === 13) {
+            event.preventDefault();
+            validateAndRegister();
+        }
+    }
     return (
         <>
             <div className="text-center mb-7">
@@ -73,10 +82,16 @@ const ExodusRegisterForm = ({ layout }: { layout: 'simple' | 'card' | 'split' })
                     <hr className="bg-200" />
                     <div className="divider-content-center">or use email</div>
                 </div> */}
-            <Form>
+            <Form onKeyUp={formHandleKeyDown}>
                 <Form.Group className="mb-3 text-start">
                     <Form.Label htmlFor="name">Name</Form.Label>
-                    <Form.Control id="name" type="text" placeholder="Name" ref={usernameRef} />
+                    <Form.Control 
+                        id="name" 
+                        type="text" 
+                        placeholder="Name" 
+                        ref={usernameRef} 
+                        className={`${InputDark_StateDefaultCaptionIcSS.root}`}
+                        />
                     {toggleUsernameErr ? <ErrorMessage type={"username"} message={"Invalid username, only letters are allowed."} /> : null}
                 </Form.Group>
                 <Form.Group className="mb-3 text-start">
@@ -86,6 +101,7 @@ const ExodusRegisterForm = ({ layout }: { layout: 'simple' | 'card' | 'split' })
                         type="email"
                         placeholder="name@example.com"
                         ref={emailRef}
+                        className={`${InputDark_StateDefaultCaptionIcSS.root}`}
                     />
                     {toggleEmailErr ? <ErrorMessage type={"email"} message={"Invalid email."} /> : null}
                 </Form.Group>
@@ -93,7 +109,13 @@ const ExodusRegisterForm = ({ layout }: { layout: 'simple' | 'card' | 'split' })
                     <Col sm={layout === 'card' ? 12 : 6} lg={6}>
                         <Form.Group>
                             <Form.Label htmlFor="password">Password</Form.Label>
-                            <Form.Control id="password" type="password" placeholder="Password" ref={passRef} />
+                            <Form.Control 
+                            id="password"
+                            type="password"
+                            placeholder="Password"
+                            ref={passRef} 
+                            className={`${InputDark_StateDefaultCaptionIcSS.root}`}
+                            />
                             {togglePasswordErr ? <ErrorMessage type={"password"} message={"Invalid password."} /> : null}
                         </Form.Group>
                     </Col>
@@ -107,6 +129,7 @@ const ExodusRegisterForm = ({ layout }: { layout: 'simple' | 'card' | 'split' })
                                 type="password"
                                 placeholder="Confirm Password"
                                 ref={passRef2}
+                                className={`${InputDark_StateDefaultCaptionIcSS.root}`}
                             />
                             {togglePassword2Err ? <ErrorMessage type={"password"} message={"Invalid password."} /> : null}
                         </Form.Group>
@@ -122,10 +145,12 @@ const ExodusRegisterForm = ({ layout }: { layout: 'simple' | 'card' | 'split' })
                         I accept the <Link to="#!">terms </Link>and{' '}
                         <Link to="#!">privacy policy</Link>
                     </Form.Check.Label>
-                </Form.Check> */}
+                </Form.Check>
                 <Button variant="primary" className="w-100 mb-3" onClick={validateAndRegister}>
                     Sign up
                 </Button>
+                */}
+                <PhoenixButtonsDark_TypeDashing className="w-100 mb-3" text={{ label: "Sign Up" }} onClick={validateAndRegister} />
                 <div className="text-center">
                     <Link
                         to={`/`}

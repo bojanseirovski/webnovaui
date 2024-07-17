@@ -40,13 +40,19 @@ const ExodusLoginForm = ({ layout }: { layout: 'simple' | 'card' | 'split' }) =>
 
   const handlelogin = (username: string, password: string) => {
     login(username, password, () => {
-      window.location.href = ""+process.env.REACT_APP_FIRST_PAGE_AFTER_LOGIN;
+      window.location.href = "" + process.env.REACT_APP_FIRST_PAGE_AFTER_LOGIN;
     },
       () => {
         setToggleE(true);
       });
   };
 
+  const formHandleKeyDown = (event:any) => {
+    if (event.keyCode === 13) {
+      event.preventDefault();
+      validateAndLogin();
+    }
+  }
 
   return (
     <>
@@ -59,33 +65,34 @@ const ExodusLoginForm = ({ layout }: { layout: 'simple' | 'card' | 'split' }) =>
         <hr className="bg-200 mt-5 mb-4" />
         <div className="divider-content-center">or use email</div>
       </div> */}
-      <Form.Group className="mb-3 text-start">
-        <Form.Label htmlFor="email"></Form.Label>
-        <div className="form-icon-container">
-          <Form.Control
-            id="email"
-            type="email"
-            ref={emailRef}
-            className={`${InputDark_StateDefaultCaptionIcSS.root}`}
-            placeholder="ENTER YOUR EMAIL"
-          />
-          {toggleEmailErr ? <ErrorMessage type={"email"} message={"invalid email"} /> : null}
-        </div>
-      </Form.Group>
-      <Form.Group className="mb-3 text-start">
-        <Form.Label htmlFor="password"></Form.Label>
-        <div className="form-icon-container">
-          <Form.Control
-            id="password"
-            type="password"
-            ref={passRef}
-            className={`${InputDark_StateDefaultCaptionIcSS.root}`}
-            placeholder="PASSWORD"
-          />
-          {togglePasswordErr ? <ErrorMessage type={"password"} message={"invalid password"} /> : null}
-        </div>
-      </Form.Group>
-      {/* <Row className="flex-between-center mb-7">
+      <Form onKeyUp={formHandleKeyDown}>
+        <Form.Group className="mb-3 text-start">
+          <Form.Label htmlFor="email"></Form.Label>
+          <div className="form-icon-container">
+            <Form.Control
+              id="email"
+              type="email"
+              ref={emailRef}
+              className={`${InputDark_StateDefaultCaptionIcSS.root}`}
+              placeholder="ENTER YOUR EMAIL"
+            />
+            {toggleEmailErr ? <ErrorMessage type={"email"} message={"invalid email"} /> : null}
+          </div>
+        </Form.Group>
+        <Form.Group className="mb-3 text-start">
+          <Form.Label htmlFor="password"></Form.Label>
+          <div className="form-icon-container">
+            <Form.Control
+              id="password"
+              type="password"
+              ref={passRef}
+              className={`${InputDark_StateDefaultCaptionIcSS.root}`}
+              placeholder="PASSWORD"
+            />
+            {togglePasswordErr ? <ErrorMessage type={"password"} message={"invalid password"} /> : null}
+          </div>
+        </Form.Group>
+        {/* <Row className="flex-between-center mb-7">
         <Col xs="auto">
           <Form.Check type="checkbox" className="mb-0">
             <Form.Check.Input
@@ -108,8 +115,9 @@ const ExodusLoginForm = ({ layout }: { layout: 'simple' | 'card' | 'split' }) =>
           </Link>
         </Col>
       </Row> */}
+      </Form>
       {/* <Button variant="primary" className="w-100 mb-3">Sign In</Button> */}
-      <PhoenixButtonsDark_TypeDashing className="w-100 mb-3" text={{ label: "Sign In" }} onClick={validateAndLogin}/>
+      <PhoenixButtonsDark_TypeDashing className="w-100 mb-3" text={{ label: "Sign In" }} onClick={validateAndLogin} />
       <div className="text-center">
         <Link
           to={`/register`}
